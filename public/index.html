@@ -1,1 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ReGuarded — Tech Help</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --purple-deep:   #26215C;
+    --purple-mid:    #3C3489;
+    --purple-brand:  #534AB7;
+    --purple-light:  #7F77DD;
+    --purple-pale:   #EEEDFE;
+    --purple-muted:  #AFA9EC;
+    --gold:          #EF9F27;
+    --gold-light:    #FAC775;
+    --cream:         #FAFAF7;
+    --warm-gray:     #F4F3EE;
+    --text-primary:  #1C1B3A;
+    --text-secondary:#5A5880;
+    --text-muted:    #9896B8;
+    --border:        #E2E0F5;
+    --white:         #FFFFFF;
+    --success:       #1D9E75;
+    --radius:        16px;
+    --radius-sm:     10px;
+    --shadow:        0 4px 24px rgba(38,33,92,0.10);
+    --shadow-lg:     0 12px 48px rgba(38,33,92,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  /* ── Background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(127,119,221,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(239,159,39,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .logo-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+  }
+
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+
+  .logo-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-wordmark span.re { color: var(--purple-light); }
+  .logo-wordmark span.guarded { color: var(--purple-deep); }
+
+  .logo-tagline {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── Hero intro ── */
+  .hero {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--purple-deep);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .hero .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--purple-pale);
+    color: var(--purple-brand);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--purple-deep);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .step-badge {
+    background: var(--purple-brand);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-subtitle {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ── Form elements ── */
+  .field { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    letter-spacing: 0.2px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-primary);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--purple-light);
+    box-shadow: 0 0 0 3px rgba(127,119,221,0.12);
+    background: var(--white);
+  }
+
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  /* ── Chip selectors ── */
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--purple-muted); color: var(--purple-brand); }
+
+  .chip.selected {
+    background: var(--purple-pale);
+    border-color: var(--purple-brand);
+    color: var(--purple-brand);
+    font-weight: 500;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--purple-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(83,74,183,0.28);
+    letter-spacing: 0.2px;
+  }
+
+  .btn-primary:hover {
+    background: var(--purple-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(83,74,183,0.36);
+  }
+
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--purple-muted);
+    color: var(--purple-brand);
+  }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ── Profile summary bar ── */
+  .profile-bar {
+    background: var(--purple-pale);
+    border: 1px solid var(--purple-muted);
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .profile-bar .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--purple-deep);
+  }
+
+  .profile-pill {
+    background: white;
+    border: 1px solid var(--purple-muted);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: var(--purple-brand);
+    font-weight: 400;
+  }
+
+  .profile-edit {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--purple-light);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 400;
+  }
+
+  /* ── Problem input area ── */
+  .problem-area {
+    position: relative;
+  }
+
+  .problem-area textarea {
+    min-height: 130px;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 18px 20px;
+  }
+
+  .problem-hint {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .example-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .example-chip {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px dashed var(--purple-muted);
+    font-size: 12px;
+    color: var(--purple-brand);
+    cursor: pointer;
+    transition: all 0.18s;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .example-chip:hover {
+    background: var(--purple-pale);
+    border-style: solid;
+  }
+
+  /* ── Response area ── */
+  .response-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    margin-top: 20px;
+  }
+
+  .response-header {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 100%);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .response-header .icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .response-header-text { flex: 1; }
+
+  .response-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .response-header-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+  }
+
+  .response-body {
+    padding: 28px 32px;
+  }
+
+  .response-body p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  .response-body p:last-child { margin-bottom: 0; }
+
+  .response-body strong {
+    color: var(--purple-deep);
+    font-weight: 500;
+  }
+
+  .response-body ol, .response-body ul {
+    padding-left: 20px;
+    margin: 10px 0 14px;
+  }
+
+  .response-body li {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .response-footer {
+    padding: 16px 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .response-footer-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .shield-dot {
+    width: 8px; height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ── Loading state ── */
+  .loading-state {
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .loading-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .loading-dots span {
+    width: 9px; height: 9px;
+    background: var(--purple-muted);
+    border-radius: 50%;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  .loading-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ── Section divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  footer strong {
+    color: var(--purple-brand);
+    font-weight: 500;
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+    40%           { transform: scale(1.0); opacity: 1; }
+  }
+
+  /* ── Hidden/visible ── */
+  .hidden { display: none !important; }
+
+  /* ── Responsive ── */
+  @media (max-width: 560px) {
+    .card { padding: 24px 20px; }
+    .hero { padding: 24px 20px; }
+    .field-row { grid-template-columns: 1fr; }
+    .response-body { padding: 20px; }
+    .response-footer { padding: 14px 20px; }
+  }
+
+  /* ── Welcome screen ── */
+  .welcome-screen {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: fadeUp 0.6s ease both;
+    margin-bottom: 20px;
+  }
+  .welcome-screen h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--purple-deep);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .welcome-screen p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+  .feature-item {
+    background: var(--purple-pale);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--border);
+  }
+  .feature-item .f-icon { font-size: 22px; display:block; margin-bottom:8px; }
+  .feature-item .f-title { font-size:13px; font-weight:500; color:var(--purple-deep); margin-bottom:4px; }
+  .feature-item .f-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
+
+  /* ── Modal overlay ── */
+  .modal-overlay {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(38,33,92,0.5);
+    z-index:1000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.active { display:flex; }
+  .modal-box {
+    background:white;
+    border-radius:var(--radius);
+    padding:36px;
+    max-width:480px;
+    width:100%;
+    box-shadow:var(--shadow-lg);
+    position:relative;
+    animation: fadeUp 0.3s ease both;
+  }
+  .modal-close {
+    position:absolute;
+    top:16px;right:16px;
+    background:none;border:none;
+    font-size:20px;color:var(--text-muted);
+    cursor:pointer;line-height:1;
+  }
+  .modal-box h2 {
+    font-family:'Playfair Display',serif;
+    font-size:22px;font-weight:700;
+    color:var(--purple-deep);
+    margin-bottom:10px;
+  }
+  .modal-box p {
+    font-size:14px;color:var(--text-secondary);
+    line-height:1.7;margin-bottom:14px;
+  }
+
+  /* ── Print button ── */
+  .btn-print {
+    display:inline-flex;align-items:center;gap:6px;
+    background:transparent;color:var(--text-muted);
+    border:1.5px solid var(--border);border-radius:var(--radius-sm);
+    padding:8px 16px;font-family:'DM Sans',sans-serif;
+    font-size:13px;cursor:pointer;transition:all 0.18s;
+  }
+  .btn-print:hover { border-color:var(--purple-muted);color:var(--purple-brand); }
+
+  @media print {
+    header, .hero, #step1-card, #step2-card .problem-area,
+    #step2-card .example-prompts, .btn-row, .feedback-bar,
+    .category-grid, .card-title, .card-subtitle, #profile-bar-container,
+    .btn-print, .btn-secondary, footer { display:none !important; }
+    .response-card { box-shadow:none !important; border:none !important; }
+    body { background:white !important; }
+  }
+
+  @media (max-width:560px) {
+    .feature-grid { grid-template-columns:1fr; }
+    .welcome-screen { padding:28px 20px; }
+  }
+
+  /* ── Field hints ── */
+  .field-hint {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  /* ── Category cards ── */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .cat-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: all 0.18s;
+    background: var(--cream);
+    text-align: center;
+    user-select: none;
+  }
+
+  .cat-card:hover {
+    border-color: var(--purple-muted);
+    background: var(--purple-pale);
+  }
+
+  .cat-card.selected {
+    border-color: var(--purple-brand);
+    background: var(--purple-pale);
+    box-shadow: 0 0 0 3px rgba(127,119,221,0.12);
+  }
+
+  .cat-card .cat-icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .cat-card .cat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    display: block;
+  }
+
+  .cat-card.selected .cat-label {
+    color: var(--purple-brand);
+  }
+
+  /* ── Feedback ── */
+  .feedback-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: var(--purple-pale);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .feedback-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+
+  .feedback-btn {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-secondary);
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .feedback-btn:hover { border-color: var(--purple-muted); color: var(--purple-brand); }
+  .feedback-btn.positive.active { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+  .feedback-btn.negative.active { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+
+  .feedback-comment {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: white;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .feedback-comment:focus { border-color: var(--purple-light); }
+  .feedback-submit {
+    margin-top: 8px;
+    padding: 8px 18px;
+    background: var(--purple-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .feedback-submit:hover { background: var(--purple-mid); }
+  .feedback-thanks {
+    font-size: 13px;
+    color: var(--success);
+    font-weight: 500;
+    padding: 10px 0;
+  }
+
+  @media (max-width: 480px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <svg class="logo-icon" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer halo ring — light, airy -->
+      <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#CECBF6" stroke-width="2" fill="none" opacity="0.6"/>
+      <!-- Inner halo ring — strong, bright gold accent -->
+      <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#EF9F27" stroke-width="3.5" fill="none" opacity="0.95"/>
+      <!-- Halo end dots — golden -->
+      <circle cx="23" cy="11" r="3" fill="#EF9F27" opacity="0.9"/>
+      <circle cx="77" cy="11" r="3" fill="#EF9F27" opacity="0.9"/>
+      <!-- Roof — bright brand purple for contrast -->
+      <polygon points="4,56 50,20 96,56" fill="#7F77DD"/>
+      <!-- Roof ridge line for depth -->
+      <polygon points="4,56 50,26 96,56" fill="#534AB7"/>
+      <!-- House body — deep purple, strong contrast -->
+      <rect x="14" y="56" width="72" height="58" rx="5" fill="#26215C"/>
+      <!-- Door — mid purple -->
+      <rect x="36" y="78" width="28" height="36" rx="4" fill="#3C3489"/>
+      <!-- Door knob -->
+      <circle cx="60" cy="97" r="2.5" fill="#7F77DD" opacity="0.8"/>
+      <!-- Windows — bright purple with opacity for contrast -->
+      <rect x="18" y="64" width="20" height="16" rx="3" fill="#7F77DD" opacity="0.7"/>
+      <rect x="62" y="64" width="20" height="16" rx="3" fill="#7F77DD" opacity="0.7"/>
+      <!-- Window panes -->
+      <line x1="28" y1="64" x2="28" y2="80" stroke="#534AB7" stroke-width="1.5"/>
+      <line x1="18" y1="72" x2="38" y2="72" stroke="#534AB7" stroke-width="1.5"/>
+      <line x1="72" y1="64" x2="72" y2="80" stroke="#534AB7" stroke-width="1.5"/>
+      <line x1="62" y1="72" x2="82" y2="72" stroke="#534AB7" stroke-width="1.5"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-wordmark">
+        <span class="re">Re</span><span class="guarded">Guarded</span>
+      </div>
+      <div class="logo-tagline">Protecting the people who protected you</div>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+      <div style="text-align:right;">
+        <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--purple-brand);">Meet Sam</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">Your family's personal helper</div>
+      </div>
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--purple-brand),var(--purple-light));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(83,74,183,0.3);">🤝</div>
+    </div>
+  </header>
+
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcome-screen">
+    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--purple-brand),var(--purple-light));display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(83,74,183,0.3);">🤝</div>
+    <h1>Hi, I'm Sam.<br/>I'm here for your family.</h1>
+    <p>ReGuarded's personal helper for aging parents and the adult children who love them. Tell me about your parent once — and I'll give you fast, personalized help every time after that.</p>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <span class="f-icon">📺</span>
+        <div class="f-title">Tech help</div>
+        <div class="f-desc">Plain-English answers for their exact devices and services</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">🛡️</span>
+        <div class="f-title">Scam protection</div>
+        <div class="f-desc">Instant guidance when something feels suspicious or wrong</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">💳</span>
+        <div class="f-title">Billing defense</div>
+        <div class="f-desc">Identify mystery charges and get dispute scripts that work</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">📶</span>
+        <div class="f-title">WiFi & internet</div>
+        <div class="f-desc">Step-by-step fixes specific to their provider and router</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">📧</span>
+        <div class="f-title">Email & passwords</div>
+        <div class="f-desc">Get back in without the frustration of generic tutorials</div>
+      </div>
+      <div class="feature-item" style="background:#E1F5EE;border-color:#9FE1CB;">
+        <span class="f-icon">🏥</span>
+        <div class="f-title" style="color:#0F6E56;">Medical billing <span style="font-size:10px;background:#1D9E75;color:white;padding:1px 6px;border-radius:999px;margin-left:4px;">Soon</span></div>
+        <div class="f-desc">Catch errors in medical bills and fight back on denied claims</div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="startOnboarding()" style="font-size:16px;padding:16px 36px;">
+      Get started — meet Sam
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:14px;margin-bottom:0;">Setup takes about 5 minutes. You only do it once.</p>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero" id="main-hero" style="display:none;">
+    <div class="badge"><span class="badge-dot"></span> Say hello to Sam — ReGuarded's personal family helper</div>
+    <h1>Hi, I'm Sam. I'm here whenever you need help with your parent's tech, billing, or safety.</h1>
+    <p>Tell me a little about your parent and their setup. Once I know them, I can give clear, plain-English answers specific to <em>their</em> devices and services — no tech jargon, no generic tutorials. Just real help, fast.</p>
+    
+  </div>
+
+  <!-- STEP 1: Parent Profile -->
+  <div class="card" id="step1-card" style="display:none;">
+
+    <!-- Progress indicator -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:8px;flex:1;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--purple-brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0;">1</div>
+        <span style="font-size:13px;font-weight:500;color:var(--purple-brand);">Parent Profile</span>
+      </div>
+      <div style="flex:1;height:2px;background:var(--border);margin:0 8px;"></div>
+      <div style="display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-muted);flex-shrink:0;">2</div>
+        <span style="font-size:13px;font-weight:400;color:var(--text-muted);">Get Help</span>
+      </div>
+    </div>
+
+    <div class="card-title">
+      <span class="step-badge">Step 1 of 2</span>
+      Your parent's profile
+    </div>
+    <div class="card-subtitle">The more you tell me about your parent, the more personalized and useful my answers will be. You only need to do this once — Sam will remember.</div>
+
+    <!-- Basic info -->
+    <div class="field-row">
+      <div class="field">
+        <label for="parent-name">Parent's first name</label>
+        <input type="text" id="parent-name" placeholder="e.g. Margaret"/>
+        <div class="field-hint">Used to personalize every response — makes guidance feel specific, not generic.</div>
+      </div>
+      <div class="field">
+        <label for="parent-age">Age (approximate)</label>
+        <input type="number" id="parent-age" placeholder="e.g. 78" min="50" max="105"/>
+        <div class="field-hint">Helps tailor the tone and complexity of instructions.</div>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div class="field-row">
+      <div class="field">
+        <label for="parent-city">City</label>
+        <input type="text" id="parent-city" placeholder="e.g. San Antonio"/>
+        <div class="field-hint">Used for local context, regional scam alerts, and finding nearby help.</div>
+      </div>
+      <div class="field">
+        <label for="parent-state">State</label>
+        <input type="text" id="parent-state" placeholder="e.g. TX"/>
+      </div>
+    </div>
+    <div class="field" style="max-width:200px;">
+      <label for="parent-zip">ZIP code</label>
+      <input type="text" id="parent-zip" placeholder="e.g. 78201" maxlength="10"/>
+      <div class="field-hint">Critical for finding trusted nearby service providers anchored to your parent's home — not your location.</div>
+    </div>
+
+    <!-- Internet provider -->
+    <div class="field">
+      <label for="internet-provider">Internet provider</label>
+      <select id="internet-provider">
+        <option value="">Select provider...</option>
+        <option value="Xfinity (Comcast)">Xfinity (Comcast)</option>
+        <option value="AT&T">AT&T</option>
+        <option value="Spectrum">Spectrum</option>
+        <option value="Verizon Fios">Verizon Fios</option>
+        <option value="Cox">Cox</option>
+        <option value="CenturyLink / Lumen">CenturyLink / Lumen</option>
+        <option value="Frontier">Frontier</option>
+        <option value="T-Mobile Home Internet">T-Mobile Home Internet</option>
+        <option value="Starlink">Starlink</option>
+        <option value="Other / Unknown">Other / Unknown</option>
+      </select>
+      <div class="field-hint">Lets us give step-by-step WiFi instructions specific to their actual provider and equipment.</div>
+    </div>
+
+    <!-- Devices -->
+    <div class="field">
+      <label>Devices they use <span style="font-weight:300;color:var(--text-muted)">(select all that apply)</span></label>
+      <div class="field-hint" style="margin-bottom:10px;">Knowing their exact devices means we never give instructions for the wrong phone or TV.</div>
+      <div class="chip-group" id="devices-group">
+        <div class="chip" data-value="Landline/House phone">Landline phone</div>
+        <div class="chip" data-value="iPhone">iPhone</div>
+        <div class="chip" data-value="Android phone">Android phone</div>
+        <div class="chip" data-value="iPad">iPad</div>
+        <div class="chip" data-value="Android tablet">Android tablet</div>
+        <div class="chip" data-value="Windows PC">Windows PC</div>
+        <div class="chip" data-value="Mac">Mac</div>
+        <div class="chip" data-value="Smart TV">Smart TV</div>
+        <div class="chip" data-value="Amazon Fire Stick">Fire Stick</div>
+        <div class="chip" data-value="Roku">Roku</div>
+        <div class="chip" data-value="Apple TV">Apple TV</div>
+        <div class="chip" data-value="WiFi router">WiFi router</div>
+        <div class="chip" data-value="Alexa">Alexa</div>
+        <div class="chip" data-value="Google Home">Google Home</div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="field">
+      <label>Streaming &amp; online services <span style="font-weight:300;color:var(--text-muted)">(select all that apply)</span></label>
+      <div class="field-hint" style="margin-bottom:10px;">Helps us identify accidental charges, password issues, and service-specific troubleshooting.</div>
+      <div class="chip-group" id="services-group">
+        <div class="chip" data-value="Netflix">Netflix</div>
+        <div class="chip" data-value="Hulu">Hulu</div>
+        <div class="chip" data-value="YouTube TV">YouTube TV</div>
+        <div class="chip" data-value="Amazon Prime Video">Amazon Prime</div>
+        <div class="chip" data-value="Peacock">Peacock</div>
+        <div class="chip" data-value="Disney+">Disney+</div>
+        <div class="chip" data-value="Apple TV+">Apple TV+</div>
+        <div class="chip" data-value="Gmail">Gmail</div>
+        <div class="chip" data-value="Yahoo Mail">Yahoo Mail</div>
+        <div class="chip" data-value="Facebook">Facebook</div>
+        <div class="chip" data-value="NextDoor">NextDoor</div>
+        <div class="chip" data-value="online banking">Online banking</div>
+        <div class="chip" data-value="Medicare portal">Medicare portal</div>
+      </div>
+    </div>
+
+    <!-- Tech comfort -->
+    <div class="field">
+      <label for="tech-comfort">Their comfort level with technology</label>
+      <select id="tech-comfort">
+        <option value="">Choose one...</option>
+        <option value="very low — gets frustrated easily and needs hand-holding for most tasks">Very low — gets frustrated easily</option>
+        <option value="low — can do familiar things but struggles with anything new">Low — can do familiar things, struggles with new</option>
+        <option value="moderate — manages basics independently but needs help with problems">Moderate — manages basics, needs help with problems</option>
+        <option value="fairly comfortable — mostly independent, occasional help needed">Fairly comfortable — mostly independent</option>
+      </select>
+      <div class="field-hint">This calibrates how simple or detailed the instructions will be.</div>
+    </div>
+
+    <!-- Known vulnerabilities -->
+    <div class="field">
+      <label>Known vulnerabilities <span style="font-weight:300;color:var(--text-muted)">(select all that apply)</span></label>
+      <div class="field-hint" style="margin-bottom:10px;">Helps us add extra protective guidance when it matters most. This stays private.</div>
+      <div class="chip-group" id="vuln-group">
+        <div class="chip" data-value="tends to click on pop-ups, links in emails, or texts without verifying them">Clicks links without verifying</div>
+        <div class="chip" data-value="has fallen for phone scams or imposter calls before (fake family, Social Security, tech support)">Has fallen for scams before</div>
+        <div class="chip" data-value="frequently shares personal or financial information with unknown callers under pressure">Shares info with unknown callers</div>
+        <div class="chip" data-value="makes accidental purchases on streaming, shopping, or app platforms">Accidental purchases</div>
+        <div class="chip" data-value="reuses simple passwords or has difficulty remembering account credentials">Reuses or forgets passwords</div>
+        <div class="chip" data-value="uses outdated devices or ignores software and security update prompts">Outdated devices / ignores updates</div>
+        <div class="chip" data-value="shows early signs of memory loss, confusion, or cognitive decline — may need simpler instructions and extra reassurance">Memory loss or cognitive decline</div>
+        <div class="chip" data-value="lives alone and is socially isolated — increased risk of emotional manipulation by scammers">Lives alone / socially isolated</div>
+        <div class="chip" data-value="manages online banking or financial accounts independently without family oversight">Manages finances online alone</div>
+        <div class="chip" data-value="susceptible to high-pressure tactics — difficulty saying no or hanging up on persistent callers">Difficulty refusing persistent callers</div>
+        <div class="chip" data-value="has been a victim of financial exploitation or elder abuse in the past">Prior financial exploitation</div>
+      </div>
+    </div>
+
+    <!-- Emergency contact -->
+    <div class="field">
+      <label>Emergency / backup family contact <span style="font-weight:300;color:var(--text-muted)">(optional)</span></label>
+      <div class="field-hint" style="margin-bottom:10px;">If a serious scam or security issue occurs, we'll remind you to loop in other family members who should know.</div>
+      <div class="field-row">
+        <div class="field" style="margin-bottom:0;">
+          <input type="text" id="emergency-name" placeholder="Name (e.g. Sister Linda)"/>
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <input type="text" id="emergency-phone" placeholder="Phone (e.g. 512-555-0100)"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra context -->
+    <div class="field">
+      <label for="extra-context">Anything else we should know? <span style="font-weight:300;color:var(--text-muted)">(optional)</span></label>
+      <textarea id="extra-context" placeholder="e.g. She lives alone and her hearing isn't great. Has Xfinity. Gets confused by pop-ups. Sometimes calls me at night when the TV remote stops working." style="min-height:80px;"></textarea>
+      <div class="field-hint">The more specific you are here, the better every answer will be.</div>
+    </div>
+
+    <div class="btn-row">
+      <span style="font-size:12.5px;color:var(--text-muted);">&#128274; Your info stays private — never shared.</span>
+      <button class="btn-primary" onclick="saveProfile()">
+        Save &amp; continue to Step 2
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Problem Input -->
+  <div class="card hidden" id="step2-card">
+    <div id="profile-bar-container"></div>
+
+    <!-- Progress indicator step 2 -->
+    <div style="display:flex;align-items:center;gap:0;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:8px;flex:1;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--success);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">&#10003;</div>
+        <span style="font-size:13px;font-weight:400;color:var(--success);">Parent Profile</span>
+      </div>
+      <div style="flex:1;height:2px;background:var(--purple-brand);margin:0 8px;"></div>
+      <div style="display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--purple-brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:white;flex-shrink:0;">2</div>
+        <span style="font-size:13px;font-weight:500;color:var(--purple-brand);">Get Help</span>
+      </div>
+    </div>
+
+    <div class="card-title">
+      <span class="step-badge">Step 2 of 2</span>
+      What's going on?
+    </div>
+    <div class="card-subtitle">What's going on? Choose a category and tell Sam what's happening — in plain language, exactly as your parent described it.</div>
+
+    <div class="category-grid" id="category-grid">
+      <div class="cat-card" data-cat="Streaming &amp; TV" data-placeholder="e.g. Mom can't find YouTube TV after turning on the TV. She gets a black screen or lands on the wrong input." onclick="selectCategory(this)">
+        <span class="cat-icon">📺</span>
+        <span class="cat-label">Streaming &amp; TV</span>
+      </div>
+      <div class="cat-card" data-cat="Email &amp; Passwords" data-placeholder="e.g. She's locked out of her Gmail and can't remember the password. It's asking for a verification code she's not getting." onclick="selectCategory(this)">
+        <span class="cat-icon">📧</span>
+        <span class="cat-label">Email &amp; Passwords</span>
+      </div>
+      <div class="cat-card" data-cat="Scams &amp; Suspicious Activity" data-placeholder="e.g. She got a call from someone claiming to be from Medicare asking for her Social Security number." onclick="selectCategory(this)">
+        <span class="cat-icon">🛡️</span>
+        <span class="cat-label">Scams &amp; Suspicious</span>
+      </div>
+      <div class="cat-card" data-cat="Billing &amp; Unexpected Charges" data-placeholder="e.g. She has several Amazon charges she doesn't recognize — looks like she may have accidentally purchased movies." onclick="selectCategory(this)">
+        <span class="cat-icon">💳</span>
+        <span class="cat-label">Billing &amp; Charges</span>
+      </div>
+      <div class="cat-card" data-cat="WiFi &amp; Internet" data-placeholder="e.g. The WiFi stopped working and nothing in the house can connect. The router lights look different than usual." onclick="selectCategory(this)">
+        <span class="cat-icon">📶</span>
+        <span class="cat-label">WiFi &amp; Internet</span>
+      </div>
+      <div class="cat-card" data-cat="Phone or Device Help" data-placeholder="e.g. Her iPhone keeps asking her to update and she's scared to press anything. The screen looks different than before." onclick="selectCategory(this)">
+        <span class="cat-icon">📱</span>
+        <span class="cat-label">Phone &amp; Device</span>
+      </div>
+      <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
+        <span class="cat-icon">💬</span>
+        <span class="cat-label">Something else?</span>
+      </div>
+      <div class="cat-card premium-tile" onclick="showPremiumModal()" style="border-style:dashed;border-color:#1D9E75;background:linear-gradient(135deg,#E1F5EE,#FAFAF7);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:6px;right:6px;background:#1D9E75;color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:999px;letter-spacing:0.5px;">COMING SOON</div>
+        <span class="cat-icon">🏥</span>
+        <span class="cat-label" style="color:#0F6E56;">Medical Bill Review</span>
+      </div>
+    </div>
+
+    <div class="problem-area" id="problem-area" style="display:none;">
+      <textarea id="problem-input" placeholder="Just describe it how your parent told you — Sam will figure out the rest..."></textarea>
+      <div class="problem-hint" style="margin-top:10px;">Not finding the right fit? <span style="color:var(--purple-light);cursor:pointer;text-decoration:underline;" onclick="clearCategory()">Choose a different category</span></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="editProfile()">← Edit profile</button>
+      <button class="btn-primary" id="get-help-btn" onclick="getHelp()">
+        Ask Sam
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1l7 7-7 7M1 8h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <!-- Response area -->
+    <div id="response-area"></div>
+  </div>
+
+  <!-- Footer -->
+  <!-- Premium Modal -->
+  <div class="modal-overlay" id="premium-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closePremiumModal()">&#10005;</button>
+      <div style="font-size:36px;margin-bottom:12px;">🏥</div>
+      <h2>Medical Bill Review — Coming Soon</h2>
+      <p>Up to 80% of medical bills contain errors — and most people just pay them without knowing. Sam's Medical Bill Review will help you:</p>
+      <ul style="font-size:14px;color:var(--text-secondary);line-height:2;padding-left:18px;margin-bottom:16px;">
+        <li>Understand every line item in plain English</li>
+        <li>Spot duplicate charges, coding errors, and unbundled fees</li>
+        <li>Translate confusing Explanation of Benefits (EOB) documents</li>
+        <li>Get a dispute script to call the billing department</li>
+        <li>Draft a formal appeal letter for denied insurance claims</li>
+      </ul>
+      <p style="font-size:13px;background:var(--purple-pale);padding:12px 16px;border-radius:var(--radius-sm);color:var(--purple-brand);margin-bottom:20px;">This will be available as a <strong>ReGuarded Premium</strong> feature. Want to be notified when it launches?</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="notifyMePremium()" style="flex:1;">Notify me when it's ready</button>
+        <button class="btn-secondary" onclick="closePremiumModal()">Back to Sam</button>
+      </div>
+      <div id="premium-thanks" style="display:none;margin-top:14px;font-size:13px;color:var(--success);font-weight:500;">Thank you — we'll let you know as soon as Medical Bill Review launches.</div>
+    </div>
+  </div>
+
+  <!-- POC Feedback Modal -->
+  <div class="modal-overlay" id="poc-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closePocModal()">&#10005;</button>
+      <div style="font-size:36px;margin-bottom:12px;">💬</div>
+      <h2>Share your feedback with us</h2>
+      <p>You're among the first people to use Sam. Your feedback directly shapes what we build next.</p>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">Overall, how valuable is Sam to you?</label>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;" id="poc-rating-group">
+          <button class="chip" onclick="setPocRating(this,'Very valuable')">Very valuable</button>
+          <button class="chip" onclick="setPocRating(this,'Somewhat valuable')">Somewhat valuable</button>
+          <button class="chip" onclick="setPocRating(this,'Not sure yet')">Not sure yet</button>
+          <button class="chip" onclick="setPocRating(this,'Not valuable')">Not valuable</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">What did Sam do well?</label>
+        <textarea class="feedback-comment" id="poc-well" rows="2" placeholder="e.g. The scam advice was clear and specific to my mom's situation..."></textarea>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">What could Sam do better?</label>
+        <textarea class="feedback-comment" id="poc-improve" rows="2" placeholder="e.g. I wish Sam could also help with..."></textarea>
+      </div>
+      <div class="field" style="margin-bottom:20px;">
+        <label style="font-size:13px;">Would you recommend Sam to another family in your situation?</label>
+        <div style="display:flex;gap:8px;margin-top:8px;" id="poc-recommend-group">
+          <button class="chip" onclick="setPocRecommend(this,'Yes')">Yes, absolutely</button>
+          <button class="chip" onclick="setPocRecommend(this,'Maybe')">Maybe</button>
+          <button class="chip" onclick="setPocRecommend(this,'Not yet')">Not yet</button>
+        </div>
+      </div>
+      <button class="feedback-submit" style="width:100%;padding:14px;" onclick="submitPocFeedback()">Submit feedback to ReGuarded</button>
+      <div id="poc-thanks" style="display:none;margin-top:14px;font-size:13px;color:var(--success);font-weight:500;text-align:center;">Thank you so much — your feedback means everything to us. Sam is better because of you.</div>
+    </div>
+  </div>
+
+  <!-- Floating POC feedback button -->
+  <div id="poc-feedback-btn" style="display:none;position:fixed;bottom:24px;right:24px;z-index:100;">
+    <button onclick="openPocModal()" style="background:var(--purple-brand);color:white;border:none;border-radius:999px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(83,74,183,0.4);display:flex;align-items:center;gap:8px;transition:all 0.2s;">
+      💬 Share feedback with ReGuarded
+    </button>
+  </div>
+
+  <footer>
+    <p><strong>Sam</strong> by <strong>ReGuarded</strong> — A modern concierge for aging parents and the adult children who love them.<br/>Tech Help &middot; Scam Protection &middot; Home Maintenance &middot; Peace of mind, from wherever you are.</p>
+  </footer>
+
+</div>
+
+<script>
+  let parentProfile = {};
+
+  // Chip toggle logic
+  document.querySelectorAll('.chip-group').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    });
+  });
+
+  function getSelectedChips(groupId) {
+    return [...document.querySelectorAll(`#${groupId} .chip.selected`)]
+      .map(c => c.dataset.value);
+  }
+
+  function saveProfile() {
+    const name = document.getElementById('parent-name').value.trim();
+    if (!name) {
+      document.getElementById('parent-name').focus();
+      document.getElementById('parent-name').style.borderColor = '#E24B4A';
+      setTimeout(() => document.getElementById('parent-name').style.borderColor = '', 2000);
+      return;
+    }
+
+    parentProfile = {
+      name,
+      age: document.getElementById('parent-age').value || 'unknown age',
+      city: document.getElementById('parent-city').value.trim(),
+      zip: document.getElementById('parent-zip').value.trim(),
+      state: document.getElementById('parent-state').value.trim(),
+      internetProvider: document.getElementById('internet-provider').value,
+      devices: getSelectedChips('devices-group'),
+      services: getSelectedChips('services-group'),
+      techComfort: document.getElementById('tech-comfort').value || 'low comfort with technology',
+      vulnerabilities: getSelectedChips('vuln-group'),
+      emergencyName: document.getElementById('emergency-name').value.trim(),
+      emergencyPhone: document.getElementById('emergency-phone').value.trim(),
+      extraContext: document.getElementById('extra-context').value.trim()
+    };
+
+    // Show step 2
+    document.getElementById('step1-card').classList.add('hidden');
+    document.getElementById('step2-card').classList.remove('hidden');
+    document.getElementById('poc-feedback-btn').style.display = 'block';
+
+    // Render profile bar
+    renderProfileBar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderProfileBar() {
+    const p = parentProfile;
+    const deviceList = p.devices.length ? p.devices.slice(0,3).join(', ') + (p.devices.length > 3 ? ` +${p.devices.length-3} more` : '') : 'No devices listed';
+    const location = (p.city || p.state) ? (p.city + (p.state ? ', ' + p.state : '') + (p.zip ? ' ' + p.zip : '')) : '';
+    document.getElementById('profile-bar-container').innerHTML = `
+      <div class="profile-bar">
+        <svg width="22" height="26" viewBox="0 0 100 115" fill="none" style="flex-shrink:0">
+          <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#AFA9EC" stroke-width="3.5" fill="none" opacity="0.9"/>
+          <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#EF9F27" stroke-width="3.5" fill="none" opacity="0.95"/>
+          <circle cx="23" cy="11" r="3" fill="#EF9F27" opacity="0.9"/>
+          <circle cx="77" cy="11" r="3" fill="#EF9F27" opacity="0.9"/>
+          <polygon points="4,56 50,20 96,56" fill="#7F77DD"/>
+          <rect x="14" y="54" width="72" height="60" rx="4" fill="#3C4B64"/>
+          <rect x="34" y="76" width="32" height="38" rx="10" fill="#1a1a2e"/>
+        </svg>
+        <div>
+          <div class="profile-name">${p.name}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.age ? p.age + ' yrs' : ''}${location ? ' &middot; ' + location : ''}</div>
+        </div>
+        <span class="profile-pill">${deviceList}</span>
+        ${p.services.length ? `<span class="profile-pill">${p.services.slice(0,2).join(', ')}${p.services.length > 2 ? ' +more' : ''}</span>` : ''}
+        ${p.vulnerabilities && p.vulnerabilities.length ? `<span class="profile-pill" style="background:#FCEBEB;border-color:#F09595;color:#A32D2D;">&#128737; ${p.vulnerabilities.length} risk note${p.vulnerabilities.length > 1 ? 's' : ''}</span>` : ''}
+        <span class="profile-edit" onclick="editProfile()">Edit profile</span>
+      </div>`;
+  }
+
+  function editProfile() {
+    document.getElementById('step2-card').classList.add('hidden');
+    document.getElementById('step1-card').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setExample(text) {
+    document.getElementById('problem-input').value = text;
+    document.getElementById('problem-input').focus();
+  }
+
+  function buildSystemPrompt() {
+    const p = parentProfile;
+    const devices = p.devices.length ? p.devices.join(', ') : 'unspecified devices';
+    const services = p.services.length ? p.services.join(', ') : 'unspecified services';
+    const cat = selectedCategory ? 'Issue category: ' + selectedCategory + '.' : '';
+    const location = (p.city || p.state) ? (p.city + (p.state ? ', ' + p.state : '') + (p.zip ? ' ' + p.zip : '')) : 'unknown location';
+    const vulns = p.vulnerabilities && p.vulnerabilities.length ? p.vulnerabilities.join('; ') : 'none noted';
+    const provider = p.internetProvider || 'unknown internet provider';
+    const emergency = p.emergencyName ? p.emergencyName + (p.emergencyPhone ? ' (' + p.emergencyPhone + ')' : '') : 'none listed';
+    return "You are Sam, ReGuarded's warm and knowledgeable personal family helper. You speak in first person as Sam — friendly, calm, and reassuring. You help adult children solve technology, billing, and safety problems for their aging parents. Your tone is like a trusted, patient friend who happens to know a lot about technology and protecting seniors. Never sound robotic or clinical. Always sound like Sam." +
+    "\n\n" + cat +
+    "\n\nParent profile: " + p.name + ", approximately " + p.age + " years old, located in " + location + ". Tech comfort: " + p.techComfort + "." +
+    "\nDevices: " + devices + "." +
+    "\nServices: " + services + "." +
+    "\nInternet provider: " + provider + "." +
+    "\nKnown vulnerabilities: " + vulns + "." +
+    "\nEmergency family contact: " + emergency + "." +
+    "\nContext: " + (p.extraContext || 'None provided.') +
+    "\n\nIMPORTANT: Assume the adult child is describing something that already happened or is being reported after the fact. Never say to hang up if still on the phone - assume the call or interaction is already over. The adult child will read and relay these instructions - " + p.name + " is not reading this directly." +
+    "\n\nAlways structure your response in exactly these three sections with these exact headings:" +
+    "\n\n## What to Do NOW" +
+    "\n2-3 immediate actions only. Short, urgent, scannable. If a scam: lead with protective actions (block number, do NOT call back, share NO information). Maximum 3 items." +
+    "\n\n## Next Steps" +
+    "\nFollow-up actions to fully resolve the situation. Number each step. 3-5 steps maximum." +
+    "\n\n## Prevention Protocol" +
+    "\n2-3 practical things to set up or remember for long-term protection. End with one warm reassuring sentence." +
+    "\n\nRules: Simple jargon-free language. Always tailor to " + p.name + "'s specific devices and services. Keep total response under 450 words. Never number across sections." +
+    "\n\nVULNERABILITY AWARENESS: The parent's known vulnerabilities are listed in the profile. Use them intelligently — if memory loss or cognitive decline is noted, use simpler steps, shorter sentences, and extra reassurance. If they live alone or are socially isolated, acknowledge the emotional dimension warmly. If they have a history of scams, be more vigilant and protective in tone. If the emergency contact is listed and the issue is serious (scam, financial fraud, account compromise), remind the adult child to loop in that contact." +
+    "\n\nANALOG FIRST PRINCIPLE: This generation trusts physical information. Wherever relevant — especially in Next Steps and Prevention Protocol — suggest analog backup strategies: writing passwords on an index card kept in a safe place, taking a photo of a router label or TV screen, printing a confirmation email, keeping a handwritten list of account names. These suggestions will feel natural and reassuring to seniors and their adult children. Simple solutions always beat clever ones.";
+  }
+
+  async function getHelp() {
+    const problem = document.getElementById('problem-input').value.trim();
+    if (!problem) {
+      document.getElementById('problem-input').focus();
+      return;
+    }
+
+    const btn = document.getElementById('get-help-btn');
+    btn.disabled = true;
+
+    const responseArea = document.getElementById('response-area');
+    responseArea.innerHTML = `
+      <div class="response-card">
+        <div class="response-header">
+          <div class="icon">🛡️</div>
+          <div class="response-header-text">
+            <h3>Sam is on it...</h3>
+            <p>Personalizing to ${parentProfile.name}'s setup</p>
+          </div>
+        </div>
+        <div class="loading-state">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <div class="loading-label">Sam is looking into this for you...</div>
+        </div>
+      </div>`;
+
+    responseArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          system: buildSystemPrompt(),
+          messages: [{ role: 'user', content: problem }],
+          max_tokens: 1000
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error('API error ' + response.status + ': ' + data.error.type + ' — ' + data.error.message);
+      }
+
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status + ': ' + JSON.stringify(data).slice(0, 300));
+      }
+
+      const text = (data.content || [])
+        .filter(b => b.type === 'text')
+        .map(b => b.text)
+        .join('\n');
+
+      if (!text) throw new Error('Empty response. Raw data: ' + JSON.stringify(data).slice(0, 300));
+
+      const formatted = formatResponse(text);
+
+      responseArea.innerHTML = `
+        <div class="response-card">
+          <div class="response-header">
+            <div class="icon">🛡️</div>
+            <div class="response-header-text">
+              <h3>Sam's advice for ${parentProfile.name}</h3>
+              <p>Personalized to ${parentProfile.name}'s exact setup</p>
+            </div>
+          </div>
+          <div class="response-body">${formatted}</div>
+          <div class="response-footer">
+            <div class="response-footer-note">
+              <span class="shield-dot"></span>
+              Sam by ReGuarded — always here when you need help
+            </div>
+            <button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button>
+            <button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button>
+          </div>
+          <div class="feedback-bar" id="feedback-bar">
+            <span class="feedback-label">Was Sam's advice helpful?</span>
+            <button class="feedback-btn positive" onclick="submitFeedback('positive')" id="fb-positive">👍 Yes, helpful</button>
+            <button class="feedback-btn negative" onclick="submitFeedback('negative')" id="fb-negative">👎 Not quite</button>
+            <div id="feedback-comment-area" style="display:none;width:100%;">
+              <textarea class="feedback-comment" id="feedback-comment" rows="2" placeholder="What was missing or could be better? (optional)"></textarea>
+              <button class="feedback-submit" onclick="saveFeedbackComment()">Send feedback</button>
+            </div>
+            <div id="feedback-thanks" class="feedback-thanks" style="display:none;">Thank you — your feedback helps us improve ReGuarded.</div>
+          </div>
+        </div>`;
+
+    } catch (err) {
+      responseArea.innerHTML = `
+        <div class="response-card">
+          <div class="response-body">
+            <p><strong>Something went wrong.</strong> Here's the error detail:</p>
+            <p style="font-size:12px;color:var(--text-muted);font-family:monospace;background:var(--warm-gray);padding:10px;border-radius:8px;margin-top:8px;word-break:break-all;line-height:1.6;">${err.message}</p>
+            <p style="margin-top:10px;font-size:14px;">Please copy the error above and share it so we can fix this.</p>
+          </div>
+        </div>`;
+    }
+
+    btn.disabled = false;
+  }
+
+  function formatResponse(text) {
+    const sectionColors = {
+      'What to Do NOW':      { bg: '#FFF3E0', border: '#EF9F27', icon: '⚡', label: 'What to Do NOW' },
+      'Next Steps':          { bg: '#EAF3DE', border: '#639922', icon: '✅', label: 'Next Steps' },
+      'Prevention Protocol': { bg: '#EEEDFE', border: '#7F77DD', icon: '🛡️', label: 'Prevention Protocol' }
+    };
+
+    const sections = text.split(/(?=##\s)/);
+    let html = '';
+
+    sections.forEach(section => {
+      const headerMatch = section.match(/^##\s+(.+?)\n/);
+      if (headerMatch) {
+        const title = headerMatch[1].trim();
+        const body = section.replace(/^##\s+.+?\n/, '').trim();
+        const style = sectionColors[title] || { bg: '#F4F3EE', border: '#9896B8', icon: '📋', label: title };
+
+        const bodyHtml = body
+          .split('\n')
+          .filter(l => l.trim())
+          .map(line => {
+            if (/^\d+\.\s/.test(line)) return `<li>${line.replace(/^\d+\.\s/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`;
+            if (/^[-•]\s/.test(line)) return `<li>${line.replace(/^[-•]\s/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`;
+            return `<p style="margin:0 0 8px;">${line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+          })
+          .join('')
+          .replace(/(<li>.*?<\/li>)+/gs, match => `<ol style="padding-left:18px;margin:8px 0;">${match}</ol>`);
+
+        html += `
+          <div style="margin-bottom:18px;border-radius:10px;overflow:hidden;border:1.5px solid ${style.border}20;">
+            <div style="background:${style.bg};padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid ${style.border}30;">
+              <span style="font-size:16px;">${style.icon}</span>
+              <span style="font-size:14px;font-weight:600;color:#1C1B3A;font-family:'DM Sans',sans-serif;">${style.label}</span>
+            </div>
+            <div style="padding:14px 18px;background:white;font-size:14.5px;line-height:1.75;color:#1C1B3A;">${bodyHtml}</div>
+          </div>`;
+      } else if (section.trim()) {
+        // Intro paragraph before first section
+        const intro = section.trim().replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        html += `<p style="margin-bottom:16px;font-size:15px;line-height:1.8;">${intro}</p>`;
+      }
+    });
+
+    return html || `<p>${text}</p>`;
+  }
+
+  function resetProblem() {
+    feedbackSent = false;
+    clearCategory();
+    document.getElementById('problem-input').value = '';
+    document.getElementById('response-area').innerHTML = '';
+    window.scrollTo({ top: document.getElementById('step2-card').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  /* ── Category selection ── */
+  let selectedCategory = '';
+
+  function selectCategory(card) {
+    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedCategory = card.dataset.cat;
+    const placeholder = card.dataset.placeholder;
+    const ta = document.getElementById('problem-input');
+    ta.placeholder = placeholder;
+    ta.value = '';
+    document.getElementById('problem-area').style.display = 'block';
+    setTimeout(() => ta.focus(), 100);
+  }
+
+  function clearCategory() {
+    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
+    selectedCategory = '';
+    document.getElementById('problem-area').style.display = 'none';
+    document.getElementById('problem-input').value = '';
+  }
+
+  /* ── Feedback ── */
+  let feedbackSent = false;
+
+  function submitFeedback(type) {
+    if (feedbackSent) return;
+    document.getElementById('fb-positive').classList.toggle('active', type === 'positive');
+    document.getElementById('fb-negative').classList.toggle('active', type === 'negative');
+
+    // Store feedback locally
+    const entry = {
+      timestamp: new Date().toISOString(),
+      category: selectedCategory,
+      rating: type,
+      parentAge: parentProfile.age,
+      devices: parentProfile.devices,
+      services: parentProfile.services
+    };
+
+    // Save to localStorage for now (future: send to backend)
+    try {
+      const existing = JSON.parse(localStorage.getItem('rg_feedback') || '[]');
+      existing.push(entry);
+      localStorage.setItem('rg_feedback', JSON.stringify(existing));
+    } catch(e) {}
+
+    if (type === 'negative') {
+      document.getElementById('feedback-comment-area').style.display = 'block';
+    } else {
+      feedbackSent = true;
+      document.getElementById('feedback-thanks').style.display = 'block';
+      document.getElementById('feedback-comment-area').style.display = 'none';
+    }
+  }
+
+  function saveFeedbackComment() {
+    const comment = document.getElementById('feedback-comment').value.trim();
+    try {
+      const existing = JSON.parse(localStorage.getItem('rg_feedback') || '[]');
+      if (existing.length > 0) {
+        existing[existing.length - 1].comment = comment;
+        localStorage.setItem('rg_feedback', JSON.stringify(existing));
+      }
+    } catch(e) {}
+    feedbackSent = true;
+    document.getElementById('feedback-comment-area').style.display = 'none';
+    document.getElementById('feedback-thanks').style.display = 'block';
+  }
+
+  /* ── Welcome screen ── */
+  function startOnboarding() {
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('main-hero').style.display = 'block';
+    document.getElementById('step1-card').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  /* ── Premium modal ── */
+  function showPremiumModal() {
+    document.getElementById('premium-modal').classList.add('active');
+  }
+  function closePremiumModal() {
+    document.getElementById('premium-modal').classList.remove('active');
+  }
+  function notifyMePremium() {
+    document.getElementById('premium-thanks').style.display = 'block';
+    try {
+      const existing = JSON.parse(localStorage.getItem('rg_premium_interest') || '[]');
+      existing.push({timestamp: new Date().toISOString()});
+      localStorage.setItem('rg_premium_interest', JSON.stringify(existing));
+    } catch(e) {}
+  }
+
+  /* ── POC feedback modal ── */
+  let pocRating = '';
+  let pocRecommend = '';
+
+  function openPocModal() {
+    document.getElementById('poc-modal').classList.add('active');
+  }
+  function closePocModal() {
+    document.getElementById('poc-modal').classList.remove('active');
+  }
+  function setPocRating(btn, val) {
+    document.querySelectorAll('#poc-rating-group .chip').forEach(c => c.classList.remove('selected'));
+    btn.classList.add('selected');
+    pocRating = val;
+  }
+  function setPocRecommend(btn, val) {
+    document.querySelectorAll('#poc-recommend-group .chip').forEach(c => c.classList.remove('selected'));
+    btn.classList.add('selected');
+    pocRecommend = val;
+  }
+  function submitPocFeedback() {
+    const entry = {
+      timestamp: new Date().toISOString(),
+      rating: pocRating,
+      wentWell: document.getElementById('poc-well').value.trim(),
+      improve: document.getElementById('poc-improve').value.trim(),
+      recommend: pocRecommend,
+      parentAge: parentProfile.age || 'unknown',
+      categoriesUsed: selectedCategory
+    };
+    try {
+      const existing = JSON.parse(localStorage.getItem('rg_poc_feedback') || '[]');
+      existing.push(entry);
+      localStorage.setItem('rg_poc_feedback', JSON.stringify(existing));
+    } catch(e) {}
+    document.getElementById('poc-thanks').style.display = 'block';
+    setTimeout(() => closePocModal(), 3000);
+  }
+
+  function toggleKey() {
+    const input = document.getElementById('api-key');
+    const btn = document.getElementById('key-toggle-btn');
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = 'Hide';
+    } else {
+      input.type = 'password';
+      btn.textContent = 'Show';
+    }
+  }
+</script>
+</body>
+</html>
 
