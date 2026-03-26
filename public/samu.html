@@ -1472,11 +1472,11 @@
     if (/auto|mechanic|repair|battery|tire|car|vehicle/i.test(responseText)) {
       searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
     }
-    if (/AutoZone|O.Reilly|Advance Auto|auto parts/i.test(responseText)) {
-      searches.push({ query: 'AutoZone O'Reilly auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
+    if (/AutoZone|auto parts|Advance Auto/i.test(responseText)) {
+      searches.push({ query: 'auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
     }
-    if (/attorney|lawyer|criminal defense|bail bondsman|arrested/i.test(responseText)) {
-      searches.push({ query: 'criminal defense attorney', title: 'Criminal Defense Attorneys', icon: '⚖️' });
+    if (/attorney|lawyer|criminal defense|arrested/i.test(responseText)) {
+      searches.push({ query: 'criminal defense attorney', title: 'Defense Attorneys', icon: '⚖️' });
     }
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
@@ -1487,28 +1487,39 @@
     if (/pharmacy|prescription/i.test(responseText)) {
       searches.push({ query: 'pharmacy', title: 'Pharmacies', icon: '💊' });
     }
-    if (/locksmith/i.test(responseText)) {
-      searches.push({ query: 'locksmith', title: 'Locksmiths', icon: '🔑' });
-    }
     if (/tow truck|towing|roadside/i.test(responseText)) {
-      searches.push({ query: 'tow truck roadside assistance', title: 'Towing & Roadside', icon: '🚛' });
+      searches.push({ query: 'tow truck roadside assistance', title: 'Towing Services', icon: '🚛' });
     }
 
     if (searches.length === 0) return;
 
     const searchDiv = document.createElement('div');
     searchDiv.style.cssText = 'padding:16px 18px;background:#f0f7ff;border-top:1px solid var(--border);';
-    searchDiv.innerHTML = `
-      <p style="font-size:13px;font-weight:500;color:var(--blue-deep);margin-bottom:10px;">📍 Find trusted providers near ${location}:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        ${searches.map((s, i) => `
-          <button class="search-trigger" onclick="searchNearby('${s.query}','${location}','samu-search-${i}','${s.title}')">
-            ${s.icon} Find ${s.title}
-          </button>
-          <div id="samu-search-${i}"></div>
-        `).join('')}
-      </div>`;
 
+    const titleEl = document.createElement('p');
+    titleEl.style.cssText = 'font-size:13px;font-weight:500;color:var(--blue-deep);margin-bottom:10px;';
+    titleEl.textContent = '📍 Find trusted providers near ' + location + ':';
+    searchDiv.appendChild(titleEl);
+
+    const btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
+
+    searches.forEach(function(s, i) {
+      const resultId = 'samu-sr-' + i + '-' + Date.now();
+      const btn = document.createElement('button');
+      btn.className = 'search-trigger';
+      btn.textContent = s.icon + ' Find ' + s.title;
+      btn.addEventListener('click', function() {
+        searchNearby(s.query, location, resultId, s.title);
+      });
+      const resultDiv = document.createElement('div');
+      resultDiv.id = resultId;
+      resultDiv.style.width = '100%';
+      btnRow.appendChild(btn);
+      btnRow.appendChild(resultDiv);
+    });
+
+    searchDiv.appendChild(btnRow);
     responseContainer.appendChild(searchDiv);
   }
 
