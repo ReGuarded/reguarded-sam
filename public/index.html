@@ -827,6 +827,184 @@
     .category-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
+
+  /* ── Local Search ── */
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--purple-pale);
+    border: 1.5px solid var(--purple-muted);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--purple-brand);
+    cursor: pointer;
+    transition: all 0.18s;
+    margin-top: 12px;
+  }
+  .search-trigger:hover { background: var(--purple-brand); color: white; border-color: var(--purple-brand); }
+
+  .places-container {
+    margin-top: 20px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .places-header {
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .places-header h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .places-header p { font-size: 11px; color: rgba(255,255,255,0.65); }
+
+  .map-container {
+    width: 100%;
+    height: 240px;
+    background: #e8e8e8;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .business-cards {
+    background: white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .business-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: border-color 0.18s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .business-card:hover { border-color: var(--purple-muted); }
+
+  .business-rank {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--purple-brand);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .business-info { flex: 1; min-width: 0; }
+
+  .business-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .business-address {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .business-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .rating-stars { color: #f47c20; font-size: 12px; }
+
+  .rating-count { font-size: 11px; color: var(--text-muted); }
+
+  .open-badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .open-badge.open { background: #EAF3DE; color: #3B6D11; }
+  .open-badge.closed { background: #FCEBEB; color: #A32D2D; }
+
+  .business-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .action-link {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--purple-brand);
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+  }
+
+  .action-link:hover { background: var(--purple-pale); border-color: var(--purple-muted); }
+
+  .places-loading {
+    padding: 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    background: white;
+  }
+
+  .places-error {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    background: white;
+  }
+
 </style>
 </head>
 <body>
@@ -1452,6 +1630,7 @@
             <button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button>
             <button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button>
           </div>
+          <div id="local-search-area"></div>
           <div class="feedback-bar" id="feedback-bar">
             <span class="feedback-label">Was Sam's advice helpful?</span>
             <button class="feedback-btn positive" onclick="submitFeedback('positive')" id="fb-positive">👍 Yes, helpful</button>
@@ -1463,6 +1642,9 @@
             <div id="feedback-thanks" class="feedback-thanks" style="display:none;">Thank you — your feedback helps us improve ReGuarded.</div>
           </div>
         </div>`;
+
+    const localSearchArea = document.getElementById('local-search-area');
+    if (localSearchArea) detectAndAddSearch(text, localSearchArea);
 
     } catch (err) {
       responseArea.innerHTML = `
@@ -1676,7 +1858,139 @@
       btn.textContent = 'Show';
     }
   }
+
+  /* ── Local Search ── */
+  async function searchNearby(query, location, containerId, title) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="places-container">
+        <div class="places-header">
+          <div>
+            <h4>📍 Finding ${title} near ${location}...</h4>
+            <p>Searching by rating and proximity</p>
+          </div>
+        </div>
+        <div class="places-loading">
+          <div class="loading-dots" style="justify-content:center;"><span></span><span></span><span></span></div>
+          <p style="margin-top:12px;">Sam is finding trusted options nearby...</p>
+        </div>
+      </div>`;
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'places', query, location, radius: 8000 })
+      });
+
+      const data = await response.json();
+
+      if (!data.results || data.results.length === 0) {
+        container.innerHTML = `
+          <div class="places-container">
+            <div class="places-header"><h4>📍 ${title}</h4></div>
+            <div class="places-error">No results found near ${location}. Try a different search.</div>
+          </div>`;
+        return;
+      }
+
+      const mapUrl = `https://www.google.com/maps/embed/v1/search?key=${window.GMAPS_KEY || ''}&q=${encodeURIComponent(query)}&center=${data.centerLat},${data.centerLng}&zoom=13`;
+
+      const cards = data.results.map((b, i) => {
+        const stars = b.rating ? '★'.repeat(Math.round(b.rating)) + '☆'.repeat(5 - Math.round(b.rating)) : '';
+        const openBadge = b.isOpen === true ? '<span class="open-badge open">Open now</span>' :
+                          b.isOpen === false ? '<span class="open-badge closed">Closed</span>' : '';
+        const mapsLink = `https://www.google.com/maps/place/?q=place_id:${b.placeId}`;
+
+        return `
+          <div class="business-card" onclick="window.open('${mapsLink}','_blank')">
+            <div class="business-rank">${i + 1}</div>
+            <div class="business-info">
+              <div class="business-name">${b.name}</div>
+              <div class="business-address">${b.address}</div>
+              <div class="business-meta">
+                ${b.rating ? `<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>` : ''}
+                ${openBadge}
+              </div>
+            </div>
+            <div class="business-actions">
+              <a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>
+              ${b.phone ? `<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="places-container">
+          <div class="places-header">
+            <div>
+              <h4>📍 ${title} near ${location}</h4>
+              <p>Sorted by rating · ${data.results.length} results found</p>
+            </div>
+            <a href="https://www.google.com/maps/search/${encodeURIComponent(query)}+near+${encodeURIComponent(location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a>
+          </div>
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyPLACEHOLDER&q=${encodeURIComponent(query + ' near ' + location)}&zoom=13" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="business-cards">${cards}</div>
+        </div>`;
+
+    } catch(err) {
+      container.innerHTML = `<div class="places-container"><div class="places-error">Search failed: ${err.message}</div></div>`;
+    }
+  }
+
+  function detectAndAddSearch(responseText, responseContainer) {
+    const p = parentProfile;
+    const location = p.zip || (p.city ? p.city + (p.state ? ', ' + p.state : '') : null);
+    if (!location) return;
+
+    const searches = [];
+
+    if (/auto|mechanic|repair|oil change|battery|tire|car|vehicle/i.test(responseText) && !/AutoZone|O'Reilly|Advance Auto/i.test(responseText)) {
+      searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
+    }
+    if (/plumb|pipe|leak|drain|water heater/i.test(responseText)) {
+      searches.push({ query: 'plumber', title: 'Plumbers', icon: '🔧' });
+    }
+    if (/electrician|electrical|wiring|circuit|outlet/i.test(responseText)) {
+      searches.push({ query: 'electrician', title: 'Electricians', icon: '⚡' });
+    }
+    if (/HVAC|air condition|heating|furnace|AC unit/i.test(responseText)) {
+      searches.push({ query: 'HVAC repair', title: 'HVAC Services', icon: '❄️' });
+    }
+    if (/attorney|lawyer|legal|bail|arrest/i.test(responseText)) {
+      searches.push({ query: 'attorney lawyer', title: 'Attorneys', icon: '⚖️' });
+    }
+    if (/urgent care|doctor|clinic|medical/i.test(responseText)) {
+      searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
+    }
+    if (/pharmacy|prescription|medication/i.test(responseText)) {
+      searches.push({ query: 'pharmacy', title: 'Pharmacies', icon: '💊' });
+    }
+
+    if (searches.length === 0) return;
+
+    const searchDiv = document.createElement('div');
+    searchDiv.style.cssText = 'padding:16px 18px;background:#fafaf7;border-top:1px solid var(--border);';
+    searchDiv.innerHTML = `
+      <p style="font-size:13px;font-weight:500;color:var(--purple-deep);margin-bottom:10px;">📍 Find trusted providers near ${location}:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;" id="search-buttons-${Date.now()}">
+        ${searches.map((s, i) => `
+          <button class="search-trigger" onclick="searchNearby('${s.query}','${location}','search-results-${i}','${s.title}')">
+            ${s.icon} Find ${s.title}
+          </button>
+          <div id="search-results-${i}"></div>
+        `).join('')}
+      </div>`;
+
+    responseContainer.appendChild(searchDiv);
+  }
+
 </script>
 </body>
 </html>
+
 
