@@ -1,1 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sam U — Your Campus Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue-deep:     #1a3a5c;
+    --blue-mid:      #1e5799;
+    --blue-brand:    #2272c3;
+    --blue-light:    #5b9fd6;
+    --blue-pale:     #e8f2fb;
+    --blue-muted:    #a8cce8;
+    --orange:        #f47c20;
+    --orange-light:  #f9a55a;
+    --orange-pale:   #fff0e0;
+    --cream:         #fafaf7;
+    --warm-gray:     #f4f3ee;
+    --text-primary:  #1a2a3a;
+    --text-secondary:#3a5a7a;
+    --text-muted:    #7a9ab8;
+    --border:        #d0e4f5;
+    --white:         #ffffff;
+    --success:       #1d9e75;
+    --danger:        #e24b4a;
+    --radius:        16px;
+    --radius-sm:     10px;
+    --shadow:        0 4px 24px rgba(26,58,92,0.10);
+    --shadow-lg:     0 12px 48px rgba(26,58,92,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(34,114,195,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(244,124,32,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .logo-icon { width: 54px; height: 54px; flex-shrink: 0; }
+
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+
+  .logo-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-wordmark span.sam { color: var(--blue-brand); }
+  .logo-wordmark span.u { color: var(--orange); }
+
+  .logo-tagline {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .hero {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-pale);
+    color: var(--blue-brand);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-badge {
+    background: var(--blue-brand);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-subtitle {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .field { margin-bottom: 18px; }
+
+  .field-hint {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    letter-spacing: 0.2px;
+  }
+
+  input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    background: var(--white);
+  }
+
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+  .chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    background: var(--cream);
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
+
+  .chip.selected {
+    background: var(--blue-pale);
+    border-color: var(--blue-brand);
+    color: var(--blue-brand);
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(34,114,195,0.28);
+  }
+
+  .btn-primary:hover {
+    background: var(--blue-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(34,114,195,0.36);
+  }
+
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+
+  .btn-secondary:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
+
+  .btn-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Welcome screen */
+  .welcome-screen {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: fadeUp 0.6s ease both;
+    margin-bottom: 20px;
+  }
+
+  .welcome-screen h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .welcome-screen p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 520px;
+    margin: 0 auto 28px;
+    font-weight: 300;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .feature-item {
+    background: var(--blue-pale);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .feature-item .f-icon { font-size: 22px; display:block; margin-bottom:8px; }
+  .feature-item .f-title { font-size:13px; font-weight:500; color:var(--blue-deep); margin-bottom:4px; }
+  .feature-item .f-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
+
+  /* Privacy badge */
+  .privacy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange-pale);
+    border: 1px solid var(--orange-light);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: #8a4a00;
+    line-height: 1.5;
+  }
+
+  /* User type selector */
+  .user-type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .user-type-card {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: center;
+    background: var(--cream);
+  }
+
+  .user-type-card:hover { border-color: var(--blue-light); background: var(--blue-pale); }
+
+  .user-type-card.selected {
+    border-color: var(--blue-brand);
+    background: var(--blue-pale);
+    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+  }
+
+  .user-type-card .ut-icon { font-size: 32px; display:block; margin-bottom:10px; }
+  .user-type-card .ut-title { font-size:15px; font-weight:500; color:var(--blue-deep); margin-bottom:4px; }
+  .user-type-card .ut-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
+
+  /* Profile bar */
+  .profile-bar {
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-muted);
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .profile-pill {
+    background: white;
+    border: 1px solid var(--blue-muted);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: var(--blue-brand);
+    font-weight: 400;
+  }
+
+  .profile-edit {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--blue-light);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  /* Category grid */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .cat-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: all 0.18s;
+    background: var(--cream);
+    text-align: center;
+    user-select: none;
+  }
+
+  .cat-card:hover { border-color: var(--blue-muted); background: var(--blue-pale); }
+
+  .cat-card.selected {
+    border-color: var(--blue-brand);
+    background: var(--blue-pale);
+    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+  }
+
+  .cat-card.urgent { border-color: #f09595; background: #fff5f5; }
+  .cat-card.urgent:hover { border-color: var(--danger); }
+  .cat-card.urgent.selected { border-color: var(--danger); background: #ffecec; box-shadow: 0 0 0 3px rgba(226,75,74,0.12); }
+
+  .cat-card .cat-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+  .cat-card .cat-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); line-height: 1.3; display: block; }
+  .cat-card.selected .cat-label { color: var(--blue-brand); }
+  .cat-card.urgent.selected .cat-label { color: var(--danger); }
+
+  /* Problem area */
+  .problem-area textarea {
+    min-height: 130px;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 18px 20px;
+  }
+
+  .problem-hint { margin-top: 10px; font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Response */
+  .response-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    margin-top: 20px;
+  }
+
+  .response-header {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .response-header .icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .response-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .response-header-text p { font-size: 12px; color: rgba(255,255,255,0.65); font-weight: 300; }
+
+  .response-body { padding: 28px 32px; }
+  .response-body p { font-size: 15px; line-height: 1.8; color: var(--text-primary); margin-bottom: 14px; }
+  .response-body strong { color: var(--blue-deep); font-weight: 500; }
+  .response-body ol, .response-body ul { padding-left: 20px; margin: 10px 0 14px; }
+  .response-body li { font-size: 15px; line-height: 1.8; color: var(--text-primary); margin-bottom: 6px; }
+
+  .response-footer {
+    padding: 16px 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .response-footer-note { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .shield-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; }
+
+  /* Loading */
+  .loading-state { padding: 36px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .loading-dots { display: flex; gap: 8px; align-items: center; }
+  .loading-dots span { width: 9px; height: 9px; background: var(--blue-muted); border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  .loading-label { font-size: 14px; color: var(--text-muted); font-weight: 300; }
+
+  /* Feedback */
+  .feedback-bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 20px;
+    background: var(--blue-pale);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .feedback-label { font-size: 13px; color: var(--text-secondary); flex: 1; }
+
+  .feedback-btn {
+    padding: 7px 16px; border-radius: 999px;
+    border: 1.5px solid var(--border); background: white;
+    cursor: pointer; font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-secondary); transition: all 0.18s;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .feedback-btn:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
+  .feedback-btn.positive.active { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
+  .feedback-btn.negative.active { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
+
+  .feedback-comment {
+    width: 100%; margin-top: 8px; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    color: var(--text-primary); background: white; resize: none; outline: none;
+  }
+
+  .feedback-submit {
+    margin-top: 8px; padding: 8px 18px;
+    background: var(--blue-brand); color: white; border: none;
+    border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+  }
+
+  .feedback-thanks { font-size: 13px; color: var(--success); font-weight: 500; padding: 10px 0; }
+
+  /* Modal */
+  .modal-overlay {
+    display:none; position:fixed; inset:0;
+    background:rgba(26,58,92,0.5); z-index:1000;
+    align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-overlay.active { display:flex; }
+  .modal-box {
+    background:white; border-radius:var(--radius); padding:36px;
+    max-width:480px; width:100%; box-shadow:var(--shadow-lg);
+    position:relative; animation: fadeUp 0.3s ease both;
+  }
+  .modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color:var(--text-muted); cursor:pointer; }
+  .modal-box h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--blue-deep); margin-bottom:10px; }
+  .modal-box p { font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:14px; }
+
+  /* Print */
+  .btn-print {
+    display:inline-flex; align-items:center; gap:6px;
+    background:transparent; color:var(--text-muted);
+    border:1.5px solid var(--border); border-radius:var(--radius-sm);
+    padding:8px 16px; font-family:'DM Sans',sans-serif;
+    font-size:13px; cursor:pointer; transition:all 0.18s;
+  }
+  .btn-print:hover { border-color:var(--blue-muted); color:var(--blue-brand); }
+
+  @media print {
+    header, .welcome-screen, .hero, #step1-card, #step2-card .problem-area,
+    .btn-row, .feedback-bar, .category-grid, .card-title, .card-subtitle,
+    #profile-bar-container, .btn-print, .btn-secondary, footer { display:none !important; }
+    .response-card { box-shadow:none !important; border:none !important; }
+    body { background:white !important; }
+  }
+
+  /* Progress */
+  .progress-bar { display:flex; align-items:center; margin-bottom:28px; }
+  .progress-step { display:flex; align-items:center; gap:8px; flex:1; }
+  .progress-line { flex:1; height:2px; background:var(--border); margin:0 8px; }
+  .progress-num {
+    width:28px; height:28px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:600; color:white; flex-shrink:0;
+  }
+
+  /* Floating POC btn */
+  #poc-feedback-btn { display:none; position:fixed; bottom:24px; right:24px; z-index:100; }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes bounce { 0%,80%,100% { transform:scale(0.7); opacity:0.5; } 40% { transform:scale(1.0); opacity:1; } }
+
+  .hidden { display:none !important; }
+
+  footer { text-align:center; margin-top:48px; padding-top:28px; border-top:1px solid var(--border); }
+  footer p { font-size:12px; color:var(--text-muted); font-weight:300; line-height:1.8; }
+  footer strong { color:var(--blue-brand); font-weight:500; }
+
+  @media (max-width:560px) {
+    .card { padding:24px 20px; }
+    .feature-grid { grid-template-columns:1fr; }
+    .category-grid { grid-template-columns:repeat(2,1fr); }
+    .user-type-grid { grid-template-columns:1fr; }
+    .field-row { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <svg class="logo-icon" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer halo — blue -->
+      <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#a8cce8" stroke-width="3.5" fill="none" opacity="0.9"/>
+      <!-- Inner halo — orange -->
+      <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#f47c20" stroke-width="3.5" fill="none" opacity="0.95"/>
+      <circle cx="23" cy="11" r="3" fill="#f47c20" opacity="0.9"/>
+      <circle cx="77" cy="11" r="3" fill="#f47c20" opacity="0.9"/>
+      <!-- Graduation cap on house -->
+      <polygon points="4,56 50,20 96,56" fill="#2272c3"/>
+      <rect x="14" y="54" width="72" height="60" rx="4" fill="#1a3a5c"/>
+      <rect x="34" y="76" width="32" height="38" rx="10" fill="#0d1e2e"/>
+      <!-- Graduation cap board -->
+      <rect x="28" y="14" width="44" height="8" rx="2" fill="#f47c20" opacity="0.9"/>
+      <line x1="50" y1="14" x2="50" y2="8" stroke="#f47c20" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="50" cy="7" r="3" fill="#f47c20"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-wordmark">
+        <span class="sam">Sam</span><span class="u"> U</span>
+      </div>
+      <div class="logo-tagline">Your campus companion · by ReGuarded</div>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+      <div style="text-align:right;">
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--orange);">Always here.</div>
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">For students & parents</div>
+      </div>
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-brand),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(34,114,195,0.3);">🎓</div>
+    </div>
+  </header>
+
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcome-screen">
+    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue-brand),var(--orange));display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(34,114,195,0.3);">🎓</div>
+    <h1>Hi, I'm Sam.<br/>Your campus companion.</h1>
+    <p>From move-in day to graduation — Sam helps students handle whatever comes next, and gives parents peace of mind from wherever they are.</p>
+
+    <div class="privacy-badge">
+      🔒 <span><strong>Student privacy guaranteed.</strong> Sam never shares your conversations with parents. What you ask stays between you and Sam.</span>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-item">
+        <span class="f-icon">🚨</span>
+        <div class="f-title">Legal & arrest help</div>
+        <div class="f-desc">Step-by-step guidance for the scariest moments — fast</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">🚗</span>
+        <div class="f-title">Car trouble & auto</div>
+        <div class="f-desc">Don't get taken advantage of at the auto shop</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">💰</span>
+        <div class="f-title">Scam protection</div>
+        <div class="f-desc">Recognize predatory pricing and fraud before it costs you</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">🏥</span>
+        <div class="f-title">Health & insurance</div>
+        <div class="f-desc">Navigate the ER, student health, and confusing bills</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">📋</span>
+        <div class="f-title">Life skills & adulting</div>
+        <div class="f-desc">The stuff nobody teaches you but everyone needs to know</div>
+      </div>
+      <div class="feature-item" style="background:var(--orange-pale);border-color:#f9a55a;">
+        <span class="f-icon">⚖️</span>
+        <div class="f-title" style="color:#8a4a00;">Know your rights <span style="font-size:10px;background:var(--orange);color:white;padding:1px 6px;border-radius:999px;margin-left:4px;">Soon</span></div>
+        <div class="f-desc">Tenant rights, consumer law, and campus policy — plain English</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="startOnboarding()" style="font-size:16px;padding:16px 36px;">
+      Get started — meet Sam
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:14px;margin-bottom:0;">Takes about 3 minutes to set up. You only do it once.</p>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero" id="main-hero" style="display:none;">
+    <div class="badge"><span class="badge-dot"></span> Sam U — Your campus companion by ReGuarded</div>
+    <h1>Hi, I'm Sam. Tell me what's going on.</h1>
+    <p>Whether you're a student in the middle of something stressful, or a parent trying to help from a distance — Sam gives you clear, calm, actionable guidance. No judgment. No panic. Just real help.</p>
+  </div>
+
+  <!-- STEP 1: Profile -->
+  <div class="card" id="step1-card" style="display:none;">
+
+    <div class="progress-bar">
+      <div class="progress-step">
+        <div class="progress-num" style="background:var(--blue-brand);">1</div>
+        <span style="font-size:13px;font-weight:500;color:var(--blue-brand);">Setup</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" style="justify-content:flex-end;">
+        <div class="progress-num" style="background:var(--border);color:var(--text-muted);">2</div>
+        <span style="font-size:13px;color:var(--text-muted);">Get Help</span>
+      </div>
+    </div>
+
+    <div class="card-title">
+      <span class="step-badge">Step 1 of 2</span>
+      Who's using Sam today?
+    </div>
+    <div class="card-subtitle">Sam works for both students and parents — just a little differently. Tell us who you are so Sam can speak your language.</div>
+
+    <div class="user-type-grid" id="user-type-grid">
+      <div class="user-type-card" onclick="selectUserType(this,'student')" data-type="student">
+        <span class="ut-icon">🎓</span>
+        <div class="ut-title">I'm the student</div>
+        <div class="ut-desc">Sam is my personal advisor. My conversations stay private.</div>
+      </div>
+      <div class="user-type-card" onclick="selectUserType(this,'parent')" data-type="parent">
+        <span class="ut-icon">👨‍👩‍👧</span>
+        <div class="ut-title">I'm the parent</div>
+        <div class="ut-desc">I'm helping my student navigate a situation from a distance.</div>
+      </div>
+    </div>
+
+    <div id="profile-fields" style="display:none;">
+
+      <div class="field-row">
+        <div class="field">
+          <label id="name-label">Your first name</label>
+          <input type="text" id="student-name" placeholder="e.g. Mia"/>
+          <div class="field-hint">Sam uses your name to make every response feel personal.</div>
+        </div>
+        <div class="field">
+          <label id="school-label">University / College</label>
+          <input type="text" id="student-school" placeholder="e.g. University of Texas"/>
+          <div class="field-hint">Helps Sam give locally relevant advice and resources.</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Year in school</label>
+          <select id="student-year">
+            <option value="">Select...</option>
+            <option value="Freshman (1st year)">Freshman</option>
+            <option value="Sophomore (2nd year)">Sophomore</option>
+            <option value="Junior (3rd year)">Junior</option>
+            <option value="Senior (4th year)">Senior</option>
+            <option value="Graduate student">Graduate student</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Living situation</label>
+          <select id="student-housing">
+            <option value="">Select...</option>
+            <option value="On-campus dorm">On-campus dorm</option>
+            <option value="Sorority or fraternity house">Sorority / fraternity house</option>
+            <option value="Off-campus apartment">Off-campus apartment</option>
+            <option value="Off-campus house with roommates">Off-campus house with roommates</option>
+            <option value="Living alone off-campus">Living alone off-campus</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you have a car on campus?</label>
+        <div class="chip-group" id="car-group">
+          <div class="chip" data-value="yes — has a car on campus">Yes, I have a car</div>
+          <div class="chip" data-value="no — no car on campus">No car</div>
+          <div class="chip" data-value="sometimes — car on campus occasionally">Sometimes</div>
+        </div>
+        <div class="field-hint">Helps Sam tailor car trouble and transportation advice.</div>
+      </div>
+
+      <div class="field">
+        <label>Emergency contact <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label>
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0;">
+            <input type="text" id="emergency-name" placeholder="Name (e.g. Dad — Joey)"/>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <input type="text" id="emergency-phone" placeholder="Phone (e.g. 512-555-0100)"/>
+          </div>
+        </div>
+        <div class="field-hint">For serious situations like arrests, Sam will remind you to call this person immediately.</div>
+      </div>
+
+      <div class="field">
+        <label for="extra-context">Anything else Sam should know? <span style="font-weight:300;color:var(--text-muted)">(optional)</span></label>
+        <textarea id="extra-context" placeholder="e.g. I'm in a sorority. I have a 2019 Honda Civic. My parents are in Dallas. I'm pre-law." style="min-height:70px;"></textarea>
+        <div class="field-hint">The more specific you are, the better Sam's advice will be.</div>
+      </div>
+
+      <div class="btn-row">
+        <span style="font-size:12.5px;color:var(--text-muted);">🔒 Your info stays private — never shared.</span>
+        <button class="btn-primary" onclick="saveProfile()">
+          Save &amp; continue
+          <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Get Help -->
+  <div class="card hidden" id="step2-card">
+    <div id="profile-bar-container"></div>
+
+    <div class="progress-bar">
+      <div class="progress-step">
+        <div class="progress-num" style="background:var(--success);">✓</div>
+        <span style="font-size:13px;color:var(--success);">Setup</span>
+      </div>
+      <div class="progress-line" style="background:var(--blue-brand);"></div>
+      <div class="progress-step" style="justify-content:flex-end;">
+        <div class="progress-num" style="background:var(--blue-brand);">2</div>
+        <span style="font-size:13px;font-weight:500;color:var(--blue-brand);">Get Help</span>
+      </div>
+    </div>
+
+    <div class="card-title">
+      <span class="step-badge">Step 2 of 2</span>
+      What's going on?
+    </div>
+    <div class="card-subtitle">Choose a category — then tell Sam what's happening in your own words.</div>
+
+    <div class="category-grid" id="category-grid">
+      <div class="cat-card urgent" data-cat="Legal & Arrest Situation" data-placeholder="e.g. My daughter just called — she was arrested for MIP at a party near campus. She's at the Travis County jail. What do we do right now?" onclick="selectCategory(this)">
+        <span class="cat-icon">🚨</span>
+        <span class="cat-label">Legal &amp; Arrest</span>
+      </div>
+      <div class="cat-card" data-cat="Car Trouble & Auto Help" data-placeholder="e.g. My car won't start in the parking lot. I think it might be the battery. I'm alone and don't know what to do or where to go." onclick="selectCategory(this)">
+        <span class="cat-icon">🚗</span>
+        <span class="cat-label">Car Trouble &amp; Auto</span>
+      </div>
+      <div class="cat-card" data-cat="Scams & Predatory Vendors" data-placeholder="e.g. The auto shop told me I need $800 of repairs but I only came in for an oil change. Something feels off." onclick="selectCategory(this)">
+        <span class="cat-icon">💰</span>
+        <span class="cat-label">Scams &amp; Predatory</span>
+      </div>
+      <div class="cat-card" data-cat="Health & Insurance Navigation" data-placeholder="e.g. I went to the ER last night and got a bill for $1,200. I thought I had student health insurance. I don't know what to do." onclick="selectCategory(this)">
+        <span class="cat-icon">🏥</span>
+        <span class="cat-label">Health &amp; Insurance</span>
+      </div>
+      <div class="cat-card" data-cat="Life Skills & Adulting Guide" data-placeholder="e.g. I need to know what to do if I get pulled over. Or how to change a flat tire. Or what to say at an auto shop." onclick="selectCategory(this)">
+        <span class="cat-icon">📋</span>
+        <span class="cat-label">Life Skills &amp; Adulting</span>
+      </div>
+      <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
+        <span class="cat-icon">💬</span>
+        <span class="cat-label">Something else?</span>
+      </div>
+      <div class="cat-card" onclick="showPremiumModal()" style="border-style:dashed;border-color:#f47c20;background:linear-gradient(135deg,#fff0e0,#fafaf7);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:6px;right:6px;background:var(--orange);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:999px;letter-spacing:0.5px;">COMING SOON</div>
+        <span class="cat-icon">⚖️</span>
+        <span class="cat-label" style="color:#8a4a00;">Know Your Rights</span>
+      </div>
+    </div>
+
+    <div class="problem-area" id="problem-area" style="display:none;">
+      <textarea id="problem-input" placeholder="Describe what's happening..."></textarea>
+      <div class="problem-hint">Is it something else? <span style="color:var(--blue-light);cursor:pointer;text-decoration:underline;" onclick="clearCategory()">Choose a different category</span></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="editProfile()">← Edit profile</button>
+      <button class="btn-primary" id="get-help-btn" onclick="getHelp()">
+        Ask Sam
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1l7 7-7 7M1 8h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div id="response-area"></div>
+  </div>
+
+  <!-- Premium Modal -->
+  <div class="modal-overlay" id="premium-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closePremiumModal()">&#10005;</button>
+      <div style="font-size:36px;margin-bottom:12px;">⚖️</div>
+      <h2>Know Your Rights — Coming Soon</h2>
+      <p>Sam's Know Your Rights guide will give you plain-English breakdowns of the laws and policies that affect you most as a college student:</p>
+      <ul style="font-size:14px;color:var(--text-secondary);line-height:2;padding-left:18px;margin-bottom:16px;">
+        <li>Tenant rights — lease disputes, security deposits, illegal entry</li>
+        <li>Consumer law — predatory pricing, refund rights, billing disputes</li>
+        <li>Campus policy — Title IX, academic disputes, housing rights</li>
+        <li>Traffic stops — what you must provide and what you can decline</li>
+        <li>Alcohol & drug laws — what a first offense actually means</li>
+      </ul>
+      <p style="font-size:13px;background:var(--blue-pale);padding:12px 16px;border-radius:var(--radius-sm);color:var(--blue-brand);margin-bottom:20px;">This will be a <strong>Sam U Premium</strong> feature. Want to be notified when it launches?</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="notifyMePremium()" style="flex:1;">Notify me when it's ready</button>
+        <button class="btn-secondary" onclick="closePremiumModal()">Back to Sam</button>
+      </div>
+      <div id="premium-thanks" style="display:none;margin-top:14px;font-size:13px;color:var(--success);font-weight:500;">You're on the list — we'll let you know as soon as Know Your Rights launches.</div>
+    </div>
+  </div>
+
+  <!-- POC Feedback Modal -->
+  <div class="modal-overlay" id="poc-modal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closePocModal()">&#10005;</button>
+      <div style="font-size:36px;margin-bottom:12px;">💬</div>
+      <h2>Share your feedback</h2>
+      <p>You're among the first people to use Sam U. Your feedback shapes what we build next.</p>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">How valuable is Sam U to you?</label>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;" id="poc-rating-group">
+          <button class="chip" onclick="setPocRating(this,'Very valuable')">Very valuable</button>
+          <button class="chip" onclick="setPocRating(this,'Somewhat valuable')">Somewhat valuable</button>
+          <button class="chip" onclick="setPocRating(this,'Not sure yet')">Not sure yet</button>
+          <button class="chip" onclick="setPocRating(this,'Not valuable')">Not valuable</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">What did Sam do well?</label>
+        <textarea class="feedback-comment" id="poc-well" rows="2" placeholder="e.g. The arrest guidance was exactly what I needed..."></textarea>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label style="font-size:13px;">What could Sam do better?</label>
+        <textarea class="feedback-comment" id="poc-improve" rows="2" placeholder="e.g. I wish Sam could also help with..."></textarea>
+      </div>
+      <div class="field" style="margin-bottom:20px;">
+        <label style="font-size:13px;">Would you recommend Sam U to another student or parent?</label>
+        <div style="display:flex;gap:8px;margin-top:8px;" id="poc-recommend-group">
+          <button class="chip" onclick="setPocRecommend(this,'Yes')">Yes, absolutely</button>
+          <button class="chip" onclick="setPocRecommend(this,'Maybe')">Maybe</button>
+          <button class="chip" onclick="setPocRecommend(this,'Not yet')">Not yet</button>
+        </div>
+      </div>
+      <button class="feedback-submit" style="width:100%;padding:14px;" onclick="submitPocFeedback()">Submit feedback to ReGuarded</button>
+      <div id="poc-thanks" style="display:none;margin-top:14px;font-size:13px;color:var(--success);font-weight:500;text-align:center;">Thank you — Sam U is better because of you.</div>
+    </div>
+  </div>
+
+  <!-- Floating feedback button -->
+  <div id="poc-feedback-btn" style="display:none;position:fixed;bottom:24px;right:24px;z-index:100;">
+    <button onclick="openPocModal()" style="background:var(--blue-brand);color:white;border:none;border-radius:999px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(34,114,195,0.4);display:flex;align-items:center;gap:8px;">
+      💬 Share feedback with ReGuarded
+    </button>
+  </div>
+
+  <footer>
+    <p><strong>Sam U</strong> by <strong>ReGuarded</strong> — Helping students transition to adulting, one situation at a time.<br/>
+    Legal Help &middot; Auto &middot; Scam Protection &middot; Health &middot; Life Skills &middot; Peace of mind, from wherever you are.</p>
+  </footer>
+
+</div>
+
+<script>
+  let studentProfile = {};
+  let selectedUserType = '';
+  let selectedCategory = '';
+  let feedbackSent = false;
+  let pocRating = '';
+  let pocRecommend = '';
+
+  document.querySelectorAll('.chip-group').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    });
+  });
+
+  function getSelectedChips(groupId) {
+    return [...document.querySelectorAll(`#${groupId} .chip.selected`)].map(c => c.dataset.value);
+  }
+
+  function startOnboarding() {
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('main-hero').style.display = 'block';
+    document.getElementById('step1-card').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function selectUserType(card, type) {
+    document.querySelectorAll('.user-type-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedUserType = type;
+    document.getElementById('profile-fields').style.display = 'block';
+    if (type === 'student') {
+      document.getElementById('name-label').textContent = 'Your first name';
+      document.getElementById('school-label').textContent = 'Your university';
+      document.getElementById('student-name').placeholder = 'e.g. Mia';
+    } else {
+      document.getElementById('name-label').textContent = "Student's first name";
+      document.getElementById('school-label').textContent = "Their university";
+      document.getElementById('student-name').placeholder = "e.g. Mia";
+    }
+  }
+
+  function saveProfile() {
+    const name = document.getElementById('student-name').value.trim();
+    if (!name) {
+      document.getElementById('student-name').focus();
+      document.getElementById('student-name').style.borderColor = '#E24B4A';
+      setTimeout(() => document.getElementById('student-name').style.borderColor = '', 2000);
+      return;
+    }
+    if (!selectedUserType) {
+      alert('Please select whether you are the student or the parent.');
+      return;
+    }
+
+    studentProfile = {
+      name,
+      userType: selectedUserType,
+      school: document.getElementById('student-school').value.trim(),
+      year: document.getElementById('student-year').value,
+      housing: document.getElementById('student-housing').value,
+      hasCar: getSelectedChips('car-group'),
+      emergencyName: document.getElementById('emergency-name').value.trim(),
+      emergencyPhone: document.getElementById('emergency-phone').value.trim(),
+      extraContext: document.getElementById('extra-context').value.trim()
+    };
+
+    document.getElementById('step1-card').classList.add('hidden');
+    document.getElementById('step2-card').classList.remove('hidden');
+    document.getElementById('poc-feedback-btn').style.display = 'block';
+    renderProfileBar();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function renderProfileBar() {
+    const p = studentProfile;
+    const typeLabel = p.userType === 'student' ? '🎓 Student' : '👨‍👩‍👧 Parent';
+    document.getElementById('profile-bar-container').innerHTML = `
+      <div class="profile-bar">
+        <div>
+          <div class="profile-name">${p.name}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.school || ''}${p.year ? ' · ' + p.year : ''}</div>
+        </div>
+        <span class="profile-pill">${typeLabel}</span>
+        ${p.housing ? `<span class="profile-pill">${p.housing}</span>` : ''}
+        ${p.hasCar && p.hasCar.length ? `<span class="profile-pill">🚗 ${p.hasCar[0]}</span>` : ''}
+        <span class="profile-edit" onclick="editProfile()">Edit profile</span>
+      </div>`;
+  }
+
+  function editProfile() {
+    document.getElementById('step2-card').classList.add('hidden');
+    document.getElementById('step1-card').classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function selectCategory(card) {
+    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedCategory = card.dataset.cat;
+    const ta = document.getElementById('problem-input');
+    ta.placeholder = card.dataset.placeholder;
+    ta.value = '';
+    document.getElementById('problem-area').style.display = 'block';
+    setTimeout(() => ta.focus(), 100);
+  }
+
+  function clearCategory() {
+    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
+    selectedCategory = '';
+    document.getElementById('problem-area').style.display = 'none';
+    document.getElementById('problem-input').value = '';
+  }
+
+  function buildSystemPrompt() {
+    const p = studentProfile;
+    const isStudent = p.userType === 'student';
+    const cat = selectedCategory ? 'Issue category: ' + selectedCategory + '.' : '';
+    const emergency = p.emergencyName ? p.emergencyName + (p.emergencyPhone ? ' (' + p.emergencyPhone + ')' : '') : 'none listed';
+
+    return "You are Sam, a warm, knowledgeable, and trustworthy campus companion created by ReGuarded. You help college students navigate the real challenges of adult life — legal situations, car trouble, scams, health issues, and practical life skills. You also help parents support their students from a distance." +
+    "\n\nYour tone is like a brilliant older sibling or trusted friend who has already figured college out — calm, direct, non-judgmental, and genuinely helpful. Never lecture. Never panic. Never sound like a lawyer or a robot." +
+    "\n\n" + cat +
+    "\n\nProfile: " + p.name + (isStudent ? " is the student" : "'s parent is using Sam on their behalf") + ". School: " + (p.school || 'unknown') + ". Year: " + (p.year || 'unknown') + ". Housing: " + (p.housing || 'unknown') + ". Car on campus: " + (p.hasCar && p.hasCar.length ? p.hasCar[0] : 'unknown') + "." +
+    "\nEmergency contact: " + emergency + "." +
+    "\nContext: " + (p.extraContext || 'None provided.') +
+    "\n\nCRITICAL — PRIVACY RULE: Sam NEVER shares student information with parents or vice versa. If a student is asking, Sam speaks directly to them. If a parent is asking, Sam helps them help their student — but never frames it as surveillance." +
+    "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Lead with immediate protective actions first. Always recommend calling a lawyer or the university's free Student Legal Services immediately. If an emergency contact is listed, remind them to call that person right now. Be calm but urgent." +
+    "\n\nFor AUTO situations: Always warn against taking cars to unknown repair shops for simple issues. Give the AutoZone/O'Reilly/Advance Auto Parts tip for batteries and simple parts — they often install for free. Recommend AAA or roadside assistance for breakdowns. Always prioritize safety first if broken down on a road." +
+    "\n\nFor SCAMS & PREDATORY situations: Be direct and validating — if something feels wrong, it probably is. Give them the exact words to say to push back or walk away." +
+    "\n\nAlways structure your response in exactly these three sections:" +
+    "\n\n## What to Do RIGHT NOW" +
+    "\n2-3 immediate actions. Short, urgent, scannable. For legal situations, this is critical — seconds matter." +
+    "\n\n## Next Steps" +
+    "\nFollow-up actions to fully resolve the situation. Number each step. 3-5 steps maximum." +
+    "\n\n## Good to Know" +
+    "\n2-3 practical insights, rights, or tips that will help them handle this better — now and in the future. End with one encouraging sentence." +
+    "\n\nRules: Plain language always. No jargon. Tailor everything to " + p.name + "'s specific situation, school, and setup. Keep total response under 450 words. Never number across sections." +
+    "\n\nLIFE SKILLS PRINCIPLE: When relevant, share the insider knowledge that most young people don't have — the AutoZone battery tip, that you can dispute ER bills, that most universities have free legal services, that you never have to consent to a search without a warrant. These nuggets of practical wisdom are Sam's superpower.";
+  }
+
+  async function getHelp() {
+    const problem = document.getElementById('problem-input').value.trim();
+    if (!problem) { document.getElementById('problem-input').focus(); return; }
+
+    const btn = document.getElementById('get-help-btn');
+    btn.disabled = true;
+
+    const responseArea = document.getElementById('response-area');
+    responseArea.innerHTML = `
+      <div class="response-card">
+        <div class="response-header">
+          <div class="icon">🎓</div>
+          <div class="response-header-text">
+            <h3>Sam is on it...</h3>
+            <p>Looking into this for ${studentProfile.name}</p>
+          </div>
+        </div>
+        <div class="loading-state">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <div class="loading-label">Sam is working on this for you...</div>
+        </div>
+      </div>`;
+
+    responseArea.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          system: buildSystemPrompt(),
+          messages: [{role:'user', content: problem}],
+          max_tokens: 1000
+        })
+      });
+
+      const data = await response.json();
+      if (data.error) throw new Error('API error: ' + data.error.message);
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+
+      const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n');
+      if (!text) throw new Error('Empty response from Sam.');
+
+      const formatted = formatResponse(text);
+
+      responseArea.innerHTML = `
+        <div class="response-card">
+          <div class="response-header">
+            <div class="icon">🎓</div>
+            <div class="response-header-text">
+              <h3>Sam's advice for ${studentProfile.name}</h3>
+              <p>Personalized to their situation</p>
+            </div>
+          </div>
+          <div class="response-body">${formatted}</div>
+          <div class="response-footer">
+            <div class="response-footer-note">
+              <span class="shield-dot"></span>
+              Sam U by ReGuarded — always here when you need it
+            </div>
+            <button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button>
+            <button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button>
+          </div>
+          <div class="feedback-bar" id="feedback-bar">
+            <span class="feedback-label">Was Sam's advice helpful?</span>
+            <button class="feedback-btn positive" onclick="submitFeedback('positive')" id="fb-positive">👍 Yes, helpful</button>
+            <button class="feedback-btn negative" onclick="submitFeedback('negative')" id="fb-negative">👎 Not quite</button>
+            <div id="feedback-comment-area" style="display:none;width:100%;">
+              <textarea class="feedback-comment" id="feedback-comment" rows="2" placeholder="What was missing or could be better?"></textarea>
+              <button class="feedback-submit" onclick="saveFeedbackComment()">Send feedback</button>
+            </div>
+            <div id="feedback-thanks" class="feedback-thanks" style="display:none;">Thank you — your feedback helps us improve Sam U.</div>
+          </div>
+        </div>`;
+
+    } catch(err) {
+      responseArea.innerHTML = `
+        <div class="response-card">
+          <div class="response-body">
+            <p><strong>Something went wrong.</strong> Error: ${err.message}</p>
+          </div>
+        </div>`;
+    }
+
+    btn.disabled = false;
+  }
+
+  function formatResponse(text) {
+    const sectionColors = {
+      'What to Do RIGHT NOW': { bg: '#FFF0E0', border: '#f47c20', icon: '⚡', label: 'What to Do RIGHT NOW' },
+      'Next Steps':           { bg: '#EAF3DE', border: '#639922', icon: '✅', label: 'Next Steps' },
+      'Good to Know':         { bg: '#E8F2FB', border: '#2272c3', icon: '💡', label: 'Good to Know' }
+    };
+
+    const sections = text.split(/(?=##\s)/);
+    let html = '';
+
+    sections.forEach(section => {
+      const headerMatch = section.match(/^##\s+(.+?)\n/);
+      if (headerMatch) {
+        const title = headerMatch[1].trim();
+        const body = section.replace(/^##\s+.+?\n/, '').trim();
+        const style = sectionColors[title] || { bg: '#F4F3EE', border: '#9896B8', icon: '📋', label: title };
+
+        const bodyHtml = body.split('\n').filter(l => l.trim()).map(line => {
+          if (/^\d+\.\s/.test(line)) return `<li>${line.replace(/^\d+\.\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
+          if (/^[-•]\s/.test(line)) return `<li>${line.replace(/^[-•]\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
+          return `<p style="margin:0 0 8px;">${line.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
+        }).join('').replace(/(<li>.*?<\/li>)+/gs, match => `<ol style="padding-left:18px;margin:8px 0;">${match}</ol>`);
+
+        html += `
+          <div style="margin-bottom:18px;border-radius:10px;overflow:hidden;border:1.5px solid ${style.border}30;">
+            <div style="background:${style.bg};padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid ${style.border}40;">
+              <span style="font-size:16px;">${style.icon}</span>
+              <span style="font-size:14px;font-weight:600;color:#1a2a3a;font-family:'DM Sans',sans-serif;">${style.label}</span>
+            </div>
+            <div style="padding:14px 18px;background:white;font-size:14.5px;line-height:1.75;color:#1a2a3a;">${bodyHtml}</div>
+          </div>`;
+      } else if (section.trim()) {
+        html += `<p style="margin-bottom:16px;font-size:15px;line-height:1.8;">${section.trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
+      }
+    });
+
+    return html || `<p>${text}</p>`;
+  }
+
+  function resetProblem() {
+    feedbackSent = false;
+    clearCategory();
+    document.getElementById('problem-input').value = '';
+    document.getElementById('response-area').innerHTML = '';
+    window.scrollTo({top: document.getElementById('step2-card').offsetTop - 20, behavior:'smooth'});
+  }
+
+  function submitFeedback(type) {
+    if (feedbackSent) return;
+    document.getElementById('fb-positive').classList.toggle('active', type === 'positive');
+    document.getElementById('fb-negative').classList.toggle('active', type === 'negative');
+    try {
+      const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]');
+      existing.push({ timestamp: new Date().toISOString(), category: selectedCategory, rating: type, userType: studentProfile.userType });
+      localStorage.setItem('samu_feedback', JSON.stringify(existing));
+    } catch(e) {}
+    if (type === 'negative') {
+      document.getElementById('feedback-comment-area').style.display = 'block';
+    } else {
+      feedbackSent = true;
+      document.getElementById('feedback-thanks').style.display = 'block';
+    }
+  }
+
+  function saveFeedbackComment() {
+    try {
+      const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]');
+      if (existing.length > 0) { existing[existing.length-1].comment = document.getElementById('feedback-comment').value.trim(); localStorage.setItem('samu_feedback', JSON.stringify(existing)); }
+    } catch(e) {}
+    feedbackSent = true;
+    document.getElementById('feedback-comment-area').style.display = 'none';
+    document.getElementById('feedback-thanks').style.display = 'block';
+  }
+
+  function showPremiumModal() { document.getElementById('premium-modal').classList.add('active'); }
+  function closePremiumModal() { document.getElementById('premium-modal').classList.remove('active'); }
+  function notifyMePremium() {
+    document.getElementById('premium-thanks').style.display = 'block';
+    try { const e = JSON.parse(localStorage.getItem('samu_premium') || '[]'); e.push({timestamp: new Date().toISOString()}); localStorage.setItem('samu_premium', JSON.stringify(e)); } catch(e) {}
+  }
+
+  function openPocModal() { document.getElementById('poc-modal').classList.add('active'); }
+  function closePocModal() { document.getElementById('poc-modal').classList.remove('active'); }
+  function setPocRating(btn, val) { document.querySelectorAll('#poc-rating-group .chip').forEach(c => c.classList.remove('selected')); btn.classList.add('selected'); pocRating = val; }
+  function setPocRecommend(btn, val) { document.querySelectorAll('#poc-recommend-group .chip').forEach(c => c.classList.remove('selected')); btn.classList.add('selected'); pocRecommend = val; }
+  function submitPocFeedback() {
+    try {
+      const e = JSON.parse(localStorage.getItem('samu_poc_feedback') || '[]');
+      e.push({ timestamp: new Date().toISOString(), rating: pocRating, wentWell: document.getElementById('poc-well').value.trim(), improve: document.getElementById('poc-improve').value.trim(), recommend: pocRecommend, userType: studentProfile.userType });
+      localStorage.setItem('samu_poc_feedback', JSON.stringify(e));
+    } catch(e) {}
+    document.getElementById('poc-thanks').style.display = 'block';
+    setTimeout(() => closePocModal(), 3000);
+  }
+</script>
+</body>
+</html>
 
