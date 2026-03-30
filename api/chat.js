@@ -80,7 +80,7 @@ Use your knowledge of ${school} to provide accurate current contact information.
       const geoData = await geoRes.json();
 
       if (!geoData.results || geoData.results.length === 0) {
-        return res.status(200).json({ results: [], error: 'Location not found' });
+        return res.status(200).json({ results: [], error: 'Location not found', debug: { geoStatus: geoData.status, geoError: geoData.error_message, location } });
       }
 
       const { lat, lng } = geoData.results[0].geometry.location;
@@ -91,7 +91,11 @@ Use your knowledge of ${school} to provide accurate current contact information.
       const placesData = await placesRes.json();
 
       if (!placesData.results) {
-        return res.status(200).json({ results: [], lat, lng });
+        return res.status(200).json({ results: [], lat, lng, debug: { status: placesData.status, error: placesData.error_message } });
+      }
+
+      if (placesData.results.length === 0) {
+        return res.status(200).json({ results: [], lat, lng, debug: { status: placesData.status, message: 'Zero results returned', query, location } });
       }
 
       const top5 = placesData.results.slice(0, 5);
@@ -142,4 +146,3 @@ Use your knowledge of ${school} to provide accurate current contact information.
     return res.status(500).json({ error: { message: err.message } });
   }
 }
-
