@@ -811,15 +811,19 @@
 
   .campus-safety-header {
     background: linear-gradient(135deg, #1a3a5c, #f47c20);
-    padding: 14px 20px;
+    padding: 12px 18px;
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    user-select: none;
   }
+
+  .campus-safety-header:hover { opacity: 0.95; }
 
   .campus-safety-header h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 15px;
+    font-size: 14px;
     color: white;
     font-weight: 700;
     flex: 1;
@@ -831,6 +835,18 @@
     color: rgba(255,255,255,0.7);
     margin: 0;
   }
+
+  .safety-toggle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .campus-safety-card.collapsed .safety-toggle { transform: rotate(-90deg); }
+  .campus-safety-card.collapsed .safety-contacts-grid { display: none; }
+  .campus-safety-card.collapsed .safety-disclaimer { display: none; }
+  .campus-safety-card.collapsed .safety-loading { display: none; }
 
   .safety-loading {
     padding: 20px;
@@ -1648,7 +1664,8 @@
       const data = await response.json();
 
       if (!data.results || data.results.length === 0) {
-        container.innerHTML = `<div class="places-container"><div class="places-header"><h4>📍 ${title}</h4></div><div class="places-error">No results found near ${location}.</div></div>`;
+        const debugMsg = data.debug ? ' (API: ' + (data.debug.status || data.debug.geoStatus || 'unknown') + ')' : '';
+        container.innerHTML = `<div class="places-container"><div class="places-header"><h4>📍 ${title}</h4></div><div class="places-error">No results found near ${location}${debugMsg}. <a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="color:var(--blue-brand);">Search on Google Maps instead →</a></div></div>`;
         return;
       }
 
@@ -1922,17 +1939,31 @@
   /* ── Campus Safety ── */
   let campusSafetyData = null;
 
+  function toggleSafety() {
+    const card = document.getElementById('safety-card');
+    if (!card) return;
+    card.classList.toggle('collapsed');
+    const toggle = card.querySelector('.safety-toggle');
+    const subtitle = card.querySelector('.campus-safety-header p');
+    if (card.classList.contains('collapsed')) {
+      if (subtitle) subtitle.textContent = 'Tap to view contacts & resources';
+    } else {
+      if (subtitle) subtitle.textContent = 'Tap to collapse · tap any number to call';
+    }
+  }
+
   async function loadCampusSafety(schoolName) {
     const container = document.getElementById('campus-safety-container');
     if (!container || !schoolName) return;
 
     container.innerHTML = `
-      <div class="campus-safety-card">
-        <div class="campus-safety-header">
+      <div class="campus-safety-card collapsed" id="safety-card">
+        <div class="campus-safety-header" onclick="toggleSafety()">
           <div>
-            <h4>🛡️ Campus Safety & Resources</h4>
-            <p>${schoolName}</p>
+            <h4>🛡️ Campus Safety & Resources — ${schoolName}</h4>
+            <p>Loading contacts...</p>
           </div>
+          <span class="safety-toggle">▼</span>
         </div>
         <div class="safety-loading">
           <div class="loading-dots"><span></span><span></span><span></span></div>
@@ -2050,12 +2081,13 @@
       '';
 
     container.innerHTML = `
-      <div class="campus-safety-card">
-        <div class="campus-safety-header">
+      <div class="campus-safety-card collapsed" id="safety-card">
+        <div class="campus-safety-header" onclick="toggleSafety()">
           <div>
-            <h4>🛡️ Campus Safety & Resources</h4>
-            <p>${schoolName} — tap any number to call</p>
+            <h4>🛡️ Campus Safety & Resources — ${schoolName}</h4>
+            <p>Tap to view contacts & resources</p>
           </div>
+          <span class="safety-toggle">▼</span>
         </div>
         <div class="safety-contacts-grid">${cards}</div>
         <div class="safety-disclaimer">
@@ -2067,7 +2099,6 @@
 </script>
 </body>
 </html>
-
 
 
 
