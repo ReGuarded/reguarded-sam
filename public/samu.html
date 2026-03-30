@@ -797,6 +797,137 @@
   .autocomplete-selected .school-selected-loc { font-size: 11px; color: var(--text-muted); }
   .autocomplete-change { font-size: 11px; color: var(--blue-light); cursor: pointer; text-decoration: underline; }
 
+
+  /* ── Campus Safety Card ── */
+  .campus-safety-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1.5px solid #f47c20;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .campus-safety-header {
+    background: linear-gradient(135deg, #1a3a5c, #f47c20);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .campus-safety-header h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    flex: 1;
+    margin: 0;
+  }
+
+  .campus-safety-header p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+  }
+
+  .safety-loading {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .safety-contacts-grid {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .safety-contact-item {
+    background: var(--blue-pale);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    transition: border-color 0.15s;
+  }
+
+  .safety-contact-item.urgent {
+    background: #fff5f5;
+    border-color: #f09595;
+  }
+
+  .safety-contact-item .contact-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .safety-contact-item.urgent .contact-label {
+    color: #a32d2d;
+  }
+
+  .safety-contact-item .contact-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-deep);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .safety-contact-item .contact-phone {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-brand);
+    text-decoration: none;
+    display: block;
+  }
+
+  .safety-contact-item.urgent .contact-phone {
+    color: #a32d2d;
+  }
+
+  .safety-contact-item .contact-phone:hover {
+    text-decoration: underline;
+  }
+
+  .safety-contact-item .contact-hours {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .safety-disclaimer {
+    padding: 10px 16px;
+    background: #fffbf0;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .safety-verify-link {
+    color: var(--orange);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  @media (max-width: 560px) {
+    .safety-contacts-grid { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -1033,6 +1164,9 @@
       </div>
     </div>
 
+    <!-- Campus Safety Card -->
+    <div id="campus-safety-container"></div>
+
     <div class="card-title">
       <span class="step-badge">Step 2 of 2</span>
       What's going on?
@@ -1232,6 +1366,7 @@
     document.getElementById('step2-card').classList.remove('hidden');
     document.getElementById('poc-feedback-btn').style.display = 'block';
     renderProfileBar();
+    if (studentProfile.school) loadCampusSafety(studentProfile.school);
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -1783,9 +1918,156 @@
     }
   });
 
+
+  /* ── Campus Safety ── */
+  let campusSafetyData = null;
+
+  async function loadCampusSafety(schoolName) {
+    const container = document.getElementById('campus-safety-container');
+    if (!container || !schoolName) return;
+
+    container.innerHTML = `
+      <div class="campus-safety-card">
+        <div class="campus-safety-header">
+          <div>
+            <h4>🛡️ Campus Safety & Resources</h4>
+            <p>${schoolName}</p>
+          </div>
+        </div>
+        <div class="safety-loading">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <span>Loading campus safety contacts...</span>
+        </div>
+      </div>`;
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'campus-safety', school: schoolName })
+      });
+
+      const data = await response.json();
+
+      if (!data.success || !data.contacts) {
+        container.innerHTML = '';
+        return;
+      }
+
+      campusSafetyData = data.contacts;
+      renderCampusSafety(schoolName, data.contacts);
+
+    } catch(err) {
+      container.innerHTML = '';
+    }
+  }
+
+  function renderCampusSafety(schoolName, contacts) {
+    const container = document.getElementById('campus-safety-container');
+    if (!container) return;
+
+    const items = [];
+
+    if (contacts.campusPolice) {
+      items.push({
+        label: 'Campus Police',
+        name: contacts.campusPolice.name || 'University Police',
+        phone: contacts.campusPolice.phone,
+        hours: contacts.campusPolice.hours || '24/7',
+        urgent: true
+      });
+    }
+
+    if (contacts.safeWalk) {
+      items.push({
+        label: 'Safe Walk / Escort',
+        name: contacts.safeWalk.name || 'Safe Walk Program',
+        phone: contacts.safeWalk.phone,
+        hours: contacts.safeWalk.description || 'Evening hours',
+        urgent: false
+      });
+    }
+
+    if (contacts.counseling) {
+      items.push({
+        label: 'Crisis & Counseling',
+        name: contacts.counseling.name || 'Counseling Services',
+        phone: contacts.counseling.phone,
+        hours: contacts.counseling.hours || '24/7 crisis line',
+        urgent: false
+      });
+    }
+
+    if (contacts.studentHealth) {
+      items.push({
+        label: 'Student Health',
+        name: contacts.studentHealth.name || 'Student Health Services',
+        phone: contacts.studentHealth.phone,
+        hours: contacts.studentHealth.hours || 'See website for hours',
+        urgent: false
+      });
+    }
+
+    if (contacts.deanOfStudents) {
+      items.push({
+        label: 'Dean of Students',
+        name: contacts.deanOfStudents.name || 'Dean of Students',
+        phone: contacts.deanOfStudents.phone,
+        hours: '',
+        urgent: false
+      });
+    }
+
+    if (contacts.other && contacts.other.length > 0) {
+      contacts.other.slice(0, 2).forEach(o => {
+        if (o.phone) {
+          items.push({
+            label: o.name || 'Campus Resource',
+            name: o.description || '',
+            phone: o.phone,
+            hours: '',
+            urgent: false
+          });
+        }
+      });
+    }
+
+    if (items.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+
+    const cards = items.map(item => `
+      <div class="safety-contact-item ${item.urgent ? 'urgent' : ''}">
+        <div class="contact-label">${item.label}</div>
+        <div class="contact-name">${item.name}</div>
+        ${item.phone ? `<a class="contact-phone" href="tel:${item.phone.replace(/[^0-9+]/g,'')}">${item.phone}</a>` : ''}
+        ${item.hours ? `<div class="contact-hours">${item.hours}</div>` : ''}
+      </div>`).join('');
+
+    const websiteLink = contacts.website ?
+      `<a class="safety-verify-link" href="${contacts.website}" target="_blank">Verify on university website →</a>` :
+      '';
+
+    container.innerHTML = `
+      <div class="campus-safety-card">
+        <div class="campus-safety-header">
+          <div>
+            <h4>🛡️ Campus Safety & Resources</h4>
+            <p>${schoolName} — tap any number to call</p>
+          </div>
+        </div>
+        <div class="safety-contacts-grid">${cards}</div>
+        <div class="safety-disclaimer">
+          ⚠️ Always verify critical numbers directly with your university. ${websiteLink}
+        </div>
+      </div>`;
+  }
+
 </script>
 </body>
 </html>
+
 
 
 
