@@ -677,9 +677,6 @@
   .places-header h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: white; font-weight: 700; flex: 1; }
   .places-header p { font-size: 11px; color: rgba(255,255,255,0.65); }
 
-  .map-container { width: 100%; height: 240px; background: #e8e8e8; position: relative; overflow: hidden; }
-  .map-container iframe { width: 100%; height: 100%; border: none; }
-
   .business-cards { background: white; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
 
   .business-card {
@@ -1697,10 +1694,7 @@
             <div><h4>📍 ${title} near ${location}</h4><p>Sorted by rating · ${data.results.length} results found</p></div>
             <a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a>
           </div>
-          <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed/v1/search?key=PLACEHOLDER&q=${encodeURIComponent(query + ' near ' + location)}&zoom=13" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="business-cards">${cards}</div>
+                    <div class="business-cards">${cards}</div>
         </div>`;
 
     } catch(err) {
@@ -2099,7 +2093,6 @@
 </script>
 </body>
 </html>
-
 
 
 
