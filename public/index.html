@@ -1896,8 +1896,6 @@
         return;
       }
 
-      const mapUrl = `https://www.google.com/maps/embed/v1/search?key=${window.GMAPS_KEY || ''}&q=${encodeURIComponent(query)}&center=${data.centerLat},${data.centerLng}&zoom=13`;
-
       const cards = data.results.map((b, i) => {
         const stars = b.rating ? '★'.repeat(Math.round(b.rating)) + '☆'.repeat(5 - Math.round(b.rating)) : '';
         const openBadge = b.isOpen === true ? '<span class="open-badge open">Open now</span>' :
@@ -1931,10 +1929,7 @@
             </div>
             <a href="https://www.google.com/maps/search/${encodeURIComponent(query)}+near+${encodeURIComponent(location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a>
           </div>
-          <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed/v1/search?key=AIzaSyPLACEHOLDER&q=${encodeURIComponent(query + ' near ' + location)}&zoom=13" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="business-cards">${cards}</div>
+                    <div class="business-cards">${cards}</div>
         </div>`;
 
     } catch(err) {
@@ -1948,26 +1943,45 @@
     if (!location) return;
 
     const searches = [];
+    const cat = selectedCategory || '';
 
-    if (/auto|mechanic|repair|oil change|battery|tire|car|vehicle/i.test(responseText) && !/AutoZone|O'Reilly|Advance Auto/i.test(responseText)) {
+    // Auto repair — only for car/vehicle categories, not tech/internet
+    if (/mechanic|auto repair|oil change|check engine|brake|transmission/i.test(responseText)) {
       searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
     }
-    if (/plumb|pipe|leak|drain|water heater/i.test(responseText)) {
-      searches.push({ query: 'plumber', title: 'Plumbers', icon: '🔧' });
+
+    // Battery/auto parts — specific trigger
+    if (/battery|dead battery|jump start|AutoZone|auto parts/i.test(responseText)) {
+      searches.push({ query: 'AutoZone auto parts', title: 'Auto Parts Stores', icon: '🔩' });
     }
-    if (/electrician|electrical|wiring|circuit|outlet/i.test(responseText)) {
+
+    // Plumber
+    if (/plumb|pipe|leak|drain|water heater|clog/i.test(responseText)) {
+      searches.push({ query: 'plumber', title: 'Plumbers', icon: '🚿' });
+    }
+
+    // Electrician
+    if (/electrician|electrical|wiring|circuit breaker|outlet|power outage/i.test(responseText)) {
       searches.push({ query: 'electrician', title: 'Electricians', icon: '⚡' });
     }
-    if (/HVAC|air condition|heating|furnace|AC unit/i.test(responseText)) {
+
+    // HVAC
+    if (/HVAC|air condition|heating|furnace|AC unit|heat pump/i.test(responseText)) {
       searches.push({ query: 'HVAC repair', title: 'HVAC Services', icon: '❄️' });
     }
-    if (/attorney|lawyer|legal|bail|arrest/i.test(responseText)) {
+
+    // Attorney
+    if (/attorney|lawyer|legal advice|lawsuit|scam report/i.test(responseText)) {
       searches.push({ query: 'attorney lawyer', title: 'Attorneys', icon: '⚖️' });
     }
-    if (/urgent care|doctor|clinic|medical/i.test(responseText)) {
+
+    // Medical
+    if (/urgent care|doctor|clinic|emergency room/i.test(responseText) && cat === 'Medical Help') {
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
     }
-    if (/pharmacy|prescription|medication/i.test(responseText)) {
+
+    // Pharmacy
+    if (/pharmacy|prescription|medication/i.test(responseText) && cat === 'Medical Help') {
       searches.push({ query: 'pharmacy', title: 'Pharmacies', icon: '💊' });
     }
 
@@ -1975,17 +1989,31 @@
 
     const searchDiv = document.createElement('div');
     searchDiv.style.cssText = 'padding:16px 18px;background:#fafaf7;border-top:1px solid var(--border);';
-    searchDiv.innerHTML = `
-      <p style="font-size:13px;font-weight:500;color:var(--purple-deep);margin-bottom:10px;">📍 Find trusted providers near ${location}:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;" id="search-buttons-${Date.now()}">
-        ${searches.map((s, i) => `
-          <button class="search-trigger" onclick="searchNearby('${s.query}','${location}','search-results-${i}','${s.title}')">
-            ${s.icon} Find ${s.title}
-          </button>
-          <div id="search-results-${i}"></div>
-        `).join('')}
-      </div>`;
 
+    const titleEl = document.createElement('p');
+    titleEl.style.cssText = 'font-size:13px;font-weight:500;color:var(--purple-deep);margin-bottom:10px;';
+    titleEl.textContent = '📍 Find trusted providers near ' + location + ':';
+    searchDiv.appendChild(titleEl);
+
+    const btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
+
+    searches.forEach(function(s, i) {
+      const resultId = 'fam-sr-' + i + '-' + Date.now();
+      const btn = document.createElement('button');
+      btn.className = 'search-trigger';
+      btn.textContent = s.icon + ' Find ' + s.title;
+      btn.addEventListener('click', function() {
+        searchNearby(s.query, location, resultId, s.title);
+      });
+      const resultDiv = document.createElement('div');
+      resultDiv.id = resultId;
+      resultDiv.style.width = '100%';
+      btnRow.appendChild(btn);
+      btnRow.appendChild(resultDiv);
+    });
+
+    searchDiv.appendChild(btnRow);
     responseContainer.appendChild(searchDiv);
   }
 
