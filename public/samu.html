@@ -718,6 +718,85 @@
   .places-loading { padding: 32px; text-align: center; color: var(--text-muted); font-size: 14px; background: white; }
   .places-error { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; background: white; }
 
+
+  /* ── School Autocomplete ── */
+  .autocomplete-wrapper { position: relative; }
+
+  .autocomplete-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .autocomplete-input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    background: var(--white);
+  }
+
+  .autocomplete-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1.5px solid var(--blue-muted);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    display: none;
+  }
+
+  .autocomplete-dropdown.open { display: block; }
+
+  .autocomplete-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.12s;
+  }
+
+  .autocomplete-item:last-child { border-bottom: none; }
+  .autocomplete-item:hover { background: var(--blue-pale); }
+
+  .autocomplete-item .school-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-deep);
+  }
+
+  .autocomplete-item .school-location {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .autocomplete-selected {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--blue-pale);
+    border: 1.5px solid var(--blue-brand);
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+  }
+
+  .autocomplete-selected.visible { display: flex; }
+  .autocomplete-selected .school-selected-name { font-size: 13px; font-weight: 500; color: var(--blue-deep); flex: 1; }
+  .autocomplete-selected .school-selected-loc { font-size: 11px; color: var(--text-muted); }
+  .autocomplete-change { font-size: 11px; color: var(--blue-light); cursor: pointer; text-decoration: underline; }
+
 </style>
 </head>
 <body>
@@ -857,8 +936,20 @@
         </div>
         <div class="field">
           <label id="school-label">University / College</label>
-          <input type="text" id="student-school" placeholder="e.g. University of Texas"/>
-          <div class="field-hint">Helps Sam give locally relevant advice and resources.</div>
+          <div class="autocomplete-wrapper">
+            <input type="text" id="school-search" class="autocomplete-input" placeholder="Type to search (e.g. Texas, Michigan, USC...)" autocomplete="off" oninput="filterSchools(this.value)" onfocus="filterSchools(this.value)"/>
+            <div class="autocomplete-dropdown" id="school-dropdown"></div>
+          </div>
+          <div class="autocomplete-selected" id="school-selected">
+            <div>
+              <div class="school-selected-name" id="school-selected-name"></div>
+              <div class="school-selected-loc" id="school-selected-loc"></div>
+            </div>
+            <span class="autocomplete-change" onclick="clearSchool()">Change</span>
+          </div>
+          <input type="hidden" id="student-school" value=""/>
+          <input type="hidden" id="student-school-address" value=""/>
+          <div class="field-hint">Start typing your school name — Sam uses the exact location for local searches.</div>
         </div>
       </div>
 
@@ -1127,7 +1218,8 @@
     studentProfile = {
       name,
       userType: selectedUserType,
-      school: document.getElementById('student-school').value.trim(),
+      school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(),
+      schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(),
       year: document.getElementById('student-year').value,
       housing: document.getElementById('student-housing').value,
       hasCar: getSelectedChips('car-group'),
@@ -1466,29 +1558,30 @@
 
   function detectAndAddSearchSamu(responseText, responseContainer) {
     const p = studentProfile;
-    const location = p.school || 'near campus';
+    const location = p.schoolAddress || p.school || 'near campus';
     const searches = [];
 
-    if (/auto|mechanic|repair|battery|tire|car|vehicle/i.test(responseText)) {
+    const cat = selectedCategory || '';
+    if (/battery|dead battery|won.t start|jump start/i.test(responseText)) {
+      searches.push({ query: 'AutoZone auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
+    }
+    if (/mechanic|auto repair|check engine|oil change|brake|tire/i.test(responseText) && !/battery|dead battery/i.test(responseText)) {
       searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
     }
-    if (/AutoZone|auto parts|Advance Auto/i.test(responseText)) {
-      searches.push({ query: 'auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
+    if (/tow|towing|tow truck|broken down|roadside|stuck on/i.test(responseText)) {
+      searches.push({ query: 'tow truck roadside assistance', title: 'Towing & Roadside', icon: '🚛' });
     }
-    if (/attorney|lawyer|criminal defense|arrested/i.test(responseText)) {
+    if (/attorney|lawyer|criminal defense|bail|arraignment|Miranda/i.test(responseText)) {
       searches.push({ query: 'criminal defense attorney', title: 'Defense Attorneys', icon: '⚖️' });
     }
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
     }
-    if (/urgent care|clinic|doctor|ER|emergency room/i.test(responseText)) {
+    if (/urgent care|ER|emergency room|hospital|student health/i.test(responseText) && cat === 'Health & Insurance Navigation') {
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
     }
-    if (/pharmacy|prescription/i.test(responseText)) {
+    if (/pharmacy|prescription|medication/i.test(responseText) && cat === 'Health & Insurance Navigation') {
       searches.push({ query: 'pharmacy', title: 'Pharmacies', icon: '💊' });
-    }
-    if (/tow truck|towing|roadside/i.test(responseText)) {
-      searches.push({ query: 'tow truck roadside assistance', title: 'Towing Services', icon: '🚛' });
     }
 
     if (searches.length === 0) return;
@@ -1523,9 +1616,177 @@
     responseContainer.appendChild(searchDiv);
   }
 
+
+  /* ── Universities Database ── */
+  const UNIVERSITIES = [
+    { name: "University of Texas at Austin", city: "Austin, TX", address: "110 Inner Campus Dr, Austin, TX 78712" },
+    { name: "Texas A&M University", city: "College Station, TX", address: "400 Bizzell St, College Station, TX 77843" },
+    { name: "Texas Tech University", city: "Lubbock, TX", address: "2500 Broadway, Lubbock, TX 79409" },
+    { name: "University of Houston", city: "Houston, TX", address: "4800 Calhoun Rd, Houston, TX 77004" },
+    { name: "Baylor University", city: "Waco, TX", address: "1301 S University Parks Dr, Waco, TX 76706" },
+    { name: "Texas Christian University (TCU)", city: "Fort Worth, TX", address: "2800 S University Dr, Fort Worth, TX 76129" },
+    { name: "Southern Methodist University (SMU)", city: "Dallas, TX", address: "6425 Boaz Ln, Dallas, TX 75205" },
+    { name: "University of North Texas", city: "Denton, TX", address: "1155 Union Cir, Denton, TX 76203" },
+    { name: "University of Mississippi (Ole Miss)", city: "Oxford, MS", address: "University Ave, Oxford, MS 38677" },
+    { name: "Mississippi State University", city: "Starkville, MS", address: "75 B S Stone Blvd, Starkville, MS 39762" },
+    { name: "University of Alabama", city: "Tuscaloosa, AL", address: "739 University Blvd, Tuscaloosa, AL 35487" },
+    { name: "Auburn University", city: "Auburn, AL", address: "Auburn, AL 36849" },
+    { name: "University of Georgia", city: "Athens, GA", address: "Athens, GA 30602" },
+    { name: "Georgia Tech", city: "Atlanta, GA", address: "225 North Ave NW, Atlanta, GA 30332" },
+    { name: "Florida State University", city: "Tallahassee, FL", address: "600 W College Ave, Tallahassee, FL 32306" },
+    { name: "University of Florida", city: "Gainesville, FL", address: "Gainesville, FL 32611" },
+    { name: "University of Miami", city: "Coral Gables, FL", address: "Coral Gables, FL 33146" },
+    { name: "Louisiana State University (LSU)", city: "Baton Rouge, LA", address: "Baton Rouge, LA 70803" },
+    { name: "Tulane University", city: "New Orleans, LA", address: "6823 St Charles Ave, New Orleans, LA 70118" },
+    { name: "Vanderbilt University", city: "Nashville, TN", address: "2201 West End Ave, Nashville, TN 37235" },
+    { name: "University of Tennessee", city: "Knoxville, TN", address: "Knoxville, TN 37996" },
+    { name: "University of Kentucky", city: "Lexington, KY", address: "Lexington, KY 40506" },
+    { name: "University of South Carolina", city: "Columbia, SC", address: "Columbia, SC 29208" },
+    { name: "Clemson University", city: "Clemson, SC", address: "Clemson, SC 29634" },
+    { name: "Duke University", city: "Durham, NC", address: "Durham, NC 27708" },
+    { name: "University of North Carolina at Chapel Hill", city: "Chapel Hill, NC", address: "Chapel Hill, NC 27599" },
+    { name: "North Carolina State University", city: "Raleigh, NC", address: "Raleigh, NC 27695" },
+    { name: "Wake Forest University", city: "Winston-Salem, NC", address: "Winston-Salem, NC 27109" },
+    { name: "Virginia Tech", city: "Blacksburg, VA", address: "Blacksburg, VA 24061" },
+    { name: "University of Virginia", city: "Charlottesville, VA", address: "Charlottesville, VA 22904" },
+    { name: "Georgetown University", city: "Washington, DC", address: "37th and O Streets NW, Washington, DC 20057" },
+    { name: "George Washington University", city: "Washington, DC", address: "2121 I St NW, Washington, DC 20052" },
+    { name: "American University", city: "Washington, DC", address: "4400 Massachusetts Ave NW, Washington, DC 20016" },
+    { name: "Harvard University", city: "Cambridge, MA", address: "Cambridge, MA 02138" },
+    { name: "MIT", city: "Cambridge, MA", address: "77 Massachusetts Ave, Cambridge, MA 02139" },
+    { name: "Boston University", city: "Boston, MA", address: "Boston, MA 02215" },
+    { name: "Northeastern University", city: "Boston, MA", address: "360 Huntington Ave, Boston, MA 02115" },
+    { name: "Tufts University", city: "Medford, MA", address: "Medford, MA 02155" },
+    { name: "Brown University", city: "Providence, RI", address: "Providence, RI 02912" },
+    { name: "Yale University", city: "New Haven, CT", address: "New Haven, CT 06520" },
+    { name: "University of Connecticut", city: "Storrs, CT", address: "Storrs, CT 06269" },
+    { name: "Columbia University", city: "New York, NY", address: "116th St & Broadway, New York, NY 10027" },
+    { name: "New York University (NYU)", city: "New York, NY", address: "70 Washington Square S, New York, NY 10012" },
+    { name: "Fordham University", city: "New York, NY", address: "441 E Fordham Rd, Bronx, NY 10458" },
+    { name: "Cornell University", city: "Ithaca, NY", address: "Ithaca, NY 14853" },
+    { name: "Syracuse University", city: "Syracuse, NY", address: "Syracuse, NY 13244" },
+    { name: "University of Rochester", city: "Rochester, NY", address: "Rochester, NY 14627" },
+    { name: "Princeton University", city: "Princeton, NJ", address: "Princeton, NJ 08544" },
+    { name: "Rutgers University", city: "New Brunswick, NJ", address: "New Brunswick, NJ 08901" },
+    { name: "University of Pennsylvania", city: "Philadelphia, PA", address: "Philadelphia, PA 19104" },
+    { name: "Penn State University", city: "State College, PA", address: "State College, PA 16801" },
+    { name: "Temple University", city: "Philadelphia, PA", address: "Philadelphia, PA 19122" },
+    { name: "Carnegie Mellon University", city: "Pittsburgh, PA", address: "Pittsburgh, PA 15213" },
+    { name: "University of Pittsburgh", city: "Pittsburgh, PA", address: "Pittsburgh, PA 15260" },
+    { name: "Johns Hopkins University", city: "Baltimore, MD", address: "Baltimore, MD 21218" },
+    { name: "University of Maryland", city: "College Park, MD", address: "College Park, MD 20742" },
+    { name: "Ohio State University", city: "Columbus, OH", address: "Columbus, OH 43210" },
+    { name: "University of Cincinnati", city: "Cincinnati, OH", address: "Cincinnati, OH 45221" },
+    { name: "Case Western Reserve University", city: "Cleveland, OH", address: "Cleveland, OH 44106" },
+    { name: "University of Michigan", city: "Ann Arbor, MI", address: "Ann Arbor, MI 48109" },
+    { name: "Michigan State University", city: "East Lansing, MI", address: "East Lansing, MI 48824" },
+    { name: "Indiana University", city: "Bloomington, IN", address: "Bloomington, IN 47405" },
+    { name: "Purdue University", city: "West Lafayette, IN", address: "West Lafayette, IN 47907" },
+    { name: "Notre Dame University", city: "Notre Dame, IN", address: "Notre Dame, IN 46556" },
+    { name: "Northwestern University", city: "Evanston, IL", address: "Evanston, IL 60208" },
+    { name: "University of Chicago", city: "Chicago, IL", address: "Chicago, IL 60637" },
+    { name: "University of Illinois Urbana-Champaign", city: "Champaign, IL", address: "Champaign, IL 61820" },
+    { name: "University of Wisconsin-Madison", city: "Madison, WI", address: "Madison, WI 53706" },
+    { name: "University of Minnesota", city: "Minneapolis, MN", address: "Minneapolis, MN 55455" },
+    { name: "Iowa State University", city: "Ames, IA", address: "Ames, IA 50011" },
+    { name: "University of Iowa", city: "Iowa City, IA", address: "Iowa City, IA 52242" },
+    { name: "University of Missouri", city: "Columbia, MO", address: "Columbia, MO 65211" },
+    { name: "Washington University in St. Louis", city: "St. Louis, MO", address: "St. Louis, MO 63130" },
+    { name: "University of Kansas", city: "Lawrence, KS", address: "Lawrence, KS 66045" },
+    { name: "Kansas State University", city: "Manhattan, KS", address: "Manhattan, KS 66506" },
+    { name: "University of Nebraska-Lincoln", city: "Lincoln, NE", address: "Lincoln, NE 68588" },
+    { name: "University of Oklahoma", city: "Norman, OK", address: "Norman, OK 73019" },
+    { name: "Oklahoma State University", city: "Stillwater, OK", address: "Stillwater, OK 74078" },
+    { name: "University of Arkansas", city: "Fayetteville, AR", address: "Fayetteville, AR 72701" },
+    { name: "University of Colorado Boulder", city: "Boulder, CO", address: "Boulder, CO 80309" },
+    { name: "Colorado State University", city: "Fort Collins, CO", address: "Fort Collins, CO 80523" },
+    { name: "University of Utah", city: "Salt Lake City, UT", address: "Salt Lake City, UT 84112" },
+    { name: "Brigham Young University (BYU)", city: "Provo, UT", address: "Provo, UT 84602" },
+    { name: "University of Arizona", city: "Tucson, AZ", address: "Tucson, AZ 85721" },
+    { name: "Arizona State University", city: "Tempe, AZ", address: "Tempe, AZ 85281" },
+    { name: "University of New Mexico", city: "Albuquerque, NM", address: "Albuquerque, NM 87131" },
+    { name: "University of Nevada Las Vegas (UNLV)", city: "Las Vegas, NV", address: "Las Vegas, NV 89154" },
+    { name: "University of Nevada Reno", city: "Reno, NV", address: "Reno, NV 89557" },
+    { name: "UCLA", city: "Los Angeles, CA", address: "Los Angeles, CA 90095" },
+    { name: "USC (University of Southern California)", city: "Los Angeles, CA", address: "Los Angeles, CA 90089" },
+    { name: "UC Berkeley", city: "Berkeley, CA", address: "Berkeley, CA 94720" },
+    { name: "UC San Diego", city: "San Diego, CA", address: "San Diego, CA 92093" },
+    { name: "UC Davis", city: "Davis, CA", address: "Davis, CA 95616" },
+    { name: "UC Santa Barbara", city: "Santa Barbara, CA", address: "Santa Barbara, CA 93106" },
+    { name: "Stanford University", city: "Stanford, CA", address: "Stanford, CA 94305" },
+    { name: "San Diego State University", city: "San Diego, CA", address: "San Diego, CA 92182" },
+    { name: "Cal Poly San Luis Obispo", city: "San Luis Obispo, CA", address: "San Luis Obispo, CA 93407" },
+    { name: "University of Oregon", city: "Eugene, OR", address: "Eugene, OR 97403" },
+    { name: "Oregon State University", city: "Corvallis, OR", address: "Corvallis, OR 97331" },
+    { name: "University of Washington", city: "Seattle, WA", address: "Seattle, WA 98195" },
+    { name: "Washington State University", city: "Pullman, WA", address: "Pullman, WA 99164" },
+    { name: "University of Hawaii", city: "Honolulu, HI", address: "Honolulu, HI 96822" },
+    { name: "Spelman College", city: "Atlanta, GA", address: "350 Spelman Ln SW, Atlanta, GA 30314" },
+    { name: "Howard University", city: "Washington, DC", address: "2400 6th St NW, Washington, DC 20059" },
+    { name: "Morehouse College", city: "Atlanta, GA", address: "830 Westview Dr SW, Atlanta, GA 30314" }
+  ];
+
+  let selectedSchool = null;
+
+  function filterSchools(query) {
+    const dropdown = document.getElementById('school-dropdown');
+    if (!query || query.length < 2) {
+      dropdown.classList.remove('open');
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const matches = UNIVERSITIES.filter(u =>
+      u.name.toLowerCase().includes(q) ||
+      u.city.toLowerCase().includes(q)
+    ).slice(0, 8);
+
+    if (matches.length === 0) {
+      dropdown.classList.remove('open');
+      return;
+    }
+
+    dropdown.innerHTML = matches.map((u, i) => `
+      <div class="autocomplete-item" onclick="selectSchool(${UNIVERSITIES.indexOf(u)})">
+        <div class="school-name">${u.name}</div>
+        <div class="school-location">${u.city}</div>
+      </div>`).join('');
+
+    dropdown.classList.add('open');
+  }
+
+  function selectSchool(idx) {
+    const school = UNIVERSITIES[idx];
+    selectedSchool = school;
+
+    document.getElementById('student-school').value = school.address;
+    document.getElementById('student-school-address').value = school.address;
+    document.getElementById('school-search').value = '';
+    document.getElementById('school-dropdown').classList.remove('open');
+
+    document.getElementById('school-selected-name').textContent = school.name;
+    document.getElementById('school-selected-loc').textContent = school.city;
+    document.getElementById('school-selected').classList.add('visible');
+  }
+
+  function clearSchool() {
+    selectedSchool = null;
+    document.getElementById('student-school').value = '';
+    document.getElementById('student-school-address').value = '';
+    document.getElementById('school-search').value = '';
+    document.getElementById('school-selected').classList.remove('visible');
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.autocomplete-wrapper')) {
+      document.getElementById('school-dropdown').classList.remove('open');
+    }
+  });
+
 </script>
 </body>
 </html>
+
 
 
 
