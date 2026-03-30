@@ -7,8 +7,70 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { type, system, messages, max_tokens, query, location, radius } = req.body;
+    const { type, system, messages, max_tokens, query, location, radius, school, schoolUrl } = req.body;
 
+    // ── CAMPUS SAFETY LOOKUP ──
+    if (type === 'campus-safety') {
+      const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
+
+      const prompt = `You are a research assistant helping find campus safety and security contact information for college students and their parents.
+
+Search for and extract the current safety and security resources for: ${school}
+
+Look for these specific resources:
+1. Campus Police / University Police (main number)
+2. Campus Police Emergency number (if different)
+3. Safe Walk / Safe Ride / Escort Service (name and number)
+4. Student Health Services / Campus Health (main number)
+5. Counseling & Mental Health Crisis Line (24/7 if available)
+6. Title IX Office
+7. Dean of Students emergency contact
+8. Any other critical 24/7 safety resources
+
+Return ONLY a JSON object in this exact format, no other text:
+{
+  "campusPolice": { "name": "...", "phone": "...", "hours": "24/7" },
+  "safeWalk": { "name": "...", "phone": "...", "description": "..." },
+  "studentHealth": { "name": "...", "phone": "...", "hours": "..." },
+  "counseling": { "name": "...", "phone": "...", "hours": "24/7 crisis line" },
+  "titleIX": { "name": "...", "phone": "...", "email": "..." },
+  "deanOfStudents": { "name": "...", "phone": "..." },
+  "other": [
+    { "name": "...", "phone": "...", "description": "..." }
+  ],
+  "website": "official safety page URL",
+  "lastVerified": "Please verify these numbers directly with the university"
+}
+
+Use your knowledge of ${school} to provide accurate current contact information. If you are not certain of a specific number, omit that field rather than guess.`;
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+
+      const data = await response.json();
+      const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+
+      try {
+        const clean = text.replace(/```json|```/g, '').trim();
+        const parsed = JSON.parse(clean);
+        return res.status(200).json({ success: true, contacts: parsed });
+      } catch(e) {
+        return res.status(200).json({ success: false, error: 'Could not parse contacts', raw: text });
+      }
+    }
+
+    // ── PLACES SEARCH ──
     if (type === 'places') {
       const GOOGLE_KEY = process.env.GOOGLE_MAPS_API_KEY;
       if (!GOOGLE_KEY) return res.status(500).json({ error: 'Google Maps API key not configured' });
@@ -56,6 +118,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ results: detailed, centerLat: lat, centerLng: lng });
     }
 
+    // ── AI CHAT ──
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
