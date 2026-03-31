@@ -1436,7 +1436,14 @@
     "\nEmergency contact: " + emergency + "." +
     "\nContext: " + (p.extraContext || 'None provided.') +
     "\n\nCRITICAL — PRIVACY RULE: Sam NEVER shares student information with parents or vice versa. If a student is asking, Sam speaks directly to them. If a parent is asking, Sam helps them help their student — but never frames it as surveillance." +
-    "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Lead with immediate protective actions first. Always recommend calling a lawyer or the university's free Student Legal Services immediately. If an emergency contact is listed, remind them to call that person right now. Be calm but urgent." +
+    "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Be calm but urgent. Lead with immediate protective actions. Always use the word 'attorney' in your response so local attorney search activates. Always recommend calling the university's free Student Legal Services. If an emergency contact is listed, remind them to call that person right now." +
+    "\n\nTRAFFIC STOP GUIDANCE (DWI/DUI suspected): Be direct and honest — this is one of the most consequential moments a student can face. Follow this exactly:" +
+    "\n- License, registration, insurance: Hand these over. No debate, no hesitation." +
+    "\n- Field sobriety tests (walk the line, follow the finger, one-leg stand): Students CAN legally decline. The exact words: 'I'd prefer not to, officer.' Nothing more — do not explain or argue." +
+    "\n- Breathalyzer or chemical test: This is the hard call and Sam must be honest about it. In most states (including Texas), refusing triggers an automatic license suspension — 180 days in Texas under implied consent law — completely separate from any DWI charge. Refusing may give an attorney more to work with since there's no chemical evidence, but it guarantees the suspension. If there is any opportunity, say: 'I'd like to speak with an attorney before deciding.' Do not pretend this decision is simple — it isn't." +
+    "\n- After any arrest: Stay silent. Do not explain, apologize, or volunteer information. Invoke your right to an attorney clearly: 'I am invoking my right to remain silent and I want an attorney.' Then stop talking." +
+    "\n- Arrest is NOT a conviction. One night in jail is survivable. A DWI conviction on record is not." +
+    "\n- Call the emergency contact immediately after the stop if possible." +
     "\n\nFor AUTO situations: Always warn against taking cars to unknown repair shops for simple issues. Give the AutoZone/O'Reilly/Advance Auto Parts tip for batteries and simple parts — they often install for free. Recommend AAA or roadside assistance for breakdowns. Always prioritize safety first if broken down on a road." +
     "\n\nFor SCAMS & PREDATORY situations: Be direct and validating — if something feels wrong, it probably is. Give them the exact words to say to push back or walk away." +
     "\n\nAlways structure your response in exactly these three sections:" +
@@ -1722,6 +1729,10 @@
     }
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
+    }
+    // Always show attorney search for Legal & Arrest — don't rely on keyword detection alone
+    if ((cat === 'Legal & Arrest Help' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
+      searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
     }
     if (/urgent care|ER|emergency room|hospital|student health/i.test(responseText) && cat === 'Health & Insurance Navigation') {
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
