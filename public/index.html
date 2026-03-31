@@ -1062,8 +1062,8 @@
     <div class="feature-grid">
       <div class="feature-item">
         <span class="f-icon">📺</span>
-        <div class="f-title">Tech help</div>
-        <div class="f-desc">Plain-English answers for their exact devices and services</div>
+        <div class="f-title">Tech, TV & internet</div>
+        <div class="f-desc">Plain-English fixes for devices, streaming, WiFi and internet</div>
       </div>
       <div class="feature-item">
         <span class="f-icon">🛡️</span>
@@ -1075,15 +1075,21 @@
         <div class="f-title">Billing defense</div>
         <div class="f-desc">Identify mystery charges and get dispute scripts that work</div>
       </div>
-      <div class="feature-item">
-        <span class="f-icon">📶</span>
-        <div class="f-title">WiFi & internet</div>
-        <div class="f-desc">Step-by-step fixes specific to their provider and router</div>
-      </div>
+
       <div class="feature-item">
         <span class="f-icon">📧</span>
         <div class="f-title">Email & passwords</div>
         <div class="f-desc">Get back in without the frustration of generic tutorials</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">🚗</span>
+        <div class="f-title">Car trouble & auto</div>
+        <div class="f-desc">Don't let a mechanic take advantage — get the facts first</div>
+      </div>
+      <div class="feature-item">
+        <span class="f-icon">🏠</span>
+        <div class="f-title">Home repair & contractors</div>
+        <div class="f-desc">Protect against predatory contractors and storm-chaser scams</div>
       </div>
       <div class="feature-item" style="background:#E1F5EE;border-color:#9FE1CB;">
         <span class="f-icon">🏥</span>
@@ -1308,9 +1314,9 @@
     <div class="card-subtitle">What's going on? Choose a category and tell Sam what's happening — in plain language, exactly as your parent described it.</div>
 
     <div class="category-grid" id="category-grid">
-      <div class="cat-card" data-cat="Streaming &amp; TV" data-placeholder="e.g. Mom can't find YouTube TV after turning on the TV. She gets a black screen or lands on the wrong input." onclick="selectCategory(this)">
+      <div class="cat-card" data-cat="Tech, TV &amp; Internet Help" data-placeholder="e.g. The WiFi stopped working and nothing will connect. Or Mom can't find her shows on TV. Or the router lights look different. Describe what's happening and Sam will walk her through it." onclick="selectCategory(this)">
         <span class="cat-icon">📺</span>
-        <span class="cat-label">Streaming &amp; TV</span>
+        <span class="cat-label">Tech, TV &amp; Internet</span>
       </div>
       <div class="cat-card" data-cat="Email &amp; Passwords" data-placeholder="e.g. She's locked out of her Gmail and can't remember the password. It's asking for a verification code she's not getting." onclick="selectCategory(this)">
         <span class="cat-icon">📧</span>
@@ -1324,10 +1330,7 @@
         <span class="cat-icon">💳</span>
         <span class="cat-label">Billing &amp; Charges</span>
       </div>
-      <div class="cat-card" data-cat="WiFi &amp; Internet" data-placeholder="e.g. The WiFi stopped working and nothing in the house can connect. The router lights look different than usual." onclick="selectCategory(this)">
-        <span class="cat-icon">📶</span>
-        <span class="cat-label">WiFi &amp; Internet</span>
-      </div>
+
       <div class="cat-card" data-cat="Phone or Device Help" data-placeholder="e.g. Her iPhone keeps asking her to update and she's scared to press anything. The screen looks different than before." onclick="selectCategory(this)">
         <span class="cat-icon">📱</span>
         <span class="cat-label">Phone &amp; Device</span>
@@ -1335,6 +1338,10 @@
       <div class="cat-card" data-cat="Car Trouble & Auto Help" data-placeholder="e.g. The mechanic says Mom needs a new transmission but she only went in for an oil change. Something feels off — the estimate is $1,800. What should she do?" onclick="selectCategory(this)">
         <span class="cat-icon">🚗</span>
         <span class="cat-label">Car Trouble &amp; Auto</span>
+      </div>
+      <div class="cat-card" data-cat="Home Repair & Contractors" data-placeholder="e.g. A contractor came to the door after the storm and said Mom needs a new roof for $12,000. He wants a deposit today. Is this legitimate? What should she do?" onclick="selectCategory(this)">
+        <span class="cat-icon">🏠</span>
+        <span class="cat-label">Home Repair &amp; Contractors</span>
       </div>
       <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
         <span class="cat-icon">💬</span>
@@ -1553,7 +1560,9 @@
     "\n2-3 practical things to set up or remember for long-term protection. End with one warm reassuring sentence." +
     "\n\nRules: Simple jargon-free language. Always tailor to " + p.name + "'s specific devices and services. Keep total response under 450 words. Never number across sections." +
     "\n\nVULNERABILITY AWARENESS: The parent's known vulnerabilities are listed in the profile. Use them intelligently — if memory loss or cognitive decline is noted, use simpler steps, shorter sentences, and extra reassurance. If they live alone or are socially isolated, acknowledge the emotional dimension warmly. If they have a history of scams, be more vigilant and protective in tone. If the emergency contact is listed and the issue is serious (scam, financial fraud, account compromise), remind the adult child to loop in that contact." +
-    "\n\nFor CAR TROUBLE & AUTO situations: Elderly parents are prime targets for mechanic price gouging. Validate their concern — if something feels off, it probably is. Key reminders: (1) They have the right to get their car back uninspected at any time. (2) Get a second opinion for any repair over $300. (3) For batteries — AutoZone and O'Reilly offer free testing and often free installation. (4) Never authorize work verbally — insist on written estimates. (5) If pressured, call a family member first.\n\nANALOG FIRST PRINCIPLE: This generation trusts physical information. Wherever relevant — especially in Next Steps and Prevention Protocol — suggest analog backup strategies: writing passwords on an index card kept in a safe place, taking a photo of a router label or TV screen, printing a confirmation email, keeping a handwritten list of account names. These suggestions will feel natural and reassuring to seniors and their adult children. Simple solutions always beat clever ones.";
+    "\n\nFor HOME REPAIR & CONTRACTORS situations: Elderly homeowners living independently are prime targets for predatory contractors — especially after storms. Key protections: (1) NEVER pay a large deposit upfront — legitimate contractors don't require more than 10-15% down. (2) Never sign anything at the door — always get 2-3 written estimates. (3) Storm chasers and door-to-door solicitors are almost always scams — legitimate contractors don't solicit door to door. (4) Always verify contractor license and insurance — call the state licensing board. (5) Check reviews on Google, BBB, and Angi before hiring anyone. (6) For HVAC, plumbing, or electrical — always get a second opinion before authorizing major work. (7) If they feel pressured to decide immediately, that IS the red flag. Legitimate contractors will wait.
+
+For CAR TROUBLE & AUTO situations: Elderly parents are prime targets for mechanic price gouging. Validate their concern — if something feels off, it probably is. Key reminders: (1) They have the right to get their car back uninspected at any time. (2) Get a second opinion for any repair over $300. (3) For batteries — AutoZone and O'Reilly offer free testing and often free installation. (4) Never authorize work verbally — insist on written estimates. (5) If pressured, call a family member first.\n\nANALOG FIRST PRINCIPLE: This generation trusts physical information. Wherever relevant — especially in Next Steps and Prevention Protocol — suggest analog backup strategies: writing passwords on an index card kept in a safe place, taking a photo of a router label or TV screen, printing a confirmation email, keeping a handwritten list of account names. These suggestions will feel natural and reassuring to seniors and their adult children. Simple solutions always beat clever ones.";
   }
 
   async function getHelp() {
@@ -1959,6 +1968,11 @@
       searches.push({ query: 'AutoZone auto parts', title: 'Auto Parts Stores', icon: '🔩' });
     }
 
+    // Home repair / contractor
+    if (/contractor|roofer|roof|siding|gutter|foundation|driveway|storm damage|water damage|mold/i.test(responseText)) {
+      searches.push({ query: 'contractor home repair', title: 'Home Repair Contractors', icon: '🏠' });
+    }
+
     // Plumber
     if (/plumb|pipe|leak|drain|water heater|clog/i.test(responseText)) {
       searches.push({ query: 'plumber', title: 'Plumbers', icon: '🚿' });
@@ -2024,3 +2038,4 @@
 </script>
 </body>
 </html>
+
