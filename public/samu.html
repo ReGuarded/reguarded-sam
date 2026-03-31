@@ -7,28 +7,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --blue-deep:     #1a3a5c;
-    --blue-mid:      #1e5799;
-    --blue-brand:    #2272c3;
-    --blue-light:    #5b9fd6;
-    --blue-pale:     #e8f2fb;
-    --blue-muted:    #a8cce8;
-    --orange:        #f47c20;
-    --orange-light:  #f9a55a;
-    --orange-pale:   #fff0e0;
-    --cream:         #fafaf7;
-    --warm-gray:     #f4f3ee;
-    --text-primary:  #1a2a3a;
-    --text-secondary:#3a5a7a;
-    --text-muted:    #7a9ab8;
-    --border:        #d0e4f5;
+    --blue-deep:     #002366;
+    --blue-mid:      #003087;
+    --blue-brand:    #1a5fa8;
+    --blue-light:    #6EB4E4;
+    --blue-pale:     #e8f4fc;
+    --blue-muted:    #9ACDE8;
+    --orange:        #CE1126;
+    --orange-light:  #e04458;
+    --orange-pale:   #fde8eb;
+    --cream:         #fafafa;
+    --warm-gray:     #f4f3f0;
+    --text-primary:  #001a4d;
+    --text-secondary:#1a3a6b;
+    --text-muted:    #6a85a8;
+    --border:        #cce0f0;
     --white:         #ffffff;
     --success:       #1d9e75;
-    --danger:        #e24b4a;
+    --danger:        #CE1126;
     --radius:        16px;
     --radius-sm:     10px;
-    --shadow:        0 4px 24px rgba(26,58,92,0.10);
-    --shadow-lg:     0 12px 48px rgba(26,58,92,0.16);
+    --shadow:        0 4px 24px rgba(0,35,102,0.10);
+    --shadow-lg:     0 12px 48px rgba(0,35,102,0.16);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,8 +45,8 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(34,114,195,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(244,124,32,0.06) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(26,95,168,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(206,17,38,0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -204,7 +204,7 @@
 
   input:focus, select:focus, textarea:focus {
     border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
     background: var(--white);
   }
 
@@ -250,13 +250,13 @@
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 16px rgba(34,114,195,0.28);
+    box-shadow: 0 4px 16px rgba(26,95,168,0.28);
   }
 
   .btn-primary:hover {
     background: var(--blue-mid);
     transform: translateY(-1px);
-    box-shadow: 0 6px 22px rgba(34,114,195,0.36);
+    box-shadow: 0 6px 22px rgba(26,95,168,0.36);
   }
 
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
@@ -347,7 +347,7 @@
     padding: 10px 16px;
     margin-bottom: 24px;
     font-size: 13px;
-    color: #8a4a00;
+    color: #8a0010;
     line-height: 1.5;
   }
 
@@ -374,7 +374,7 @@
   .user-type-card.selected {
     border-color: var(--blue-brand);
     background: var(--blue-pale);
-    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
   }
 
   .user-type-card .ut-icon { font-size: 32px; display:block; margin-bottom:10px; }
@@ -444,10 +444,10 @@
   .cat-card.selected {
     border-color: var(--blue-brand);
     background: var(--blue-pale);
-    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
   }
 
-  .cat-card.urgent { border-color: #f09595; background: #fff5f5; }
+  .cat-card.urgent { border-color: #ef9090; background: #fff5f5; }
   .cat-card.urgent:hover { border-color: var(--danger); }
   .cat-card.urgent.selected { border-color: var(--danger); background: #ffecec; box-shadow: 0 0 0 3px rgba(226,75,74,0.12); }
 
@@ -478,7 +478,7 @@
   }
 
   .response-header {
-    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
+    background: var(--blue-deep);
     padding: 20px 28px;
     display: flex;
     align-items: center;
@@ -576,7 +576,7 @@
   /* Modal */
   .modal-overlay {
     display:none; position:fixed; inset:0;
-    background:rgba(26,58,92,0.5); z-index:1000;
+    background:rgba(0,35,102,0.5); z-index:1000;
     align-items:center; justify-content:center; padding:20px;
   }
   .modal-overlay.active { display:flex; }
@@ -655,7 +655,7 @@
     transition: all 0.18s;
     margin-top: 8px;
   }
-  .search-trigger:hover { background: var(--blue-brand); color: white; border-color: var(--blue-brand); }
+  .search-trigger:hover { background: var(--orange); color: white; border-color: var(--orange); }
 
   .places-container {
     margin-top: 20px;
@@ -667,7 +667,7 @@
   }
 
   .places-header {
-    background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+    background: var(--blue-deep);
     padding: 14px 20px;
     display: flex;
     align-items: center;
@@ -734,7 +734,7 @@
 
   .autocomplete-input:focus {
     border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(34,114,195,0.12);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
     background: var(--white);
   }
 
@@ -799,7 +799,7 @@
   .campus-safety-card {
     background: var(--white);
     border-radius: var(--radius);
-    border: 1.5px solid #f47c20;
+    border: 1.5px solid #CE1126;
     box-shadow: var(--shadow);
     overflow: hidden;
     margin-bottom: 20px;
@@ -807,7 +807,7 @@
   }
 
   .campus-safety-header {
-    background: linear-gradient(135deg, #1a3a5c, #f47c20);
+    background: var(--blue-deep);
     padding: 12px 18px;
     display: flex;
     align-items: center;
@@ -873,7 +873,7 @@
 
   .safety-contact-item.urgent {
     background: #fff5f5;
-    border-color: #f09595;
+    border-color: #ef9090;
   }
 
   .safety-contact-item .contact-label {
@@ -950,19 +950,19 @@
   <header>
     <svg class="logo-icon" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- Outer halo — blue -->
-      <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#a8cce8" stroke-width="3.5" fill="none" opacity="0.9"/>
+      <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#b0c4de" stroke-width="3.5" fill="none" opacity="0.9"/>
       <!-- Inner halo — orange -->
-      <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#f47c20" stroke-width="3.5" fill="none" opacity="0.95"/>
-      <circle cx="23" cy="11" r="3" fill="#f47c20" opacity="0.9"/>
-      <circle cx="77" cy="11" r="3" fill="#f47c20" opacity="0.9"/>
+      <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#CE1126" stroke-width="3.5" fill="none" opacity="0.95"/>
+      <circle cx="23" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
+      <circle cx="77" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
       <!-- Graduation cap on house -->
-      <polygon points="4,56 50,20 96,56" fill="#2272c3"/>
-      <rect x="14" y="54" width="72" height="60" rx="4" fill="#1a3a5c"/>
-      <rect x="34" y="76" width="32" height="38" rx="10" fill="#0d1e2e"/>
+      <polygon points="4,56 50,20 96,56" fill="#003087"/>
+      <rect x="14" y="54" width="72" height="60" rx="4" fill="#002366"/>
+      <rect x="34" y="76" width="32" height="38" rx="10" fill="#001040"/>
       <!-- Graduation cap board -->
-      <rect x="28" y="14" width="44" height="8" rx="2" fill="#f47c20" opacity="0.9"/>
-      <line x1="50" y1="14" x2="50" y2="8" stroke="#f47c20" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="50" cy="7" r="3" fill="#f47c20"/>
+      <rect x="28" y="14" width="44" height="8" rx="2" fill="#CE1126" opacity="0.9"/>
+      <line x1="50" y1="14" x2="50" y2="8" stroke="#CE1126" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="50" cy="7" r="3" fill="#CE1126"/>
     </svg>
     <div class="logo-text">
       <div class="logo-wordmark">
@@ -975,13 +975,13 @@
         <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--orange);">Always here.</div>
         <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">For students & parents</div>
       </div>
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue-brand),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(34,114,195,0.3);">🎓</div>
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-brand);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(26,95,168,0.3);">🎓</div>
     </div>
   </header>
 
   <!-- Welcome Screen -->
   <div class="welcome-screen" id="welcome-screen">
-    <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue-brand),var(--orange));display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(34,114,195,0.3);">🎓</div>
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(26,95,168,0.3);">🎓</div>
     <h1>Hi, I'm Sam.<br/>Your campus companion.</h1>
     <p>From move-in day to graduation — Sam helps students handle whatever comes next, and gives parents peace of mind from wherever they are.</p>
 
@@ -1015,9 +1015,9 @@
         <div class="f-title">Life skills & adulting</div>
         <div class="f-desc">The stuff nobody teaches you but everyone needs to know</div>
       </div>
-      <div class="feature-item" style="background:var(--orange-pale);border-color:#f9a55a;">
+      <div class="feature-item" style="background:var(--orange-pale);border-color:#e04458;">
         <span class="f-icon">⚖️</span>
-        <div class="f-title" style="color:#8a4a00;">Know your rights <span style="font-size:10px;background:var(--orange);color:white;padding:1px 6px;border-radius:999px;margin-left:4px;">Soon</span></div>
+        <div class="f-title" style="color:#8a0010;">Know your rights <span style="font-size:10px;background:var(--orange);color:white;padding:1px 6px;border-radius:999px;margin-left:4px;">Soon</span></div>
         <div class="f-desc">Tenant rights, consumer law, and campus policy — plain English</div>
       </div>
     </div>
@@ -1211,10 +1211,10 @@
         <span class="cat-icon">💬</span>
         <span class="cat-label">Something else?</span>
       </div>
-      <div class="cat-card" onclick="showPremiumModal()" style="border-style:dashed;border-color:#f47c20;background:linear-gradient(135deg,#fff0e0,#fafaf7);position:relative;overflow:hidden;">
-        <div style="position:absolute;top:6px;right:6px;background:var(--orange);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:999px;letter-spacing:0.5px;">COMING SOON</div>
+      <div class="cat-card" onclick="showPremiumModal()" style="border-style:dashed;border-color:#CE1126;background:#fde8eb;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:6px;right:6px;background:#CE1126;color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:999px;letter-spacing:0.5px;">COMING SOON</div>
         <span class="cat-icon">⚖️</span>
-        <span class="cat-label" style="color:#8a4a00;">Know Your Rights</span>
+        <span class="cat-label" style="color:#8a0010;">Know Your Rights</span>
       </div>
     </div>
 
@@ -1296,7 +1296,7 @@
 
   <!-- Floating feedback button -->
   <div id="poc-feedback-btn" style="display:none;position:fixed;bottom:24px;right:24px;z-index:100;">
-    <button onclick="openPocModal()" style="background:var(--blue-brand);color:white;border:none;border-radius:999px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(34,114,195,0.4);display:flex;align-items:center;gap:8px;">
+    <button onclick="openPocModal()" style="background:var(--blue-brand);color:white;border:none;border-radius:999px;padding:12px 20px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 4px 16px rgba(26,95,168,0.4);display:flex;align-items:center;gap:8px;">
       💬 Share feedback with ReGuarded
     </button>
   </div>
@@ -1543,9 +1543,9 @@
 
   function formatResponse(text) {
     const sectionColors = {
-      'What to Do RIGHT NOW': { bg: '#FFF0E0', border: '#f47c20', icon: '⚡', label: 'What to Do RIGHT NOW' },
+      'What to Do RIGHT NOW': { bg: '#FFF0E0', border: '#CE1126', icon: '⚡', label: 'What to Do RIGHT NOW' },
       'Next Steps':           { bg: '#EAF3DE', border: '#639922', icon: '✅', label: 'Next Steps' },
-      'Good to Know':         { bg: '#E8F2FB', border: '#2272c3', icon: '💡', label: 'Good to Know' }
+      'Good to Know':         { bg: '#E8F2FB', border: '#3460a0', icon: '💡', label: 'Good to Know' }
     };
 
     const sections = text.split(/(?=##\s)/);
