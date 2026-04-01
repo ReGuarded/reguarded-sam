@@ -1765,7 +1765,7 @@
     if (/mechanic|auto repair|check engine|oil change|brake|tire/i.test(responseText) && !/battery|dead battery/i.test(responseText)) {
       searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
     }
-    if (/tow|towing|tow truck|broken down|roadside|stuck on/i.test(responseText)) {
+    if (/tow|towing|tow truck|broken down|roadside|stuck on/i.test(responseText) && !cat.includes('Legal') && !cat.includes('Arrest')) {
       searches.push({ query: 'tow truck roadside assistance', title: 'Towing & Roadside', icon: '🚛' });
     }
     if (/attorney|lawyer|criminal defense|bail|arraignment|Miranda/i.test(responseText)) {
