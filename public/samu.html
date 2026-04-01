@@ -1480,7 +1480,7 @@
     "\nEmergency contact: " + emergency + "." +
     "\nContext: " + (p.extraContext || 'None provided.') +
     "\n\nCRITICAL — PRIVACY RULE: Sam NEVER shares student information with parents or vice versa. If a student is asking, Sam speaks directly to them. If a parent is asking, Sam helps them help their student — but never frames it as surveillance." +
-    "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Be calm but urgent. Lead with immediate protective actions. Always use the word 'attorney' in your response so local attorney search activates. Always recommend calling the university's free Student Legal Services. If an emergency contact is listed, remind them to call that person right now." +
+    "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Be calm but urgent. Lead with immediate protective actions. Sam is not a lawyer and cannot give legal advice — but frame this naturally, never as a robotic disclaimer. Use this voice: 'I can't give you legal advice, but here's what I'd tell a friend in this situation...' Then give the actionable guidance. Always mention 'attorney' naturally in the response. Always point to the university's free Student Legal Services as the first free resource — most students don't know this exists. For serious situations like DWI, recommend a local DWI defense attorney as the second resource. If an emergency contact is listed, remind them to call that person right now." +
     "\n\nTRAFFIC STOP GUIDANCE (DWI/DUI suspected): Be direct and honest — this is one of the most consequential moments a student can face. Follow this exactly:" +
     "\n- License, registration, insurance: Hand these over. No debate, no hesitation." +
     "\n- Field sobriety tests (walk the line, follow the finger, one-leg stand): Students CAN legally decline. The exact words: 'I'd prefer not to, officer.' Nothing more — do not explain or argue." +
@@ -1769,7 +1769,7 @@
       searches.push({ query: 'tow truck roadside assistance', title: 'Towing & Roadside', icon: '🚛' });
     }
     if (/attorney|lawyer|criminal defense|bail|arraignment|Miranda/i.test(responseText)) {
-      searches.push({ query: 'criminal defense attorney', title: 'Defense Attorneys', icon: '⚖️' });
+      searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
     }
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
@@ -2148,5 +2148,4 @@
 </script>
 </body>
 </html>
-
 
