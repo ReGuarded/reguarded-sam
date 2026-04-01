@@ -466,6 +466,34 @@
 
   .problem-hint { margin-top: 10px; font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
 
+  .auto-tip-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #fffbea;
+    border: 1px solid #f0d060;
+    border-radius: var(--radius-sm);
+    padding: 9px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #5a4200;
+    line-height: 1.5;
+    animation: fadeUp 0.3s ease both;
+  }
+  .auto-tip-bar span { flex: 1; }
+  .auto-tip-dismiss {
+    font-size: 15px;
+    color: #a08030;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 0 2px;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+  .auto-tip-dismiss:hover { opacity: 1; }
+
   /* Response */
   .response-card {
     background: var(--white);
@@ -1223,6 +1251,12 @@
       </div>
     </div>
 
+
+    <div id="auto-tip-bar" class="auto-tip-bar" style="display:none;">
+      <span>🔧 AutoZone, O'Reilly &amp; Advance Auto read "Check Engine" codes and install batteries — for FREE. Best first stop before any shop.</span>
+      <span class="auto-tip-dismiss" onclick="document.getElementById('auto-tip-bar').style.display='none'">✕</span>
+    </div>
+
     <div class="problem-area" id="problem-area" style="display:none;">
       <textarea id="problem-input" placeholder="Describe what's happening..."></textarea>
       <div class="problem-hint">Is it something else? <span style="color:var(--blue-light);cursor:pointer;text-decoration:underline;" onclick="clearCategory()">Choose a different category</span></div>
@@ -1418,6 +1452,12 @@
     ta.placeholder = card.dataset.placeholder;
     ta.value = '';
     document.getElementById('problem-area').style.display = 'block';
+    const tipBar = document.getElementById('auto-tip-bar');
+    if (selectedCategory === 'Auto & Car Trouble Help') {
+      tipBar.style.display = 'flex';
+    } else {
+      tipBar.style.display = 'none';
+    }
     setTimeout(() => ta.focus(), 100);
   }
 
@@ -1426,6 +1466,7 @@
     selectedCategory = '';
     document.getElementById('problem-area').style.display = 'none';
     document.getElementById('problem-input').value = '';
+    document.getElementById('auto-tip-bar').style.display = 'none';
   }
 
   function buildSystemPrompt() {
@@ -2109,5 +2150,6 @@
 </script>
 </body>
 </html>
+
 
 
