@@ -972,6 +972,168 @@
     .safety-contacts-grid { grid-template-columns: 1fr; }
   }
 
+  /* ── Move-In Card ── */
+  .movein-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1.5px solid #1d9e75;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .movein-header {
+    background: #0f6e56;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .movein-header:hover { opacity: 0.95; }
+
+  .movein-header h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    flex: 1;
+    margin: 0;
+  }
+
+  .movein-header p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin: 0;
+  }
+
+  .movein-toggle {
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-left: auto;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .movein-card.collapsed .movein-toggle { transform: rotate(-180deg); }
+  .movein-card.collapsed .movein-body { display: none; }
+  .movein-card.collapsed .movein-disclaimer { display: none; }
+  .movein-card.collapsed .movein-loading { display: none; }
+
+  .movein-loading {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .movein-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .movein-dates-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .movein-item {
+    background: #eafaf4;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    border: 1px solid #9fe1cb;
+  }
+
+  .movein-item .mi-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #0f6e56;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .movein-item .mi-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-deep);
+    line-height: 1.4;
+  }
+
+  .movein-item .mi-phone {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f6e56;
+    text-decoration: none;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .movein-item .mi-phone:hover { text-decoration: underline; }
+
+  .movein-checklist {
+    background: #eafaf4;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    border: 1px solid #9fe1cb;
+  }
+
+  .movein-checklist .mi-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #0f6e56;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .movein-checklist ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+
+  .movein-checklist li {
+    font-size: 12.5px;
+    color: var(--text-primary);
+    line-height: 1.7;
+  }
+
+  .movein-disclaimer {
+    padding: 10px 16px;
+    background: #f0faf6;
+    border-top: 1px solid #9fe1cb;
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .movein-verify-link {
+    color: #0f6e56;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  @media (max-width: 560px) {
+    .movein-dates-row { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -1046,10 +1208,10 @@
         <div class="f-title">Life Skills & Adulting</div>
         <div class="f-desc">The stuff nobody teaches you but everyone needs to know</div>
       </div>
-      <div class="feature-item" style="background:var(--orange-pale);border-color:#e04458;">
-        <span class="f-icon">⚖️</span>
-        <div class="f-title" style="color:#8a0010;">Know Your Rights <span style="font-size:10px;background:var(--orange);color:white;padding:1px 6px;border-radius:999px;margin-left:4px;">Soon</span></div>
-        <div class="f-desc">Tenant rights, consumer law, and campus policy — plain English</div>
+      <div class="feature-item" style="background:#eafaf4;border-color:#9fe1cb;">
+        <span class="f-icon">🎓</span>
+        <div class="f-title" style="color:#0f6e56;">Move-In Day</div>
+        <div class="f-desc">Checklists, university resources, and local services — all in one place</div>
       </div>
     </div>
 
@@ -1211,6 +1373,9 @@
     <!-- Campus Safety Card -->
     <div id="campus-safety-container"></div>
 
+    <!-- Move-In Resource Card -->
+    <div id="movein-container"></div>
+
     <div class="card-title">
       <span class="step-badge">Step 2 of 2</span>
       What's going on?
@@ -1237,6 +1402,10 @@
       <div class="cat-card" data-cat="Life Skills & Adulting Guide" data-placeholder="e.g. I need to know what to do if I get pulled over. Or how to change a flat tire. Or what to say at an auto shop." onclick="selectCategory(this)">
         <span class="cat-icon">📋</span>
         <span class="cat-label">Life Skills &amp; Adulting</span>
+      </div>
+      <div class="cat-card" data-cat="Move-In Day Planning" data-placeholder="e.g. We're flying in from Dallas for move-in at UT on August 21. Our daughter is a freshman. What do we need to know and prepare for?" onclick="selectCategory(this)">
+        <span class="cat-icon">🎓</span>
+        <span class="cat-label">Move-In Day</span>
       </div>
       <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
         <span class="cat-icon">💬</span>
@@ -1417,6 +1586,9 @@
     document.getElementById('poc-feedback-btn').style.display = 'block';
     renderProfileBar();
     if (studentProfile.school) loadCampusSafety(studentProfile.school);
+    if (studentProfile.school && (studentProfile.year === 'Freshman' || studentProfile.userType === 'parent')) {
+      loadMoveIn(studentProfile.school);
+    }
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -1490,6 +1662,7 @@
     "\n- Call the emergency contact immediately after the stop if possible." +
     "\n\nFor AUTO situations: Always warn against taking cars to unknown repair shops for simple issues. Give the AutoZone/O'Reilly/Advance Auto Parts tip for batteries and simple parts — they often install for free. Recommend AAA or roadside assistance for breakdowns. Always prioritize safety first if broken down on a road." +
     "\n\nFor SCAMS & PREDATORY situations: Be direct and validating — if something feels wrong, it probably is. Give them the exact words to say to push back or walk away." +
+    "\n\nFor MOVE-IN DAY situations: This is one of the most stressful and logistically complex days a family faces. Your role is to be the calm, organized friend who has done this before. Key guidance: (1) Always acknowledge the emotional dimension — especially for freshman parents sending their child away for the first time. (2) Provide a practical, prioritized checklist tailored to their school, year, and housing situation. (3) For out-of-state or out-of-town parents, address the box shipping and storage question proactively. (4) Parking is almost always the biggest day-of stress — give specific practical tips. (5) Remind parents that move-in day is chaotic for everyone — it always works out. (6) Always mention that the university's official move-in guide has the most current dates and logistics. (7) For freshmen specifically — remind parents this is also an emotional transition, not just a logistics exercise. Encourage them to be present, not just efficient." +
     "\n\nAlways structure your response in exactly these three sections:" +
     "\n\n## What to Do RIGHT NOW" +
     "\n2-3 immediate actions. Short, urgent, scannable. For legal situations, this is critical — seconds matter." +
@@ -1778,6 +1951,12 @@
     if ((cat === 'Legal & Arrest Help' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
       searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
     }
+    // Move-In Day local services
+    if (cat === 'Move-In Day Planning' || cat.includes('Move-In')) {
+      searches.push({ query: 'storage units near university', title: 'Storage Units Near Campus', icon: '📦' });
+      searches.push({ query: 'Target Walmart college supplies', title: 'Dorm Supply Stores', icon: '🛒' });
+      searches.push({ query: 'truck van rental', title: 'Truck & Van Rentals', icon: '🚚' });
+    }
     if (/urgent care|ER|emergency room|hospital|student health/i.test(responseText) && cat === 'Health & Insurance Navigation') {
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
     }
@@ -1985,7 +2164,122 @@
   });
 
 
-  /* ── Campus Safety ── */
+  /* ── Move-In Resources ── */
+  let moveInData = null;
+
+  function toggleMoveIn() {
+    const card = document.getElementById('movein-card');
+    if (!card) return;
+    card.classList.toggle('collapsed');
+  }
+
+  async function loadMoveIn(schoolName) {
+    const container = document.getElementById('movein-container');
+    if (!container || !schoolName) return;
+
+    container.innerHTML = `
+      <div class="movein-card collapsed" id="movein-card">
+        <div class="movein-header" onclick="toggleMoveIn()">
+          <div>
+            <h4>🎓 Move-In Resources — ${schoolName}</h4>
+            <p>Loading move-in info...</p>
+          </div>
+          <span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="movein-loading">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <span>Loading move-in information...</span>
+        </div>
+      </div>`;
+
+    const prompt = `You are a research assistant. Find current move-in information for: ${schoolName}
+
+Return ONLY a JSON object with these fields (omit any you are not confident about):
+{"moveInDates":{"freshmen":"...","returning":"...","earlyCheckin":"..."},"checkInLocation":"...","housingOffice":{"phone":"...","email":"..."},"keyPickup":"...","parking":"...","whatToBring":["...","...","..."],"officialGuideUrl":"...","notes":"..."}`;
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+
+      const data = await response.json();
+      const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+
+      try {
+        const clean = text.replace(/```json|```/g, '').trim();
+        const parsed = JSON.parse(clean);
+        moveInData = parsed;
+        renderMoveIn(schoolName, parsed);
+      } catch(e) {
+        container.innerHTML = '';
+      }
+    } catch(err) {
+      container.innerHTML = '';
+    }
+  }
+
+  function renderMoveIn(schoolName, data) {
+    const container = document.getElementById('movein-container');
+    if (!container) return;
+
+    const items = [];
+
+    if (data.moveInDates) {
+      if (data.moveInDates.freshmen) items.push({ label: 'Freshmen Move-In', value: data.moveInDates.freshmen });
+      if (data.moveInDates.returning) items.push({ label: 'Returning Students', value: data.moveInDates.returning });
+      if (data.moveInDates.earlyCheckin) items.push({ label: 'Early Check-In', value: data.moveInDates.earlyCheckin });
+    }
+    if (data.checkInLocation) items.push({ label: 'Check-In Location', value: data.checkInLocation });
+    if (data.keyPickup) items.push({ label: 'Key Pickup', value: data.keyPickup });
+    if (data.parking) items.push({ label: 'Parking', value: data.parking });
+
+    const dateCards = items.map(item => `
+      <div class="movein-item">
+        <div class="mi-label">${item.label}</div>
+        <div class="mi-value">${item.value}</div>
+      </div>`).join('');
+
+    const phoneHtml = data.housingOffice && data.housingOffice.phone ?
+      `<div class="movein-item" style="grid-column:1/-1;">
+        <div class="mi-label">Housing Office</div>
+        <a class="mi-phone" href="tel:${data.housingOffice.phone.replace(/[^0-9+]/g,'')}">${data.housingOffice.phone}</a>
+        ${data.housingOffice.email ? `<div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${data.housingOffice.email}</div>` : ''}
+      </div>` : '';
+
+    const checklistHtml = data.whatToBring && data.whatToBring.length ?
+      `<div class="movein-checklist">
+        <div class="mi-label">What to Bring</div>
+        <ul>${data.whatToBring.slice(0,6).map(i => `<li>${i}</li>`).join('')}</ul>
+      </div>` : '';
+
+    const websiteLink = data.officialGuideUrl ?
+      `<a class="movein-verify-link" href="${data.officialGuideUrl}" target="_blank">View official move-in guide →</a>` : '';
+
+    container.innerHTML = `
+      <div class="movein-card collapsed" id="movein-card">
+        <div class="movein-header" onclick="toggleMoveIn()">
+          <div>
+            <h4>🎓 Move-In Resources — ${schoolName}</h4>
+            <p>Tap to view dates, checklist & contacts</p>
+          </div>
+          <span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+        <div class="movein-body">
+          <div class="movein-dates-row">${dateCards}${phoneHtml}</div>
+          ${checklistHtml}
+          ${data.notes ? `<div style="font-size:12.5px;color:var(--text-muted);padding:4px 2px;line-height:1.6;">${data.notes}</div>` : ''}
+        </div>
+        <div class="movein-disclaimer">
+          ⚠️ Always verify dates directly with your university. ${websiteLink}
+        </div>
+      </div>`;
+  }
   let campusSafetyData = null;
 
   function toggleSafety() {
