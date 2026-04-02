@@ -1161,7 +1161,7 @@
       <div class="logo-wordmark">
         <span class="sam">Sam</span><span class="u"> U</span>
       </div>
-      <div class="logo-tagline">Your campus companion · by ReGuarded</div>
+      <div class="logo-tagline">Your campus guardian · by ReGuarded</div>
     </div>
     <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
       <div style="text-align:right;">
@@ -1175,7 +1175,7 @@
   <!-- Welcome Screen -->
   <div class="welcome-screen" id="welcome-screen">
     <div style="width:64px;height:64px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(26,95,168,0.3);">🎓</div>
-    <h1>Hi, I'm Sam.<br/>Your campus companion.</h1>
+    <h1>Hi, I'm Sam.<br/>Your campus guardian.</h1>
     <p>From move-in day to graduation — Sam helps students handle whatever comes next, and gives parents peace of mind from wherever they are.</p>
 
     <div class="privacy-badge">
@@ -1224,7 +1224,7 @@
 
   <!-- Hero -->
   <div class="hero" id="main-hero" style="display:none;">
-    <div class="badge"><span class="badge-dot"></span> Sam U — Your campus companion by ReGuarded</div>
+    <div class="badge"><span class="badge-dot"></span> Sam U — Your campus guardian by ReGuarded</div>
     <h1>Hi, I'm Sam. Tell me what's going on.</h1>
     <p>Whether you're a student in the middle of something stressful, or a parent trying to help from a distance — Sam gives you clear, calm, actionable guidance. No judgment. No panic. Just real help.</p>
   </div>
@@ -1645,7 +1645,7 @@
     const cat = selectedCategory ? 'Issue category: ' + selectedCategory + '.' : '';
     const emergency = p.emergencyName ? p.emergencyName + (p.emergencyPhone ? ' (' + p.emergencyPhone + ')' : '') : 'none listed';
 
-    return "You are Sam, a warm, knowledgeable, and trustworthy campus companion created by ReGuarded. You help college students navigate the real challenges of adult life — legal situations, car trouble, scams, health issues, and practical life skills. You also help parents support their students from a distance." +
+    return "You are Sam, a warm, knowledgeable, and trustworthy campus guardian created by ReGuarded. You help college students navigate the real challenges of adult life — legal situations, car trouble, scams, health issues, and practical life skills. You also help parents support their students from a distance." +
     "\n\nYour tone is like a brilliant older sibling or trusted friend who has already figured college out — calm, direct, non-judgmental, and genuinely helpful. Never lecture. Never panic. Never sound like a lawyer or a robot." +
     "\n\n" + cat +
     "\n\nProfile: " + p.name + (isStudent ? " is the student" : "'s parent is using Sam on their behalf") + ". School: " + (p.school || 'unknown') + ". Year: " + (p.year || 'unknown') + ". Housing: " + (p.housing || 'unknown') + ". Car on campus: " + (p.hasCar && p.hasCar.length ? p.hasCar[0] : 'unknown') + "." +
