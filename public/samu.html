@@ -1951,6 +1951,10 @@
 </div>
 
 <script>
+  // ── Gate & Session Constants (must be defined first) ──
+  const GATE_KEY = 'samu_access_granted';
+  const EMAIL_KEY = 'samu_user_email';
+
   // ── Invite Gate ──
   const VALID_CODES = [
     // Master code
@@ -1970,8 +1974,6 @@
     'TESTER09',
     'TESTER10',
   ];
-
-  const GATE_KEY = 'samu_access_granted';
 
   function checkGate() {
     const stored = localStorage.getItem(GATE_KEY);
@@ -2070,14 +2072,6 @@
 
   // ── Phase 2: Persistent Profiles ──
   let studentProfile = {};
-  let selectedUserType = '';
-  let selectedCategory = '';
-  let feedbackSent = false;
-  let pocRating = '';
-  let pocRecommend = '';
-  let currentEmail = '';
-
-  const EMAIL_KEY = 'samu_user_email';
 
   // After gate is cleared, show email screen
   function showEmailScreen() {
