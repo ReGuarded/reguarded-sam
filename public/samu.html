@@ -1190,43 +1190,256 @@
     .movein-dates-row { grid-template-columns: 1fr; }
   }
 
+  /* ── Invite Gate ── */
+  #invite-gate {
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  #invite-gate::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(26,95,168,0.09) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(206,17,38,0.07) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .gate-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 48px 44px;
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .gate-logo-mark {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+  }
+
+  .gate-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .gate-wordmark .sam { color: var(--blue-brand); }
+  .gate-wordmark .u   { color: var(--orange); }
+
+  .gate-tagline {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .gate-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue-brand), var(--orange));
+    border-radius: 999px;
+    margin: 0 auto 24px;
+  }
+
+  .gate-welcome {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+
+  .gate-welcome strong {
+    color: var(--blue-deep);
+    font-weight: 500;
+  }
+
+  .gate-input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .gate-input {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--cream);
+    text-align: center;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .gate-input::placeholder {
+    letter-spacing: 1px;
+    text-transform: none;
+    font-weight: 300;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .gate-input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
+    background: var(--white);
+  }
+
+  .gate-input.error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(206,17,38,0.12);
+    animation: shake 0.4s ease;
+  }
+
+  .gate-error {
+    font-size: 13px;
+    color: var(--danger);
+    margin-bottom: 14px;
+    min-height: 18px;
+    font-weight: 400;
+  }
+
+  .gate-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--blue-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(26,95,168,0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .gate-btn:hover {
+    background: var(--blue-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(26,95,168,0.36);
+  }
+
+  .gate-footer {
+    margin-top: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-8px); }
+    40%       { transform: translateX(8px); }
+    60%       { transform: translateX(-5px); }
+    80%       { transform: translateX(5px); }
+  }
+
+  @media (max-width: 480px) {
+    .gate-box { padding: 36px 24px; }
+  }
+
 </style>
 </head>
 <body>
+
+<!-- ── Invite Gate ── -->
+<div id="invite-gate">
+  <div class="gate-box">
+
+    <!-- Logo mark — Sam U -->
+    <img src="/sam-u-logo.png" alt="Sam U by ReGuarded" class="gate-logo-mark" style="object-fit:contain;"/>
+
+    <div class="gate-wordmark"><span class="sam">Sam</span><span class="u"> U</span></div>
+    <div class="gate-tagline">Your campus guardian · by ReGuarded</div>
+    <div class="gate-divider"></div>
+
+    <p class="gate-welcome">
+      You've been personally invited to try <strong>Sam U</strong> — an AI-powered guardian for college students and their parents.<br/><br/>
+      Enter your access code to get started.
+    </p>
+
+    <div class="gate-input-wrap">
+      <input
+        class="gate-input"
+        id="gate-input"
+        type="text"
+        placeholder="Enter your access code"
+        maxlength="20"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        onkeydown="if(event.key==='Enter') submitGate()"
+      />
+    </div>
+
+    <div class="gate-error" id="gate-error"></div>
+
+    <button class="gate-btn" onclick="submitGate()">
+      Enter Sam U
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="gate-footer">
+      🔒 Access is by invitation only.<br/>
+      Need a code? Contact <strong>Joey Terrazas</strong> at ReGuarded.
+    </div>
+
+  </div>
+</div>
+
 <div class="page">
 
   <!-- Header -->
   <header>
-    <svg class="logo-icon" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#b0c4de" stroke-width="3.5" fill="none" opacity="0.9"/>
-      <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#CE1126" stroke-width="3.5" fill="none" opacity="0.95"/>
-      <circle cx="23" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
-      <circle cx="77" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
-      <polygon points="4,56 50,20 96,56" fill="#003087"/>
-      <rect x="14" y="54" width="72" height="60" rx="4" fill="#002366"/>
-      <rect x="34" y="76" width="32" height="38" rx="10" fill="#001040"/>
-      <rect x="28" y="14" width="44" height="8" rx="2" fill="#CE1126" opacity="0.9"/>
-      <line x1="50" y1="14" x2="50" y2="8" stroke="#CE1126" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="50" cy="7" r="3" fill="#CE1126"/>
-    </svg>
+    <img src="/sam-u-logo.png" alt="Sam U" class="logo-icon" style="object-fit:contain;"/>
     <div class="logo-text">
       <div class="logo-wordmark">
-        <span class="sam">Sam</span><span class="u"> U</span>
+        <span class="sam" style="color:#1B3A6B;">SAM</span><span class="u" style="color:#5B9BD5;font-size:22px;vertical-align:middle;margin-left:3px;"> U</span>
       </div>
       <div class="logo-tagline">Your campus guardian · by ReGuarded</div>
     </div>
     <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
       <div style="text-align:right;">
-        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--orange);">Always here.</div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#C01230;">Always here.</div>
         <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">For students & parents</div>
       </div>
-      <div style="width:44px;height:44px;border-radius:50%;background:var(--blue-brand);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(26,95,168,0.3);">🎓</div>
+      <img src="/sam-u-logo.png" alt="Sam U" style="width:44px;height:44px;object-fit:contain;flex-shrink:0;"/>
     </div>
   </header>
 
   <!-- Welcome Screen -->
   <div class="welcome-screen" id="welcome-screen">
-    <div style="width:64px;height:64px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 20px;box-shadow:0 4px 16px rgba(26,95,168,0.3);">🎓</div>
+    <img src="/sam-u-logo.png" alt="Sam U by ReGuarded" style="width:90px;height:auto;object-fit:contain;margin:0 auto 20px;display:block;"/>
     <h1>Hi, I'm Sam.<br/>Your campus guardian.</h1>
     <p>From move-in day to graduation — Sam helps students handle whatever comes next, and gives parents peace of mind from wherever they are.</p>
 
@@ -1566,6 +1779,67 @@
 </div>
 
 <script>
+  // ── Invite Gate ──
+  const VALID_CODES = [
+    // Master code
+    'REGUARDED',
+    // Per-tester codes — add/remove as needed
+    'SAMU2025',
+    'JOEY01',
+    'GAGE01',
+    'TESTER01',
+    'TESTER02',
+    'TESTER03',
+    'TESTER04',
+    'TESTER05',
+    'TESTER06',
+    'TESTER07',
+    'TESTER08',
+    'TESTER09',
+    'TESTER10',
+  ];
+
+  const GATE_KEY = 'samu_access_granted';
+
+  function checkGate() {
+    const stored = localStorage.getItem(GATE_KEY);
+    if (stored && VALID_CODES.includes(stored.toUpperCase())) {
+      document.getElementById('invite-gate').style.display = 'none';
+    }
+  }
+
+  function submitGate() {
+    const input = document.getElementById('gate-input');
+    const errorEl = document.getElementById('gate-error');
+    const code = input.value.trim().toUpperCase();
+
+    errorEl.textContent = '';
+    input.classList.remove('error');
+
+    if (!code) {
+      errorEl.textContent = 'Please enter your access code.';
+      input.classList.add('error');
+      input.focus();
+      return;
+    }
+
+    if (VALID_CODES.includes(code)) {
+      localStorage.setItem(GATE_KEY, code);
+      const gate = document.getElementById('invite-gate');
+      gate.style.opacity = '0';
+      gate.style.transition = 'opacity 0.4s ease';
+      setTimeout(() => gate.style.display = 'none', 400);
+    } else {
+      errorEl.textContent = 'That code isn\'t valid. Check with Joey for your personal access code.';
+      input.classList.add('error');
+      input.select();
+      setTimeout(() => input.classList.remove('error'), 1500);
+    }
+  }
+
+  // Run gate check immediately on load
+  checkGate();
+
   let studentProfile = {};
   let selectedUserType = '';
   let selectedCategory = '';
