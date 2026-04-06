@@ -1,4 +1,4 @@
-// ReGuarded v2.2
+// ReGuarded v3.0 — Phase 2: Persistent Profiles
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -10,6 +10,133 @@ module.exports = async function handler(req, res) {
   try {
     const body = req.body || {};
     const { type, system, messages, max_tokens, query, location, radius, school } = body;
+
+    const SUPABASE_URL = process.env.SUPABASE_URL;
+    const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+
+    // ── SAVE PROFILE ──
+    if (type === 'save-profile') {
+      const { profile } = body;
+      if (!profile || !profile.email) {
+        return res.status(400).json({ success: false, error: 'Email required' });
+      }
+
+      // Check if profile already exists for this email
+      const checkRes = await fetch(
+        SUPABASE_URL + '/rest/v1/profiles?email=eq.' + encodeURIComponent(profile.email.toLowerCase()) + '&select=id',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const existing = await checkRes.json();
+
+      if (existing && existing.length > 0) {
+        // Update existing profile
+        const updateRes = await fetch(
+          SUPABASE_URL + '/rest/v1/profiles?email=eq.' + encodeURIComponent(profile.email.toLowerCase()),
+          {
+            method: 'PATCH',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              user_type: profile.userType,
+              student_name: profile.name,
+              school: profile.school,
+              school_address: profile.schoolAddress,
+              year: profile.year,
+              housing: profile.housing,
+              has_car: profile.hasCar ? profile.hasCar.join(', ') : '',
+              emergency_name: profile.emergencyName,
+              emergency_phone: profile.emergencyPhone,
+              extra_context: profile.extraContext,
+              invite_code: profile.inviteCode || ''
+            })
+          }
+        );
+        const updated = await updateRes.json();
+        return res.status(200).json({ success: true, profile: updated[0], action: 'updated' });
+      } else {
+        // Insert new profile
+        const insertRes = await fetch(
+          SUPABASE_URL + '/rest/v1/profiles',
+          {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              email: profile.email.toLowerCase(),
+              user_type: profile.userType,
+              student_name: profile.name,
+              school: profile.school,
+              school_address: profile.schoolAddress,
+              year: profile.year,
+              housing: profile.housing,
+              has_car: profile.hasCar ? profile.hasCar.join(', ') : '',
+              emergency_name: profile.emergencyName,
+              emergency_phone: profile.emergencyPhone,
+              extra_context: profile.extraContext,
+              invite_code: profile.inviteCode || ''
+            })
+          }
+        );
+        const inserted = await insertRes.json();
+        return res.status(200).json({ success: true, profile: inserted[0], action: 'created' });
+      }
+    }
+
+    // ── GET PROFILE ──
+    if (type === 'get-profile') {
+      const { email } = body;
+      if (!email) return res.status(400).json({ success: false, error: 'Email required' });
+
+      const profileRes = await fetch(
+        SUPABASE_URL + '/rest/v1/profiles?email=eq.' + encodeURIComponent(email.toLowerCase()) + '&select=*&limit=1',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const profiles = await profileRes.json();
+
+      if (profiles && profiles.length > 0) {
+        const p = profiles[0];
+        return res.status(200).json({
+          success: true,
+          found: true,
+          profile: {
+            name: p.student_name,
+            userType: p.user_type,
+            school: p.school,
+            schoolAddress: p.school_address,
+            year: p.year,
+            housing: p.housing,
+            hasCar: p.has_car ? p.has_car.split(', ').filter(Boolean) : [],
+            emergencyName: p.emergency_name,
+            emergencyPhone: p.emergency_phone,
+            extraContext: p.extra_context,
+            inviteCode: p.invite_code,
+            email: p.email
+          }
+        });
+      } else {
+        return res.status(200).json({ success: true, found: false });
+      }
+    }
 
     // ── CAMPUS SAFETY LOOKUP ──
     if (type === 'campus-safety') {
