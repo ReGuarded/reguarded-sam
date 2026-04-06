@@ -1368,6 +1368,149 @@
     .gate-box { padding: 36px 24px; }
   }
 
+  /* ── Email Screen ── */
+  #email-screen {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 40px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease both;
+    text-align: center;
+  }
+
+  .email-screen-logo {
+    width: 80px;
+    height: auto;
+    margin: 0 auto 16px;
+    display: block;
+  }
+
+  .email-screen-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 8px;
+  }
+
+  .email-screen-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .email-input-wrap {
+    max-width: 380px;
+    margin: 0 auto 12px;
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 13px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .email-input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(91,155,213,0.15);
+    background: var(--white);
+  }
+
+  .email-input.error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(192,18,48,0.12);
+  }
+
+  .email-error {
+    font-size: 13px;
+    color: var(--danger);
+    min-height: 18px;
+    margin-bottom: 12px;
+  }
+
+  .email-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 13px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(27,58,107,0.25);
+  }
+
+  .email-submit-btn:hover {
+    background: var(--blue-mid);
+    transform: translateY(-1px);
+  }
+
+  .email-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .email-privacy {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  /* Returning user welcome */
+  .returning-banner {
+    background: #eafaf4;
+    border: 1.5px solid #1d9e75;
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .returning-banner .rb-text {
+    font-size: 14px;
+    color: #0f6e56;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .returning-banner .rb-sub {
+    font-size: 12px;
+    color: #1d9e75;
+    font-weight: 300;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .rb-edit {
+    font-size: 12px;
+    color: #1d9e75;
+    text-decoration: underline;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
 </style>
 </head>
 <body>
@@ -1417,6 +1560,29 @@
 </div>
 
 <div class="page">
+
+  <!-- Email Screen -->
+  <div id="email-screen" style="display:none;">
+    <img src="/sam-u-logo.png" alt="Sam U" class="email-screen-logo"/>
+    <div class="email-screen-title">Welcome to Sam U</div>
+    <div class="email-screen-sub">Enter your email so Sam can remember you.<br/>No password needed — ever.</div>
+    <div class="email-input-wrap">
+      <input
+        class="email-input"
+        id="email-input"
+        type="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+        onkeydown="if(event.key==='Enter') submitEmail()"
+      />
+    </div>
+    <div class="email-error" id="email-error"></div>
+    <button class="email-submit-btn" id="email-submit-btn" onclick="submitEmail()">
+      Continue
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="email-privacy">🔒 Your email is only used to save your profile. Sam never sends marketing emails.</div>
+  </div>
 
   <!-- Header -->
   <header>
@@ -1804,6 +1970,16 @@
     const stored = localStorage.getItem(GATE_KEY);
     if (stored && VALID_CODES.includes(stored.toUpperCase())) {
       document.getElementById('invite-gate').style.display = 'none';
+      // Check if email already stored — if so go straight to profile lookup
+      const savedEmail = localStorage.getItem(EMAIL_KEY);
+      if (savedEmail) {
+        document.getElementById('email-input').value = savedEmail;
+        currentEmail = savedEmail;
+        // Auto-lookup returning user
+        submitEmail();
+      } else {
+        showEmailScreen();
+      }
     }
   }
 
@@ -1827,7 +2003,10 @@
       const gate = document.getElementById('invite-gate');
       gate.style.opacity = '0';
       gate.style.transition = 'opacity 0.4s ease';
-      setTimeout(() => gate.style.display = 'none', 400);
+      setTimeout(() => {
+        gate.style.display = 'none';
+        showEmailScreen();
+      }, 400);
     } else {
       errorEl.textContent = 'That code isn\'t valid. Check with Joey for your personal access code.';
       input.classList.add('error');
@@ -1839,12 +2018,135 @@
   // Run gate check immediately on load
   checkGate();
 
+  // ── Phase 2: Persistent Profiles ──
   let studentProfile = {};
   let selectedUserType = '';
   let selectedCategory = '';
   let feedbackSent = false;
   let pocRating = '';
   let pocRecommend = '';
+  let currentEmail = '';
+
+  const EMAIL_KEY = 'samu_user_email';
+
+  // After gate is cleared, show email screen
+  function showEmailScreen() {
+    document.getElementById('email-screen').style.display = 'block';
+    document.getElementById('main-hero').style.display = 'none';
+    document.getElementById('step1-card').style.display = 'none';
+    document.getElementById('step2-card').classList.add('hidden');
+    setTimeout(() => document.getElementById('email-input').focus(), 300);
+  }
+
+  async function submitEmail() {
+    const input = document.getElementById('email-input');
+    const errorEl = document.getElementById('email-error');
+    const btn = document.getElementById('email-submit-btn');
+    const email = input.value.trim().toLowerCase();
+
+    errorEl.textContent = '';
+    input.classList.remove('error');
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorEl.textContent = 'Please enter a valid email address.';
+      input.classList.add('error');
+      input.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Looking you up...';
+    currentEmail = email;
+    localStorage.setItem(EMAIL_KEY, email);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'get-profile', email })
+      });
+      const data = await response.json();
+
+      if (data.success && data.found) {
+        // Returning user — load profile and skip Step 1
+        studentProfile = { ...data.profile, email };
+        document.getElementById('email-screen').style.display = 'none';
+        document.getElementById('step1-card').classList.add('hidden');
+        document.getElementById('step2-card').classList.remove('hidden');
+        document.getElementById('main-hero').style.display = 'block';
+        document.getElementById('poc-feedback-btn').style.display = 'block';
+        renderProfileBar();
+        renderReturningBanner();
+        if (studentProfile.school) loadCampusSafety(studentProfile.school);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // New user — show onboarding
+        document.getElementById('email-screen').style.display = 'none';
+        document.getElementById('main-hero').style.display = 'block';
+        document.getElementById('step1-card').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch(err) {
+      // On error fall through to onboarding
+      document.getElementById('email-screen').style.display = 'none';
+      document.getElementById('main-hero').style.display = 'block';
+      document.getElementById('step1-card').style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = 'Continue <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+
+  function renderReturningBanner() {
+    const p = studentProfile;
+    const existing = document.getElementById('returning-banner');
+    if (existing) existing.remove();
+    const banner = document.createElement('div');
+    banner.id = 'returning-banner';
+    banner.className = 'returning-banner';
+    banner.innerHTML = `
+      <div style="font-size:22px;">👋</div>
+      <div class="rb-text">
+        Welcome back, ${p.name}!
+        <span class="rb-sub">${p.school || ''}${p.year ? ' · ' + p.year : ''} · ${p.userType === 'parent' ? 'Parent' : 'Student'}</span>
+      </div>
+      <span class="rb-edit" onclick="resetToEmail()">Not you?</span>
+    `;
+    const container = document.getElementById('profile-bar-container');
+    container.innerHTML = '';
+    container.appendChild(banner);
+  }
+
+  function resetToEmail() {
+    localStorage.removeItem(EMAIL_KEY);
+    currentEmail = '';
+    studentProfile = {};
+    selectedCategory = '';
+    document.getElementById('step2-card').classList.add('hidden');
+    document.getElementById('main-hero').style.display = 'none';
+    document.getElementById('step1-card').style.display = 'none';
+    document.getElementById('email-screen').style.display = 'block';
+    document.getElementById('email-input').value = '';
+    document.getElementById('response-area').innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function saveProfileToSupabase() {
+    if (!currentEmail) return;
+    const inviteCode = localStorage.getItem('samu_access_granted') || '';
+    try {
+      await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'save-profile',
+          profile: { ...studentProfile, email: currentEmail, inviteCode }
+        })
+      });
+    } catch(err) {
+      console.error('Profile save error:', err);
+    }
+  }
 
   document.querySelectorAll('.chip-group').forEach(group => {
     group.querySelectorAll('.chip').forEach(chip => {
@@ -1883,7 +2185,7 @@
     const name = document.getElementById('student-name').value.trim();
     if (!name) {
       document.getElementById('student-name').focus();
-      document.getElementById('student-name').style.borderColor = '#E24B4A';
+      document.getElementById('student-name').style.borderColor = '#C01230';
       setTimeout(() => document.getElementById('student-name').style.borderColor = '', 2000);
       return;
     }
@@ -1894,6 +2196,7 @@
 
     studentProfile = {
       name,
+      email: currentEmail,
       userType: selectedUserType,
       school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(),
       schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(),
@@ -1905,11 +2208,13 @@
       extraContext: document.getElementById('extra-context').value.trim()
     };
 
+    // Save to Supabase
+    saveProfileToSupabase();
+
     document.getElementById('step1-card').classList.add('hidden');
     document.getElementById('step2-card').classList.remove('hidden');
     document.getElementById('poc-feedback-btn').style.display = 'block';
     renderProfileBar();
-    // ── CHANGE 1: Only load Campus Safety here. Move-In loads on tile selection. ──
     if (studentProfile.school) loadCampusSafety(studentProfile.school);
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -1933,6 +2238,7 @@
   function editProfile() {
     document.getElementById('step2-card').classList.add('hidden');
     document.getElementById('step1-card').classList.remove('hidden');
+    document.getElementById('step1-card').style.display = 'block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
