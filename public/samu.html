@@ -4,6 +4,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sam U — Your Campus Companion</title>
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest-samu.json"/>
+<meta name="theme-color" content="#1B3A6B"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Sam U"/>
+<link rel="apple-touch-icon" href="/sam-u-logo.png"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -3154,6 +3164,15 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
 
   // ── Run gate check after all functions are defined ──
   checkGate();
+
+  // ── Register Service Worker for PWA ──
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw-samu.js')
+        .then(reg => console.log('Sam U SW registered'))
+        .catch(err => console.log('Sam U SW error:', err));
+    });
+  }
 
 </script>
 </body>
