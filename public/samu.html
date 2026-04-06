@@ -278,6 +278,62 @@
 
   .btn-secondary:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
 
+  /* ── Legal Help Now Button ── */
+  .btn-legal-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(206,17,38,0.35);
+    letter-spacing: 0.2px;
+  }
+
+  .btn-legal-now:hover {
+    background: #a50e1e;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(206,17,38,0.45);
+  }
+
+  /* ── Legal Help Now Banner (shown above response) ── */
+  .legal-help-now-banner {
+    background: #fff0f0;
+    border: 2px solid var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .legal-help-now-banner .lhn-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #7a0010;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .legal-help-now-banner .lhn-sub {
+    font-size: 12px;
+    color: #a32d2d;
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+
   .btn-row {
     display: flex;
     align-items: center;
@@ -1142,17 +1198,13 @@
   <!-- Header -->
   <header>
     <svg class="logo-icon" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer halo — blue -->
       <ellipse cx="50" cy="11" rx="40" ry="11" stroke="#b0c4de" stroke-width="3.5" fill="none" opacity="0.9"/>
-      <!-- Inner halo — orange -->
       <ellipse cx="50" cy="11" rx="27" ry="7" stroke="#CE1126" stroke-width="3.5" fill="none" opacity="0.95"/>
       <circle cx="23" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
       <circle cx="77" cy="11" r="3" fill="#CE1126" opacity="0.9"/>
-      <!-- Graduation cap on house -->
       <polygon points="4,56 50,20 96,56" fill="#003087"/>
       <rect x="14" y="54" width="72" height="60" rx="4" fill="#002366"/>
       <rect x="34" y="76" width="32" height="38" rx="10" fill="#001040"/>
-      <!-- Graduation cap board -->
       <rect x="28" y="14" width="44" height="8" rx="2" fill="#CE1126" opacity="0.9"/>
       <line x1="50" y1="14" x2="50" y2="8" stroke="#CE1126" stroke-width="2.5" stroke-linecap="round"/>
       <circle cx="50" cy="7" r="3" fill="#CE1126"/>
@@ -1370,10 +1422,10 @@
       </div>
     </div>
 
-    <!-- Campus Safety Card -->
+    <!-- Campus Safety Card — always loads when school is set -->
     <div id="campus-safety-container"></div>
 
-    <!-- Move-In Resource Card -->
+    <!-- Move-In Resource Card — only loads when Move-In Day tile is selected -->
     <div id="movein-container"></div>
 
     <div class="card-title">
@@ -1417,7 +1469,6 @@
         <span class="cat-label" style="color:#8a0010;">Know Your Rights</span>
       </div>
     </div>
-
 
     <div id="auto-tip-bar" class="auto-tip-bar" style="display:none;">
       <span>🔧 AutoZone, O'Reilly &amp; Advance Auto read "Check Engine" codes and install batteries — for FREE. Best first stop before any shop.</span>
@@ -1585,10 +1636,8 @@
     document.getElementById('step2-card').classList.remove('hidden');
     document.getElementById('poc-feedback-btn').style.display = 'block';
     renderProfileBar();
+    // ── CHANGE 1: Only load Campus Safety here. Move-In loads on tile selection. ──
     if (studentProfile.school) loadCampusSafety(studentProfile.school);
-    if (studentProfile.school && (studentProfile.year === 'Freshman' || studentProfile.userType === 'parent')) {
-      loadMoveIn(studentProfile.school);
-    }
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -1622,12 +1671,22 @@
     ta.placeholder = card.dataset.placeholder;
     ta.value = '';
     document.getElementById('problem-area').style.display = 'block';
+
+    // Auto tip bar for Auto tile
     const tipBar = document.getElementById('auto-tip-bar');
     if (selectedCategory === 'Auto & Car Trouble Help') {
       tipBar.style.display = 'flex';
     } else {
       tipBar.style.display = 'none';
     }
+
+    // ── CHANGE 2: Load Move-In only when Move-In Day tile is selected ──
+    if (selectedCategory === 'Move-In Day Planning') {
+      if (studentProfile.school) loadMoveIn(studentProfile.school);
+    } else {
+      document.getElementById('movein-container').innerHTML = '';
+    }
+
     setTimeout(() => ta.focus(), 100);
   }
 
@@ -1637,6 +1696,16 @@
     document.getElementById('problem-area').style.display = 'none';
     document.getElementById('problem-input').value = '';
     document.getElementById('auto-tip-bar').style.display = 'none';
+    document.getElementById('movein-container').innerHTML = '';
+  }
+
+  // ── CHANGE 3: Legal Help Now function ──
+  function legalHelpNow() {
+    const location = studentProfile.schoolAddress || studentProfile.school || 'near campus';
+    const container = document.getElementById('legal-help-now-results');
+    if (!container) return;
+    container.style.display = 'block';
+    searchNearby('criminal defense attorney DWI', location, 'legal-now-places', 'Defense Attorneys');
   }
 
   function buildSystemPrompt() {
@@ -1681,6 +1750,8 @@
     const btn = document.getElementById('get-help-btn');
     btn.disabled = true;
 
+    const isLegal = selectedCategory === 'Legal & Arrest Situation';
+
     const responseArea = document.getElementById('response-area');
     responseArea.innerHTML = `
       <div class="response-card">
@@ -1719,6 +1790,21 @@
 
       const formatted = formatResponse(text);
 
+      // ── CHANGE 3: Legal Help Now banner + button in response footer ──
+      const legalBanner = isLegal ? `
+        <div class="legal-help-now-banner" id="legal-help-now-banner">
+          <div class="lhn-text">
+            Need a lawyer right now?
+            <span class="lhn-sub">Sam will find criminal defense attorneys near ${studentProfile.school || 'campus'} — tap to call directly.</span>
+          </div>
+          <button class="btn-legal-now" onclick="legalHelpNow()">🚨 Legal Help Now</button>
+        </div>
+        <div id="legal-help-now-results" style="display:none;">
+          <div id="legal-now-places"></div>
+        </div>` : '';
+
+      const legalFooterBtn = isLegal ? `<button class="btn-legal-now" onclick="legalHelpNow()" style="font-size:13px;padding:10px 18px;">🚨 Legal Help Now</button>` : '';
+
       responseArea.innerHTML = `
         <div class="response-card">
           <div class="response-header">
@@ -1728,12 +1814,16 @@
               <p>Personalized to their situation</p>
             </div>
           </div>
-          <div class="response-body">${formatted}</div>
+          <div class="response-body">
+            ${legalBanner}
+            ${formatted}
+          </div>
           <div class="response-footer">
             <div class="response-footer-note">
               <span class="shield-dot"></span>
               Sam U by ReGuarded — always here when you need it
             </div>
+            ${legalFooterBtn}
             <button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button>
             <button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button>
           </div>
@@ -1750,8 +1840,8 @@
           </div>
         </div>`;
 
-    const samuSearchArea = document.getElementById('samu-local-search-area');
-    if (samuSearchArea) detectAndAddSearchSamu(text, samuSearchArea);
+      const samuSearchArea = document.getElementById('samu-local-search-area');
+      if (samuSearchArea) detectAndAddSearchSamu(text, samuSearchArea);
 
     } catch(err) {
       responseArea.innerHTML = `
@@ -1918,7 +2008,7 @@
             <div><h4>📍 ${title} near ${location}</h4><p>Sorted by rating · ${data.results.length} results found</p></div>
             <a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a>
           </div>
-                    <div class="business-cards">${cards}</div>
+          <div class="business-cards">${cards}</div>
         </div>`;
 
     } catch(err) {
@@ -1947,8 +2037,8 @@
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
     }
-    // Always show attorney search for Legal & Arrest — don't rely on keyword detection alone
-    if ((cat === 'Legal & Arrest Help' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
+    // Always show attorney search for Legal & Arrest
+    if ((cat === 'Legal & Arrest Situation' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
       searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
     }
     // Move-In Day local services
@@ -2280,6 +2370,7 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
         </div>
       </div>`;
   }
+
   let campusSafetyData = null;
 
   function toggleSafety() {
