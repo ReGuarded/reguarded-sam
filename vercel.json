@@ -24,6 +24,14 @@
       "dest": "/public/samu.html"
     },
     {
+      "src": "/sam-u-logo.png",
+      "dest": "/public/sam-u-logo.png"
+    },
+    {
+      "src": "/sam-family-logo.png",
+      "dest": "/public/sam-family-logo.png"
+    },
+    {
       "src": "/(.*)",
       "dest": "/public/index.html"
     }
