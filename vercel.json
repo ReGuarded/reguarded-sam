@@ -12,6 +12,10 @@
     {
       "src": "public/samu.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "public/*.png",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
