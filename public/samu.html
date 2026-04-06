@@ -1561,6 +1561,13 @@
 
 <div class="page">
 
+  <!-- Global loader — shown during profile auto-lookup -->
+  <div id="global-loader" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:20px;">
+    <img src="/sam-u-logo.png" alt="Sam U" style="width:80px;height:auto;opacity:0.8;"/>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+    <div style="font-size:14px;color:var(--text-muted);font-weight:300;">Loading your profile...</div>
+  </div>
+
   <!-- Email Screen -->
   <div id="email-screen" style="display:none;">
     <img src="/sam-u-logo.png" alt="Sam U" class="email-screen-logo"/>
@@ -1970,16 +1977,59 @@
     const stored = localStorage.getItem(GATE_KEY);
     if (stored && VALID_CODES.includes(stored.toUpperCase())) {
       document.getElementById('invite-gate').style.display = 'none';
-      // Check if email already stored — if so go straight to profile lookup
       const savedEmail = localStorage.getItem(EMAIL_KEY);
       if (savedEmail) {
-        document.getElementById('email-input').value = savedEmail;
+        // Show a brief loading state while we look up the profile
         currentEmail = savedEmail;
-        // Auto-lookup returning user
-        submitEmail();
+        showLoadingScreen();
+        fetchProfileByEmail(savedEmail);
       } else {
         showEmailScreen();
       }
+    }
+  }
+
+  function showLoadingScreen() {
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('email-screen').style.display = 'none';
+    document.getElementById('main-hero').style.display = 'none';
+    document.getElementById('step1-card').style.display = 'none';
+    document.getElementById('step2-card').classList.add('hidden');
+    // Show a minimal loading indicator in the page area
+    const loader = document.getElementById('global-loader');
+    if (loader) loader.style.display = 'flex';
+  }
+
+  function hideLoadingScreen() {
+    const loader = document.getElementById('global-loader');
+    if (loader) loader.style.display = 'none';
+  }
+
+  async function fetchProfileByEmail(email) {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'get-profile', email })
+      });
+      const data = await response.json();
+      hideLoadingScreen();
+
+      if (data.success && data.found) {
+        studentProfile = { ...data.profile, email };
+        document.getElementById('step2-card').classList.remove('hidden');
+        document.getElementById('main-hero').style.display = 'block';
+        document.getElementById('poc-feedback-btn').style.display = 'block';
+        renderProfileBar();
+        renderReturningBanner();
+        if (studentProfile.school) loadCampusSafety(studentProfile.school);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        showEmailScreen();
+      }
+    } catch(err) {
+      hideLoadingScreen();
+      showEmailScreen();
     }
   }
 
