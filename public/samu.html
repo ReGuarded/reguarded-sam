@@ -2067,9 +2067,6 @@
     }
   }
 
-  // Run gate check immediately on load
-  checkGate();
-
   // ── Phase 2: Persistent Profiles ──
   let studentProfile = {};
 
@@ -3154,6 +3151,9 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
         </div>
       </div>`;
   }
+
+  // ── Run gate check after all functions are defined ──
+  checkGate();
 
 </script>
 </body>
