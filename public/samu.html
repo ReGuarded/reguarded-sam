@@ -1521,6 +1521,101 @@
     white-space: nowrap;
   }
 
+  /* ── Spring Break Mode ── */
+  .spring-break-banner {
+    background: var(--white);
+    border: 1.5px solid var(--blue-muted);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .spring-break-banner .sb-icon { font-size: 20px; flex-shrink: 0; }
+
+  .spring-break-banner .sb-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .spring-break-banner .sb-text strong {
+    color: var(--blue-deep);
+    font-weight: 500;
+  }
+
+  .sb-setup-btn {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--blue-brand);
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-muted);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .sb-setup-btn:hover { background: var(--blue-brand); color: white; border-color: var(--blue-brand); }
+
+  .sb-active-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eafaf4;
+    border: 1px solid #1d9e75;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #0f6e56;
+    font-weight: 500;
+    margin-bottom: 16px;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  /* Spring Break setup form */
+  .sb-form {
+    background: var(--white);
+    border: 1.5px solid var(--blue-muted);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .sb-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sb-form-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .sb-loading {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
 </style>
 </head>
 <body>
@@ -1823,6 +1918,23 @@
     <!-- Move-In Resource Card — only loads when Move-In Day tile is selected -->
     <div id="movein-container"></div>
 
+    <!-- Spring Break seasonal banner (Feb 1 - Mar 31) -->
+    <div id="spring-break-banner" style="display:none;">
+      <div class="spring-break-banner">
+        <span class="sb-icon">🌴</span>
+        <div class="sb-text"><strong>Spring Break is coming up.</strong> Set a travel location so Sam is ready if your student needs help away from campus.</div>
+        <button class="sb-setup-btn" onclick="selectSpringBreakTile()">Set it up</button>
+      </div>
+    </div>
+
+    <!-- Spring Break active badge -->
+    <div id="spring-break-active-badge" style="display:none;">
+      <div class="sb-active-badge">
+        🌴 Spring Break Mode active — searches anchored to travel location
+        <span style="cursor:pointer;text-decoration:underline;margin-left:6px;font-size:11px;" onclick="clearSpringBreak()">Turn off</span>
+      </div>
+    </div>
+
     <div class="card-title">
       <span class="step-badge">Step 2 of 2</span>
       What's going on?
@@ -1853,6 +1965,10 @@
       <div class="cat-card" data-cat="Move-In Day Planning" data-placeholder="e.g. We're flying in from Dallas for move-in at UT on August 21. Our daughter is a freshman. What do we need to know and prepare for?" onclick="selectCategory(this)">
         <span class="cat-icon">🎓</span>
         <span class="cat-label">Move-In Day</span>
+      </div>
+      <div class="cat-card" id="spring-break-tile" data-cat="Spring Break Planning" data-placeholder="e.g. My son is going to Panama City Beach March 8-15, staying at the Sheraton on Front Beach Road. Help me prepare." onclick="selectCategory(this)">
+        <span class="cat-icon">🌴</span>
+        <span class="cat-label">Spring Break</span>
       </div>
       <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
         <span class="cat-icon">💬</span>
@@ -2035,6 +2151,7 @@
         renderProfileBar();
         renderReturningBanner();
         if (studentProfile.school) loadCampusSafety(studentProfile.school);
+        checkSeasonalBanner();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         showEmailScreen();
@@ -2269,6 +2386,7 @@
     document.getElementById('poc-feedback-btn').style.display = 'block';
     renderProfileBar();
     if (studentProfile.school) loadCampusSafety(studentProfile.school);
+    checkSeasonalBanner();
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -2302,7 +2420,6 @@
     const ta = document.getElementById('problem-input');
     ta.placeholder = card.dataset.placeholder;
     ta.value = '';
-    document.getElementById('problem-area').style.display = 'block';
 
     // Auto tip bar for Auto tile
     const tipBar = document.getElementById('auto-tip-bar');
@@ -2312,13 +2429,21 @@
       tipBar.style.display = 'none';
     }
 
-    // ── CHANGE 2: Load Move-In only when Move-In Day tile is selected ──
+    // Spring Break tile — show setup form instead of textarea
+    if (selectedCategory === 'Spring Break Planning') {
+      document.getElementById('problem-area').style.display = 'block';
+      renderSpringBreakForm();
+      return;
+    }
+
+    // Move-In Day — load resources
     if (selectedCategory === 'Move-In Day Planning') {
       if (studentProfile.school) loadMoveIn(studentProfile.school);
     } else {
       document.getElementById('movein-container').innerHTML = '';
     }
 
+    document.getElementById('problem-area').style.display = 'block';
     setTimeout(() => ta.focus(), 100);
   }
 
@@ -2333,7 +2458,7 @@
 
   // ── CHANGE 3: Legal Help Now function ──
   function legalHelpNow() {
-    const location = studentProfile.schoolAddress || studentProfile.school || 'near campus';
+    const location = getActiveSearchLocation();
     const container = document.getElementById('legal-help-now-results');
     if (!container) return;
     container.style.display = 'block';
@@ -2346,12 +2471,19 @@
     const cat = selectedCategory ? 'Issue category: ' + selectedCategory + '.' : '';
     const emergency = p.emergencyName ? p.emergencyName + (p.emergencyPhone ? ' (' + p.emergencyPhone + ')' : '') : 'none listed';
 
+    // Spring Break context
+    const sb = getSpringBreakData();
+    const sbActive = isSpringBreakActive();
+    const sbContext = sbActive && sb ?
+      `\n\nSPRING BREAK MODE ACTIVE: The student is currently traveling. Destination: ${sb.destination}. ${sb.hotelAddress ? 'Staying at: ' + sb.hotelAddress + '.' : ''} ${sb.returnDate ? 'Returns: ' + sb.returnDate + '.' : ''} All local search recommendations and legal/emergency guidance should be anchored to this travel location, NOT the campus location. Laws and resources may differ significantly from the student's home state.` : '';
+
     return "You are Sam, a warm, knowledgeable, and trustworthy campus guardian created by ReGuarded. You help college students navigate the real challenges of adult life — legal situations, car trouble, scams, health issues, and practical life skills. You also help parents support their students from a distance." +
     "\n\nYour tone is like a brilliant older sibling or trusted friend who has already figured college out — calm, direct, non-judgmental, and genuinely helpful. Never lecture. Never panic. Never sound like a lawyer or a robot." +
     "\n\n" + cat +
     "\n\nProfile: " + p.name + (isStudent ? " is the student" : "'s parent is using Sam on their behalf") + ". School: " + (p.school || 'unknown') + ". Year: " + (p.year || 'unknown') + ". Housing: " + (p.housing || 'unknown') + ". Car on campus: " + (p.hasCar && p.hasCar.length ? p.hasCar[0] : 'unknown') + "." +
     "\nEmergency contact: " + emergency + "." +
     "\nContext: " + (p.extraContext || 'None provided.') +
+    sbContext +
     "\n\nCRITICAL — PRIVACY RULE: Sam NEVER shares student information with parents or vice versa. If a student is asking, Sam speaks directly to them. If a parent is asking, Sam helps them help their student — but never frames it as surveillance." +
     "\n\nFor LEGAL & ARREST situations: This is the highest urgency scenario. Be calm but urgent. Lead with immediate protective actions. Sam is not a lawyer and cannot give legal advice — but frame this naturally, never as a robotic disclaimer. Use this voice: 'I can't give you legal advice, but here's what I'd tell a friend in this situation...' Then give the actionable guidance. Always mention 'attorney' naturally in the response. Always point to the university's free Student Legal Services as the first free resource — most students don't know this exists. For serious situations like DWI, recommend a local DWI defense attorney as the second resource. If an emergency contact is listed, remind them to call that person right now." +
     "\n\nTRAFFIC STOP GUIDANCE (DWI/DUI suspected): Be direct and honest — this is one of the most consequential moments a student can face. Follow this exactly:" +
@@ -2650,7 +2782,7 @@
 
   function detectAndAddSearchSamu(responseText, responseContainer) {
     const p = studentProfile;
-    const location = p.schoolAddress || p.school || 'near campus';
+    const location = getActiveSearchLocation(); // Uses Spring Break location if active
     const searches = [];
 
     const cat = selectedCategory || '';
@@ -2678,6 +2810,12 @@
       searches.push({ query: 'storage units near university', title: 'Storage Units Near Campus', icon: '📦' });
       searches.push({ query: 'Target Walmart college supplies', title: 'Dorm Supply Stores', icon: '🛒' });
       searches.push({ query: 'truck van rental', title: 'Truck & Van Rentals', icon: '🚚' });
+    }
+    // Spring Break local services
+    if (cat === 'Spring Break Planning' || cat.includes('Spring Break')) {
+      searches.push({ query: 'criminal defense attorney', title: 'Defense Attorneys', icon: '⚖️' });
+      searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
+      searches.push({ query: 'pharmacy', title: 'Pharmacies', icon: '💊' });
     }
     if (/urgent care|ER|emergency room|hospital|student health/i.test(responseText) && cat === 'Health & Insurance Navigation') {
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
@@ -3160,6 +3298,201 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
           ⚠️ Always verify critical numbers directly with your university. ${websiteLink}
         </div>
       </div>`;
+  }
+
+  /* ── Spring Break Mode ── */
+  const SB_KEY = 'samu_spring_break';
+
+  function getSpringBreakData() {
+    try {
+      const raw = localStorage.getItem(SB_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch(e) { return null; }
+  }
+
+  function saveSpringBreakData(data) {
+    localStorage.setItem(SB_KEY, JSON.stringify(data));
+  }
+
+  function clearSpringBreak() {
+    localStorage.removeItem(SB_KEY);
+    document.getElementById('spring-break-active-badge').style.display = 'none';
+    document.getElementById('spring-break-banner').style.display = 'none';
+    checkSeasonalBanner();
+  }
+
+  function isSpringBreakActive() {
+    const sb = getSpringBreakData();
+    if (!sb || !sb.departure || !sb.returnDate) return false;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const dep = new Date(sb.departure);
+    const ret = new Date(sb.returnDate);
+    // Auto-expire check
+    if (today > ret) {
+      localStorage.removeItem(SB_KEY);
+      return false;
+    }
+    return today >= dep && today <= ret;
+  }
+
+  function getActiveSearchLocation() {
+    // Returns travel location if Spring Break is active, otherwise campus location
+    if (isSpringBreakActive()) {
+      const sb = getSpringBreakData();
+      return sb.hotelAddress || sb.destination || studentProfile.schoolAddress || studentProfile.school;
+    }
+    return studentProfile.schoolAddress || studentProfile.school || 'near campus';
+  }
+
+  function checkSeasonalBanner() {
+    if (studentProfile.userType !== 'parent') return;
+    const sb = getSpringBreakData();
+    const today = new Date();
+    const month = today.getMonth() + 1; // 1-12
+    const isSeason = month >= 2 && month <= 3; // Feb-Mar
+
+    if (sb && (isSpringBreakActive() || new Date(sb.departure) > today)) {
+      // Already set up — show active badge, hide banner
+      document.getElementById('spring-break-active-badge').style.display = 'block';
+      const badge = document.querySelector('.sb-active-badge');
+      if (badge && sb.destination) {
+        badge.innerHTML = `🌴 Spring Break Mode active — ${sb.destination} · <span style="cursor:pointer;text-decoration:underline;font-size:11px;" onclick="clearSpringBreak()">Turn off</span>`;
+      }
+      document.getElementById('spring-break-banner').style.display = 'none';
+    } else if (isSeason && !sb) {
+      // Seasonal window — show the prompt banner
+      document.getElementById('spring-break-banner').style.display = 'block';
+      document.getElementById('spring-break-active-badge').style.display = 'none';
+    }
+  }
+
+  function selectSpringBreakTile() {
+    const tile = document.getElementById('spring-break-tile');
+    if (tile) selectCategory(tile);
+  }
+
+  async function loadSpringBreakDates(schoolName) {
+    const loadingEl = document.getElementById('sb-dates-loading');
+    const formEl = document.getElementById('sb-date-fields');
+    if (loadingEl) loadingEl.style.display = 'flex';
+    if (formEl) formEl.style.display = 'none';
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 400,
+          messages: [{ role: 'user', content: `Find the official Spring Break dates for ${schoolName} for the current or upcoming academic year. Return ONLY a JSON object: {"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD","note":"..."}. If not found, return {"startDate":"","endDate":"","note":"Not found"}.` }]
+        })
+      });
+      const data = await response.json();
+      const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+      const clean = text.replace(/```json|```/g, '').trim();
+      const parsed = JSON.parse(clean);
+
+      if (parsed.startDate) {
+        const depInput = document.getElementById('sb-departure');
+        const retInput = document.getElementById('sb-return');
+        if (depInput) depInput.value = parsed.startDate;
+        if (retInput) retInput.value = parsed.endDate;
+        const note = document.getElementById('sb-dates-note');
+        if (note) note.textContent = `Spring Break dates pre-filled from ${schoolName}. Verify with your university.`;
+      }
+    } catch(e) {}
+
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (formEl) formEl.style.display = 'block';
+  }
+
+  function renderSpringBreakForm() {
+    const school = studentProfile.school || 'your university';
+    const container = document.getElementById('problem-area');
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="sb-form">
+        <div class="sb-form-title">🌴 Spring Break Setup</div>
+        <div class="sb-form-sub">Set your student's travel details so Sam can help from anywhere — not just campus.</div>
+
+        <div class="sb-loading" id="sb-dates-loading" style="display:none;">
+          <div class="loading-dots" style="scale:0.7;"><span></span><span></span><span></span></div>
+          <span>Looking up ${school} Spring Break dates...</span>
+        </div>
+
+        <div id="sb-date-fields">
+          <div class="field-row" style="margin-bottom:14px;">
+            <div class="field" style="margin-bottom:0;">
+              <label style="font-size:12px;">Departure date</label>
+              <input type="date" id="sb-departure" style="font-size:14px;"/>
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label style="font-size:12px;">Return date</label>
+              <input type="date" id="sb-return" style="font-size:14px;"/>
+            </div>
+          </div>
+
+          <div class="field" style="margin-bottom:14px;">
+            <label style="font-size:12px;">Travel destination</label>
+            <input type="text" id="sb-destination" placeholder="e.g. Panama City Beach, FL" style="font-size:14px;"/>
+          </div>
+
+          <div class="field" style="margin-bottom:14px;">
+            <label style="font-size:12px;">Hotel name &amp; address <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label>
+            <input type="text" id="sb-hotel" placeholder="e.g. Sheraton Panama City Beach, 4114 Jan Cooley Dr" style="font-size:14px;"/>
+            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;line-height:1.5;">Sam will anchor all local searches — attorneys, urgent care, auto — to this location while Spring Break is active.</div>
+          </div>
+
+          <div id="sb-dates-note" style="font-size:11.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.5;"></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+            <button class="btn-primary" onclick="saveSpringBreakAndAsk()" style="flex:1;">
+              Save &amp; Ask Sam to prepare
+              <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="btn-secondary" onclick="clearCategory()">Cancel</button>
+          </div>
+        </div>
+      </div>`;
+
+    container.style.display = 'block';
+
+    // Auto-load Spring Break dates from university
+    if (studentProfile.school) loadSpringBreakDates(studentProfile.school);
+  }
+
+  function saveSpringBreakAndAsk() {
+    const departure = document.getElementById('sb-departure')?.value;
+    const returnDate = document.getElementById('sb-return')?.value;
+    const destination = document.getElementById('sb-destination')?.value.trim();
+    const hotel = document.getElementById('sb-hotel')?.value.trim();
+
+    if (!destination) {
+      alert('Please enter a travel destination.');
+      return;
+    }
+
+    const sbData = {
+      departure: departure || '',
+      returnDate: returnDate || '',
+      destination,
+      hotelAddress: hotel || destination
+    };
+
+    saveSpringBreakData(sbData);
+    checkSeasonalBanner();
+
+    // Build the auto-prompt for Sam
+    const prompt = `My student is going to ${destination} for Spring Break${departure ? ` from ${departure} to ${returnDate}` : ''}${hotel ? `, staying at ${hotel}` : ''}. Help me prepare. What should I know, what should they bring, and what should we set up in advance in case something goes wrong?`;
+
+    document.getElementById('problem-input').value = prompt;
+    document.getElementById('problem-area').innerHTML = '';
+    document.getElementById('problem-area').style.display = 'none';
+
+    // Trigger Sam's response directly
+    getHelp();
   }
 
   // ── Run gate check after all functions are defined ──
