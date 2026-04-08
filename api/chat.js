@@ -1,4 +1,4 @@
-// ReGuarded v3.0 — Phase 2: Persistent Profiles
+// ReGuarded v4.0 — Admin Dashboard + Code Management
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -13,6 +13,144 @@ module.exports = async function handler(req, res) {
 
     const SUPABASE_URL = process.env.SUPABASE_URL;
     const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+    // ── ADMIN AUTH ──
+    if (type === 'admin-auth') {
+      const { password } = body;
+      if (password === ADMIN_PASSWORD) {
+        return res.status(200).json({ success: true });
+      }
+      return res.status(200).json({ success: false });
+    }
+
+    // ── VALIDATE INVITE CODE ──
+    if (type === 'validate-code') {
+      const { code } = body;
+      if (!code) return res.status(200).json({ valid: false });
+
+      const codeRes = await fetch(
+        SUPABASE_URL + '/rest/v1/invite_codes?code=eq.' + encodeURIComponent(code.toUpperCase()) + '&active=eq.true&select=id,code,used_count',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const codes = await codeRes.json();
+
+      if (codes && codes.length > 0) {
+        // Increment used_count
+        await fetch(
+          SUPABASE_URL + '/rest/v1/invite_codes?id=eq.' + codes[0].id,
+          {
+            method: 'PATCH',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ used_count: (codes[0].used_count || 0) + 1 })
+          }
+        );
+        return res.status(200).json({ valid: true, code: codes[0].code });
+      }
+      return res.status(200).json({ valid: false });
+    }
+
+    // ── LIST CODES ──
+    if (type === 'list-codes') {
+      const codesRes = await fetch(
+        SUPABASE_URL + '/rest/v1/invite_codes?select=*&order=created_at.desc',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const codes = await codesRes.json();
+      return res.status(200).json({ success: true, codes });
+    }
+
+    // ── CREATE CODE ──
+    if (type === 'create-code') {
+      const { code, label } = body;
+      if (!code || !label) return res.status(200).json({ success: false, error: 'Code and label required' });
+
+      // Check for duplicate
+      const dupRes = await fetch(
+        SUPABASE_URL + '/rest/v1/invite_codes?code=eq.' + encodeURIComponent(code.toUpperCase()) + '&select=id',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          }
+        }
+      );
+      const dup = await dupRes.json();
+      if (dup && dup.length > 0) {
+        return res.status(200).json({ success: false, error: 'That code already exists. Choose a different one.' });
+      }
+
+      const insertRes = await fetch(
+        SUPABASE_URL + '/rest/v1/invite_codes',
+        {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify({ code: code.toUpperCase(), label, active: true, used_count: 0 })
+        }
+      );
+      const inserted = await insertRes.json();
+      return res.status(200).json({ success: true, code: inserted[0] });
+    }
+
+    // ── TOGGLE CODE (activate/deactivate) ──
+    if (type === 'toggle-code') {
+      const { id, active } = body;
+      if (!id) return res.status(200).json({ success: false });
+
+      await fetch(
+        SUPABASE_URL + '/rest/v1/invite_codes?id=eq.' + id,
+        {
+          method: 'PATCH',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ active })
+        }
+      );
+      return res.status(200).json({ success: true });
+    }
+
+    // ── COUNT USERS ──
+    if (type === 'count-users') {
+      const countRes = await fetch(
+        SUPABASE_URL + '/rest/v1/profiles?select=id',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'count=exact',
+            'Range': '0-0'
+          }
+        }
+      );
+      const countHeader = countRes.headers.get('content-range');
+      const count = countHeader ? parseInt(countHeader.split('/')[1]) : 0;
+      return res.status(200).json({ success: true, count });
+    }
 
     // ── SAVE PROFILE ──
     if (type === 'save-profile') {
@@ -252,3 +390,4 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: { message: err.message, stack: err.stack } });
   }
 };
+
