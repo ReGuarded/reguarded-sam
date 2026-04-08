@@ -4,6 +4,7 @@
     { "src": "api/chat.js", "use": "@vercel/node" },
     { "src": "public/index.html", "use": "@vercel/static" },
     { "src": "public/samu.html", "use": "@vercel/static" },
+    { "src": "public/admin.html", "use": "@vercel/static" },
     { "src": "public/*.png", "use": "@vercel/static" },
     { "src": "public/manifest-samu.json", "use": "@vercel/static" },
     { "src": "public/sw-samu.js", "use": "@vercel/static" }
@@ -11,6 +12,7 @@
   "routes": [
     { "src": "/api/chat", "dest": "/api/chat.js" },
     { "src": "/samu", "dest": "/public/samu.html" },
+    { "src": "/admin", "dest": "/public/admin.html" },
     { "src": "/sam-u-logo.png", "dest": "/public/sam-u-logo.png" },
     { "src": "/sam-family-logo.png", "dest": "/public/sam-family-logo.png" },
     { "src": "/manifest-samu.json", "dest": "/public/manifest-samu.json" },
