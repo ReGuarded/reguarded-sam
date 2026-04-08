@@ -1,1 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sam U — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue-deep: #1B3A6B;
+    --blue-brand: #1B3A6B;
+    --blue-pale: #e8f4fc;
+    --blue-muted: #9ACDE8;
+    --blue-light: #5B9BD5;
+    --red: #C01230;
+    --green: #1d9e75;
+    --green-pale: #eafaf4;
+    --cream: #fafafa;
+    --border: #cce0f0;
+    --white: #ffffff;
+    --text-primary: #1B3A6B;
+    --text-muted: #6a85a8;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(27,58,107,0.10);
+    --shadow-lg: 0 12px 48px rgba(27,58,107,0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* Login screen */
+  #login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .login-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 48px 44px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .login-box img {
+    width: 72px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+  }
+
+  .login-box h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 6px;
+  }
+
+  .login-box p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .login-input {
+    width: 100%;
+    padding: 13px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .login-input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(91,155,213,0.15);
+    background: var(--white);
+  }
+
+  .login-error {
+    font-size: 13px;
+    color: var(--red);
+    min-height: 18px;
+    margin-bottom: 12px;
+  }
+
+  /* Admin layout */
+  #admin-screen { display: none; }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header img { width: 44px; height: auto; }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .logout-btn {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* Stats bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Create code section */
+  .section {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .create-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .create-input {
+    flex: 1;
+    min-width: 160px;
+    padding: 11px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .create-input:focus {
+    border-color: var(--blue-light);
+    background: var(--white);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 11px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover { background: #162f57; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-generate {
+    background: var(--green);
+  }
+  .btn-generate:hover { background: #0f6e56; }
+
+  .create-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* Codes table */
+  .codes-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .codes-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 12px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .codes-table td {
+    padding: 14px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .codes-table tr:last-child td { border-bottom: none; }
+  .codes-table tr:hover td { background: var(--blue-pale); }
+
+  .code-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: var(--blue-deep);
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
+
+  .badge-active {
+    background: var(--green-pale);
+    color: var(--green);
+    border: 1px solid #9fe1cb;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .badge-inactive {
+    background: #f8f8f8;
+    color: #999;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .btn-deactivate {
+    font-size: 12px;
+    color: var(--red);
+    background: none;
+    border: 1px solid #f0c0c0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .btn-deactivate:hover { background: #fff0f0; border-color: var(--red); }
+
+  .btn-activate {
+    font-size: 12px;
+    color: var(--green);
+    background: none;
+    border: 1px solid #9fe1cb;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .btn-activate:hover { background: var(--green-pale); }
+
+  .loading-row td {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 32px;
+  }
+
+  .success-msg {
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+  .error-msg {
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .fade-in { animation: fadeUp 0.4s ease both; }
+
+  @media (max-width: 560px) {
+    .stats-bar { grid-template-columns: 1fr; }
+    .section { padding: 20px; }
+    .create-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="/sam-u-logo.png" alt="Sam U"/>
+    <h1>Sam U Admin</h1>
+    <p>Enter your admin password to continue.</p>
+    <input
+      type="password"
+      class="login-input"
+      id="admin-password-input"
+      placeholder="Admin password"
+      onkeydown="if(event.key==='Enter') submitAdminLogin()"
+    />
+    <div class="login-error" id="login-error"></div>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitAdminLogin()">
+      Sign in
+    </button>
+  </div>
+</div>
+
+<!-- Admin Screen -->
+<div id="admin-screen">
+  <div class="page">
+
+    <header>
+      <img src="/sam-u-logo.png" alt="Sam U"/>
+      <div>
+        <div class="header-title">Sam U Admin</div>
+        <div class="header-sub">Invite code management · by ReGuarded</div>
+      </div>
+      <button class="logout-btn" onclick="adminLogout()">Sign out</button>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-bar fade-in">
+      <div class="stat-card">
+        <div class="stat-number" id="stat-total">—</div>
+        <div class="stat-label">Total Codes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-active">—</div>
+        <div class="stat-label">Active</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="stat-users">—</div>
+        <div class="stat-label">Registered Users</div>
+      </div>
+    </div>
+
+    <!-- Create Code -->
+    <div class="section fade-in">
+      <div class="section-title">➕ Create New Invite Code</div>
+      <div class="create-row">
+        <input
+          type="text"
+          class="create-input"
+          id="new-code-label"
+          placeholder="Label (e.g. Sarah Jones)"
+          maxlength="50"
+        />
+        <input
+          type="text"
+          class="create-input"
+          id="new-code-value"
+          placeholder="Code (e.g. SARAH01) — or leave blank to auto-generate"
+          maxlength="20"
+          style="text-transform:uppercase;"
+          oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')"
+        />
+        <button class="btn-primary btn-generate" onclick="createCode()">
+          Create Code
+        </button>
+      </div>
+      <div class="create-hint">Label is for your reference only — testers never see it. Code must be letters and numbers only, no spaces.</div>
+      <div class="success-msg" id="create-success"></div>
+      <div class="error-msg" id="create-error"></div>
+    </div>
+
+    <!-- Codes List -->
+    <div class="section fade-in">
+      <div class="section-title">🔑 All Invite Codes</div>
+      <table class="codes-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Label</th>
+            <th>Status</th>
+            <th>Uses</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="codes-tbody">
+          <tr class="loading-row"><td colspan="6">Loading codes...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const ADMIN_SESSION_KEY = 'samu_admin_session';
+
+  // Check if already logged in
+  window.addEventListener('load', () => {
+    const session = sessionStorage.getItem(ADMIN_SESSION_KEY);
+    if (session === 'authenticated') {
+      showAdminScreen();
+    }
+  });
+
+  async function submitAdminLogin() {
+    const input = document.getElementById('admin-password-input');
+    const errorEl = document.getElementById('login-error');
+    const password = input.value.trim();
+
+    errorEl.textContent = '';
+    if (!password) {
+      errorEl.textContent = 'Please enter your admin password.';
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'admin-auth', password })
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'authenticated');
+        showAdminScreen();
+      } else {
+        errorEl.textContent = 'Incorrect password. Try again.';
+        input.value = '';
+        input.focus();
+      }
+    } catch(err) {
+      errorEl.textContent = 'Connection error. Please try again.';
+    }
+  }
+
+  function showAdminScreen() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadCodes();
+    loadUserCount();
+  }
+
+  function adminLogout() {
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    document.getElementById('admin-screen').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('admin-password-input').value = '';
+  }
+
+  async function loadCodes() {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'list-codes' })
+      });
+      const data = await response.json();
+
+      if (data.success && data.codes) {
+        renderCodes(data.codes);
+        document.getElementById('stat-total').textContent = data.codes.length;
+        document.getElementById('stat-active').textContent = data.codes.filter(c => c.active).length;
+      }
+    } catch(err) {
+      document.getElementById('codes-tbody').innerHTML = '<tr class="loading-row"><td colspan="6">Failed to load codes.</td></tr>';
+    }
+  }
+
+  async function loadUserCount() {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'count-users' })
+      });
+      const data = await response.json();
+      if (data.success) {
+        document.getElementById('stat-users').textContent = data.count;
+      }
+    } catch(err) {}
+  }
+
+  function renderCodes(codes) {
+    const tbody = document.getElementById('codes-tbody');
+    if (!codes.length) {
+      tbody.innerHTML = '<tr class="loading-row"><td colspan="6">No codes yet.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = codes.map(c => {
+      const date = new Date(c.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const statusBadge = c.active
+        ? '<span class="badge-active">Active</span>'
+        : '<span class="badge-inactive">Inactive</span>';
+      const actionBtn = c.active
+        ? `<button class="btn-deactivate" onclick="toggleCode('${c.id}', false)">Deactivate</button>`
+        : `<button class="btn-activate" onclick="toggleCode('${c.id}', true)">Reactivate</button>`;
+
+      return `
+        <tr>
+          <td><span class="code-text">${c.code}</span></td>
+          <td style="color:var(--text-muted);font-size:13px;">${c.label || '—'}</td>
+          <td>${statusBadge}</td>
+          <td style="color:var(--text-muted);font-size:13px;">${c.used_count || 0}</td>
+          <td style="color:var(--text-muted);font-size:13px;">${date}</td>
+          <td>${actionBtn}</td>
+        </tr>`;
+    }).join('');
+  }
+
+  async function createCode() {
+    const label = document.getElementById('new-code-label').value.trim();
+    const codeInput = document.getElementById('new-code-value').value.trim().toUpperCase();
+    const successEl = document.getElementById('create-success');
+    const errorEl = document.getElementById('create-error');
+
+    successEl.textContent = '';
+    errorEl.textContent = '';
+
+    if (!label) {
+      errorEl.textContent = 'Please enter a label for this code.';
+      return;
+    }
+
+    // Auto-generate code if blank
+    const code = codeInput || generateCode(label);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'create-code', code, label })
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        successEl.textContent = `✓ Code "${code}" created successfully.`;
+        document.getElementById('new-code-label').value = '';
+        document.getElementById('new-code-value').value = '';
+        loadCodes();
+        setTimeout(() => successEl.textContent = '', 4000);
+      } else {
+        errorEl.textContent = data.error || 'Failed to create code.';
+      }
+    } catch(err) {
+      errorEl.textContent = 'Connection error. Please try again.';
+    }
+  }
+
+  async function toggleCode(id, active) {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'toggle-code', id, active })
+      });
+      const data = await response.json();
+      if (data.success) loadCodes();
+    } catch(err) {}
+  }
+
+  function generateCode(label) {
+    // Generate a code from the label + random suffix
+    const base = label.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    const suffix = Math.floor(Math.random() * 90 + 10);
+    return base + suffix;
+  }
+</script>
+</body>
+</html>
 
