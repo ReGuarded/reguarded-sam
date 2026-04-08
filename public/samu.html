@@ -2082,32 +2082,14 @@
   const EMAIL_KEY = 'samu_user_email';
 
   // ── Invite Gate ──
-  const VALID_CODES = [
-    // Master code
-    'REGUARDED',
-    // Per-tester codes — add/remove as needed
-    'SAMU2025',
-    'JOEY01',
-    'GAGE01',
-    'TESTER01',
-    'TESTER02',
-    'TESTER03',
-    'TESTER04',
-    'TESTER05',
-    'TESTER06',
-    'TESTER07',
-    'TESTER08',
-    'TESTER09',
-    'TESTER10',
-  ];
+  const VALID_CODES = [];
 
   function checkGate() {
     const stored = localStorage.getItem(GATE_KEY);
-    if (stored && VALID_CODES.includes(stored.toUpperCase())) {
+    if (stored) {
       document.getElementById('invite-gate').style.display = 'none';
       const savedEmail = localStorage.getItem(EMAIL_KEY);
       if (savedEmail) {
-        // Show a brief loading state while we look up the profile
         currentEmail = savedEmail;
         showLoadingScreen();
         fetchProfileByEmail(savedEmail);
@@ -2162,9 +2144,10 @@
     }
   }
 
-  function submitGate() {
+  async function submitGate() {
     const input = document.getElementById('gate-input');
     const errorEl = document.getElementById('gate-error');
+    const btn = document.querySelector('.gate-btn');
     const code = input.value.trim().toUpperCase();
 
     errorEl.textContent = '';
@@ -2177,21 +2160,38 @@
       return;
     }
 
-    if (VALID_CODES.includes(code)) {
-      localStorage.setItem(GATE_KEY, code);
-      const gate = document.getElementById('invite-gate');
-      gate.style.opacity = '0';
-      gate.style.transition = 'opacity 0.4s ease';
-      setTimeout(() => {
-        gate.style.display = 'none';
-        showEmailScreen();
-      }, 400);
-    } else {
-      errorEl.textContent = 'That code isn\'t valid. Check with Joey for your personal access code.';
-      input.classList.add('error');
-      input.select();
-      setTimeout(() => input.classList.remove('error'), 1500);
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'validate-code', code })
+      });
+      const data = await response.json();
+
+      if (data.valid) {
+        localStorage.setItem(GATE_KEY, code);
+        const gate = document.getElementById('invite-gate');
+        gate.style.opacity = '0';
+        gate.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => {
+          gate.style.display = 'none';
+          showEmailScreen();
+        }, 400);
+      } else {
+        errorEl.textContent = 'That code isn\'t valid. Check with ReGuarded for your personal access code.';
+        input.classList.add('error');
+        input.select();
+        setTimeout(() => input.classList.remove('error'), 1500);
+      }
+    } catch(err) {
+      errorEl.textContent = 'Connection error. Please try again.';
     }
+
+    btn.disabled = false;
+    btn.innerHTML = 'Enter Sam U <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   // ── Phase 2: Persistent Profiles ──
@@ -3510,3 +3510,4 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
 </script>
 </body>
 </html>
+
