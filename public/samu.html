@@ -398,7 +398,7 @@
     border: 1px solid var(--border);
   }
 
-  .feature-item .f-icon { font-size: 22px; display:block; margin-bottom:8px; }
+  .feature-item .f-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(27,58,107,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
   .feature-item .f-title { font-size:13px; font-weight:500; color:var(--blue-deep); margin-bottom:4px; }
   .feature-item .f-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
 
@@ -517,7 +517,18 @@
   .cat-card.urgent:hover { border-color: var(--danger); }
   .cat-card.urgent.selected { border-color: var(--danger); background: #ffecec; box-shadow: 0 0 0 3px rgba(226,75,74,0.12); }
 
-  .cat-card .cat-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+  .cat-card .cat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--blue-pale);
+    margin: 0 auto 8px;
+    flex-shrink: 0;
+  }
+  .cat-card.urgent .cat-icon { background: #fde8eb; }
   .cat-card .cat-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); line-height: 1.3; display: block; }
   .cat-card.selected .cat-label { color: var(--blue-brand); }
   .cat-card.urgent.selected .cat-label { color: var(--danger); }
@@ -1726,32 +1737,32 @@
 
     <div class="feature-grid">
       <div class="feature-item">
-        <span class="f-icon">🚨</span>
+        <div class="f-icon" style="background:rgba(192,18,48,0.12);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
         <div class="f-title">Legal & Arrest Help</div>
         <div class="f-desc">Step-by-step guidance for the scariest moments — fast</div>
       </div>
       <div class="feature-item">
-        <span class="f-icon">🏥</span>
+        <div class="f-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <div class="f-title">Health & Insurance</div>
         <div class="f-desc">Navigate the ER, student health, and confusing bills</div>
       </div>
       <div class="feature-item">
-        <span class="f-icon">🚗</span>
+        <div class="f-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <div class="f-title">Auto & Car Trouble</div>
         <div class="f-desc">Don't get taken advantage of at the auto shop</div>
       </div>
       <div class="feature-item">
-        <span class="f-icon">💰</span>
+        <div class="f-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <div class="f-title">Scam Protection</div>
         <div class="f-desc">Recognize predatory pricing and fraud before it costs you</div>
       </div>
       <div class="feature-item">
-        <span class="f-icon">📋</span>
+        <div class="f-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         <div class="f-title">Life Skills & Adulting</div>
         <div class="f-desc">The stuff nobody teaches you but everyone needs to know</div>
       </div>
       <div class="feature-item" style="background:#eafaf4;border-color:#9fe1cb;">
-        <span class="f-icon">🎓</span>
+        <div class="f-icon" style="background:rgba(15,110,86,0.12);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f6e56" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="f-title" style="color:#0f6e56;">Move-In Day</div>
         <div class="f-desc">Checklists, university resources, and local services — all in one place</div>
       </div>
@@ -1794,12 +1805,12 @@
 
     <div class="user-type-grid" id="user-type-grid">
       <div class="user-type-card" onclick="selectUserType(this,'student')" data-type="student">
-        <span class="ut-icon">🎓</span>
+        <div style="width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
         <div class="ut-title">I'm the student</div>
         <div class="ut-desc">Sam is my personal advisor. My conversations stay private.</div>
       </div>
       <div class="user-type-card" onclick="selectUserType(this,'parent')" data-type="parent">
-        <span class="ut-icon">👨‍👩‍👧</span>
+        <div style="width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="ut-title">I'm the parent</div>
         <div class="ut-desc">I'm helping my student navigate a situation from a distance.</div>
       </div>
@@ -1943,40 +1954,40 @@
 
     <div class="category-grid" id="category-grid">
       <div class="cat-card urgent" data-cat="Legal & Arrest Situation" data-placeholder="e.g. My daughter just called — she was arrested for MIP at a party near campus. She's at the Travis County jail. What do we do right now?" onclick="selectCategory(this)">
-        <span class="cat-icon">🚨</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
         <span class="cat-label">Legal &amp; Arrest</span>
       </div>
       <div class="cat-card" data-cat="Health & Insurance Navigation" data-placeholder="e.g. I went to the ER last night and got a bill for $1,200. I thought I had student health insurance. I don't know what to do." onclick="selectCategory(this)">
-        <span class="cat-icon">🏥</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
         <span class="cat-label">Health &amp; Insurance</span>
       </div>
       <div class="cat-card" data-cat="Auto & Car Trouble Help" data-placeholder="e.g. My car won't start in the parking lot. I think it might be the battery. I'm alone and don't know what to do or where to go." onclick="selectCategory(this)">
-        <span class="cat-icon">🚗</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
         <span class="cat-label">Auto &amp; Car Trouble</span>
       </div>
       <div class="cat-card" data-cat="Scams & Predatory Vendors" data-placeholder="e.g. The auto shop told me I need $800 of repairs but I only came in for an oil change. Something feels off." onclick="selectCategory(this)">
-        <span class="cat-icon">💰</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <span class="cat-label">Scams &amp; Predatory</span>
       </div>
       <div class="cat-card" data-cat="Life Skills & Adulting Guide" data-placeholder="e.g. I need to know what to do if I get pulled over. Or how to change a flat tire. Or what to say at an auto shop." onclick="selectCategory(this)">
-        <span class="cat-icon">📋</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
         <span class="cat-label">Life Skills &amp; Adulting</span>
       </div>
       <div class="cat-card" data-cat="Move-In Day Planning" data-placeholder="e.g. We're flying in from Dallas for move-in at UT on August 21. Our daughter is a freshman. What do we need to know and prepare for?" onclick="selectCategory(this)">
-        <span class="cat-icon">🎓</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <span class="cat-label">Move-In Day</span>
       </div>
       <div class="cat-card" id="spring-break-tile" data-cat="Spring Break Planning" data-placeholder="e.g. My son is going to Panama City Beach March 8-15, staying at the Sheraton on Front Beach Road. Help me prepare." onclick="selectCategory(this)">
-        <span class="cat-icon">🌴</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
         <span class="cat-label">Spring Break</span>
       </div>
       <div class="cat-card" data-cat="Something else" data-placeholder="No problem — just describe what's going on in your own words. Sam will figure out how to help..." onclick="selectCategory(this)">
-        <span class="cat-icon">💬</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <span class="cat-label">Something Else?</span>
       </div>
       <div class="cat-card" onclick="showPremiumModal()" style="position:relative;overflow:hidden;">
         <div style="position:absolute;top:6px;right:6px;background:#1d9e75;color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:999px;letter-spacing:0.5px;">COMING SOON</div>
-        <span class="cat-icon">⚖️</span>
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
         <span class="cat-label">Know Your Rights</span>
       </div>
     </div>
@@ -2456,7 +2467,6 @@
     document.getElementById('movein-container').innerHTML = '';
   }
 
-  // ── CHANGE 3: Legal Help Now function ──
   function legalHelpNow() {
     const location = getActiveSearchLocation();
     const container = document.getElementById('legal-help-now-results');
@@ -2561,13 +2571,13 @@
             Need a lawyer right now?
             <span class="lhn-sub">Sam will find criminal defense attorneys near ${studentProfile.school || 'campus'} — tap to call directly.</span>
           </div>
-          <button class="btn-legal-now" onclick="legalHelpNow()">🚨 Legal Help Now</button>
+          <button class="btn-legal-now" onclick="legalHelpNow()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Legal Help Now</button>
         </div>
         <div id="legal-help-now-results" style="display:none;">
           <div id="legal-now-places"></div>
         </div>` : '';
 
-      const legalFooterBtn = isLegal ? `<button class="btn-legal-now" onclick="legalHelpNow()" style="font-size:13px;padding:10px 18px;">🚨 Legal Help Now</button>` : '';
+      const legalFooterBtn = isLegal ? `<button class="btn-legal-now" onclick="legalHelpNow()" style="font-size:13px;padding:10px 18px;display:inline-flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Legal Help Now</button>` : '';
 
       responseArea.innerHTML = `
         <div class="response-card">
@@ -3510,4 +3520,5 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
 </script>
 </body>
 </html>
+
 
