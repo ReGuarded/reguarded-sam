@@ -1,4 +1,4 @@
-// ReGuarded v4.0 — Admin Dashboard + Code Management
+// ReGuarded v5.0 — Admin Dashboard v2 + Event Logging
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -42,7 +42,6 @@ module.exports = async function handler(req, res) {
       const codes = await codeRes.json();
 
       if (codes && codes.length > 0) {
-        // Increment used_count
         await fetch(
           SUPABASE_URL + '/rest/v1/invite_codes?id=eq.' + codes[0].id,
           {
@@ -81,7 +80,6 @@ module.exports = async function handler(req, res) {
       const { code, label } = body;
       if (!code || !label) return res.status(200).json({ success: false, error: 'Code and label required' });
 
-      // Check for duplicate
       const dupRes = await fetch(
         SUPABASE_URL + '/rest/v1/invite_codes?code=eq.' + encodeURIComponent(code.toUpperCase()) + '&select=id',
         {
@@ -140,7 +138,6 @@ module.exports = async function handler(req, res) {
 
       const RESEND_KEY = process.env.RESEND_API_KEY;
 
-      // Check for duplicate
       const dupRes = await fetch(
         SUPABASE_URL + '/rest/v1/waitlist?email=eq.' + encodeURIComponent(email.toLowerCase()) + '&select=id',
         {
@@ -155,7 +152,6 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({ success: true, alreadyExists: true });
       }
 
-      // Save to Supabase
       const insertRes = await fetch(
         SUPABASE_URL + '/rest/v1/waitlist',
         {
@@ -174,7 +170,6 @@ module.exports = async function handler(req, res) {
       );
       const inserted = await insertRes.json();
 
-      // Send email notification via Resend
       if (RESEND_KEY) {
         try {
           await fetch('https://api.resend.com/emails', {
@@ -206,13 +201,14 @@ module.exports = async function handler(req, res) {
             })
           });
         } catch(e) {
-          // Email failure is non-blocking — signup still succeeds
           console.error('Resend error:', e.message);
         }
       }
 
       return res.status(200).json({ success: true, entry: inserted[0] });
     }
+
+    // ── COUNT USERS ──
     if (type === 'count-users') {
       const countRes = await fetch(
         SUPABASE_URL + '/rest/v1/profiles?select=id',
@@ -238,7 +234,6 @@ module.exports = async function handler(req, res) {
         return res.status(400).json({ success: false, error: 'Email required' });
       }
 
-      // Check if profile already exists for this email
       const checkRes = await fetch(
         SUPABASE_URL + '/rest/v1/profiles?email=eq.' + encodeURIComponent(profile.email.toLowerCase()) + '&select=id',
         {
@@ -251,8 +246,21 @@ module.exports = async function handler(req, res) {
       );
       const existing = await checkRes.json();
 
+      const profileData = {
+        user_type: profile.userType,
+        student_name: profile.name,
+        school: profile.school,
+        school_address: profile.schoolAddress,
+        year: profile.year,
+        housing: profile.housing,
+        has_car: profile.hasCar ? profile.hasCar.join(', ') : '',
+        emergency_name: profile.emergencyName,
+        emergency_phone: profile.emergencyPhone,
+        extra_context: profile.extraContext,
+        invite_code: profile.inviteCode || ''
+      };
+
       if (existing && existing.length > 0) {
-        // Update existing profile
         const updateRes = await fetch(
           SUPABASE_URL + '/rest/v1/profiles?email=eq.' + encodeURIComponent(profile.email.toLowerCase()),
           {
@@ -263,25 +271,12 @@ module.exports = async function handler(req, res) {
               'Content-Type': 'application/json',
               'Prefer': 'return=representation'
             },
-            body: JSON.stringify({
-              user_type: profile.userType,
-              student_name: profile.name,
-              school: profile.school,
-              school_address: profile.schoolAddress,
-              year: profile.year,
-              housing: profile.housing,
-              has_car: profile.hasCar ? profile.hasCar.join(', ') : '',
-              emergency_name: profile.emergencyName,
-              emergency_phone: profile.emergencyPhone,
-              extra_context: profile.extraContext,
-              invite_code: profile.inviteCode || ''
-            })
+            body: JSON.stringify(profileData)
           }
         );
         const updated = await updateRes.json();
         return res.status(200).json({ success: true, profile: updated[0], action: 'updated' });
       } else {
-        // Insert new profile
         const insertRes = await fetch(
           SUPABASE_URL + '/rest/v1/profiles',
           {
@@ -292,20 +287,7 @@ module.exports = async function handler(req, res) {
               'Content-Type': 'application/json',
               'Prefer': 'return=representation'
             },
-            body: JSON.stringify({
-              email: profile.email.toLowerCase(),
-              user_type: profile.userType,
-              student_name: profile.name,
-              school: profile.school,
-              school_address: profile.schoolAddress,
-              year: profile.year,
-              housing: profile.housing,
-              has_car: profile.hasCar ? profile.hasCar.join(', ') : '',
-              emergency_name: profile.emergencyName,
-              emergency_phone: profile.emergencyPhone,
-              extra_context: profile.extraContext,
-              invite_code: profile.inviteCode || ''
-            })
+            body: JSON.stringify({ email: profile.email.toLowerCase(), ...profileData })
           }
         );
         const inserted = await insertRes.json();
@@ -353,6 +335,105 @@ module.exports = async function handler(req, res) {
       } else {
         return res.status(200).json({ success: true, found: false });
       }
+    }
+
+    // ── LOG EVENT ──
+    if (type === 'log-event') {
+      const { userEmail, university, userType, tile, eventType, sessionId } = body;
+
+      // Fire-and-forget — we never block the user on this
+      try {
+        await fetch(
+          SUPABASE_URL + '/rest/v1/events',
+          {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({
+              user_email: userEmail || null,
+              university: university || null,
+              user_type: userType || null,
+              tile: tile || null,
+              event_type: eventType || 'tile_tap',
+              session_id: sessionId || null
+            })
+          }
+        );
+      } catch(e) {
+        // Swallow logging errors — never surface to user
+        console.error('Event log error:', e.message);
+      }
+
+      return res.status(200).json({ success: true });
+    }
+
+    // ── LIST USERS (admin dashboard v2) ──
+    if (type === 'list-users') {
+      const usersRes = await fetch(
+        SUPABASE_URL + '/rest/v1/profiles?select=email,student_name,school,user_type,invite_code,created_at&order=created_at.desc',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const users = await usersRes.json();
+      return res.status(200).json({ success: true, users });
+    }
+
+    // ── TILE STATS (admin dashboard v2) ──
+    if (type === 'tile-stats') {
+      // Fetch all events from the last 30 days
+      const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const eventsRes = await fetch(
+        SUPABASE_URL + '/rest/v1/events?created_at=gte.' + since + '&select=tile,university,user_type,created_at,event_type',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      const events = await eventsRes.json();
+
+      if (!Array.isArray(events)) {
+        return res.status(200).json({ success: true, tileCounts: [], universityCounts: [], totalEvents: 0 });
+      }
+
+      // Aggregate tile counts
+      const tileCounts = {};
+      const universityCounts = {};
+      events.forEach(e => {
+        if (e.tile) {
+          tileCounts[e.tile] = (tileCounts[e.tile] || 0) + 1;
+        }
+        if (e.university) {
+          universityCounts[e.university] = (universityCounts[e.university] || 0) + 1;
+        }
+      });
+
+      const tileArray = Object.entries(tileCounts)
+        .map(([tile, count]) => ({ tile, count }))
+        .sort((a, b) => b.count - a.count);
+
+      const universityArray = Object.entries(universityCounts)
+        .map(([university, count]) => ({ university, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10);
+
+      return res.status(200).json({
+        success: true,
+        tileCounts: tileArray,
+        universityCounts: universityArray,
+        totalEvents: events.length
+      });
     }
 
     // ── CAMPUS SAFETY LOOKUP ──
@@ -469,4 +550,5 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: { message: err.message, stack: err.stack } });
   }
 };
+
 
