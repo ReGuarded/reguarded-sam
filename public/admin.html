@@ -35,7 +35,7 @@
     min-height: 100vh;
   }
 
-  .page { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  .page { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
 
   /* Login screen */
   #login-screen {
@@ -57,158 +57,319 @@
     text-align: center;
   }
 
-  .login-box img { width: 72px; height: auto; margin: 0 auto 20px; display: block; }
-  .login-box h1 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blue-deep); margin-bottom: 6px; }
-  .login-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
+  .login-box img {
+    width: 72px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+  }
+
+  .login-box h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 6px;
+  }
+
+  .login-box p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
 
   .login-input {
-    width: 100%; padding: 13px 18px; border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
-    font-size: 15px; color: var(--text-primary); background: var(--cream);
-    outline: none; text-align: center; letter-spacing: 2px; margin-bottom: 12px;
+    width: 100%;
+    padding: 13px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  .login-input:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(91,155,213,0.15); background: var(--white); }
-  .login-error { font-size: 13px; color: var(--red); min-height: 18px; margin-bottom: 12px; }
+  .login-input:focus {
+    border-color: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(91,155,213,0.15);
+    background: var(--white);
+  }
+
+  .login-error {
+    font-size: 13px;
+    color: var(--red);
+    min-height: 18px;
+    margin-bottom: 12px;
+  }
 
   /* Admin layout */
   #admin-screen { display: none; }
 
   header {
-    display: flex; align-items: center; gap: 14px;
-    margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
   }
 
   header img { width: 44px; height: auto; }
-  .header-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blue-deep); }
-  .header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 
   .logout-btn {
-    margin-left: auto; font-size: 12px; color: var(--text-muted);
-    background: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
-    padding: 6px 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
   }
+
   .logout-btn:hover { border-color: var(--red); color: var(--red); }
 
   /* Stats bar */
-  .stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 28px; }
-
-  .stat-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 16px 20px; text-align: center;
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
   }
 
-  .stat-number { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--blue-deep); }
-  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    text-align: center;
+  }
 
-  /* Section */
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Create code section */
   .section {
-    background: var(--white); border-radius: var(--radius); border: 1px solid var(--border);
-    box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 20px;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 28px 32px;
+    margin-bottom: 20px;
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700;
-    color: var(--blue-deep); margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .section-subtitle { font-size: 12px; color: var(--text-muted); margin-left: auto; font-family: 'DM Sans', sans-serif; font-weight: 400; }
-
-  /* Create code */
-  .create-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .create-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
   .create-input {
-    flex: 1; min-width: 160px; padding: 11px 16px; border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px;
-    color: var(--text-primary); background: var(--cream); outline: none; transition: border-color 0.2s;
+    flex: 1;
+    min-width: 160px;
+    padding: 11px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
   }
-  .create-input:focus { border-color: var(--blue-light); background: var(--white); }
+
+  .create-input:focus {
+    border-color: var(--blue-light);
+    background: var(--white);
+  }
 
   .btn-primary {
-    display: inline-flex; align-items: center; gap: 6px; background: var(--blue-brand);
-    color: white; border: none; border-radius: var(--radius-sm); padding: 11px 22px;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer;
-    transition: background 0.2s; white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-brand);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 11px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
   }
+
   .btn-primary:hover { background: #162f57; }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-generate { background: var(--green); }
+
+  .btn-generate {
+    background: var(--green);
+  }
   .btn-generate:hover { background: #0f6e56; }
 
-  .create-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+  .create-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
 
   /* Codes table */
-  .codes-table { width: 100%; border-collapse: collapse; }
-  .codes-table th { text-align: left; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; padding: 0 12px 12px; border-bottom: 1px solid var(--border); }
-  .codes-table td { padding: 14px 12px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .codes-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .codes-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 12px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .codes-table td {
+    padding: 14px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
   .codes-table tr:last-child td { border-bottom: none; }
   .codes-table tr:hover td { background: var(--blue-pale); }
-  .code-text { font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--blue-deep); letter-spacing: 1px; font-size: 14px; }
 
-  .badge-active { background: var(--green-pale); color: var(--green); border: 1px solid #9fe1cb; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 500; }
-  .badge-inactive { background: #f8f8f8; color: #999; border: 1px solid #ddd; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 500; }
+  .code-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: var(--blue-deep);
+    letter-spacing: 1px;
+    font-size: 14px;
+  }
 
-  .btn-deactivate { font-size: 12px; color: var(--red); background: none; border: 1px solid #f0c0c0; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+  .badge-active {
+    background: var(--green-pale);
+    color: var(--green);
+    border: 1px solid #9fe1cb;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .badge-inactive {
+    background: #f8f8f8;
+    color: #999;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  .btn-deactivate {
+    font-size: 12px;
+    color: var(--red);
+    background: none;
+    border: 1px solid #f0c0c0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
   .btn-deactivate:hover { background: #fff0f0; border-color: var(--red); }
-  .btn-activate { font-size: 12px; color: var(--green); background: none; border: 1px solid #9fe1cb; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+
+  .btn-activate {
+    font-size: 12px;
+    color: var(--green);
+    background: none;
+    border: 1px solid #9fe1cb;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
   .btn-activate:hover { background: var(--green-pale); }
 
-  .loading-row td { text-align: center; color: var(--text-muted); font-size: 13px; padding: 32px; }
-  .success-msg { font-size: 13px; color: var(--green); font-weight: 500; margin-top: 8px; min-height: 18px; }
-  .error-msg { font-size: 13px; color: var(--red); margin-top: 8px; min-height: 18px; }
-
-  /* Tile usage chart */
-  .tile-bar-row {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+  .loading-row td {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 32px;
   }
-  .tile-bar-label { font-size: 13px; color: var(--text-primary); width: 200px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tile-bar-track { flex: 1; background: var(--blue-pale); border-radius: 999px; height: 10px; overflow: hidden; }
-  .tile-bar-fill { height: 100%; background: var(--blue-brand); border-radius: 999px; transition: width 0.6s ease; }
-  .tile-bar-fill.urgent { background: var(--red); }
-  .tile-bar-count { font-size: 13px; color: var(--text-muted); width: 32px; text-align: right; flex-shrink: 0; }
 
-  /* University list */
-  .uni-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .uni-row:last-child { border-bottom: none; }
-  .uni-name { color: var(--text-primary); font-weight: 500; }
-  .uni-count { font-size: 12px; background: var(--blue-pale); color: var(--blue-brand); border-radius: 999px; padding: 3px 10px; font-weight: 500; }
-
-  /* User table */
-  .users-table { width: 100%; border-collapse: collapse; }
-  .users-table th { text-align: left; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; padding: 0 12px 12px; border-bottom: 1px solid var(--border); }
-  .users-table td { padding: 12px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--text-primary); }
-  .users-table tr:last-child td { border-bottom: none; }
-  .users-table tr:hover td { background: var(--blue-pale); }
-
-  .type-badge { border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 500; }
-  .type-student { background: #e8f4fc; color: #1B3A6B; border: 1px solid #9ACDE8; }
-  .type-parent { background: var(--green-pale); color: #0f6e56; border: 1px solid #9fe1cb; }
-
-  /* Tab nav */
-  .tab-nav { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-  .tab-btn {
-    padding: 10px 18px; font-family: 'DM Sans', sans-serif; font-size: 14px;
-    font-weight: 500; color: var(--text-muted); background: none; border: none;
-    border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s; margin-bottom: -1px;
+  .success-msg {
+    font-size: 13px;
+    color: var(--green);
+    font-weight: 500;
+    margin-top: 8px;
+    min-height: 18px;
   }
-  .tab-btn:hover { color: var(--blue-brand); }
-  .tab-btn.active { color: var(--blue-brand); border-bottom-color: var(--blue-brand); }
 
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* Scroll table wrapper */
-  .table-scroll { overflow-x: auto; }
+  .error-msg {
+    font-size: 13px;
+    color: var(--red);
+    margin-top: 8px;
+    min-height: 18px;
+  }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
   .fade-in { animation: fadeUp 0.4s ease both; }
 
-  @media (max-width: 720px) {
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 560px) {
+    .stats-bar { grid-template-columns: 1fr; }
     .section { padding: 20px; }
     .create-row { flex-direction: column; }
-    .tile-bar-label { width: 130px; }
   }
 </style>
 </head>
@@ -220,9 +381,17 @@
     <img src="/sam-u-logo.png" alt="Sam U"/>
     <h1>Sam U Admin</h1>
     <p>Enter your admin password to continue.</p>
-    <input type="password" class="login-input" id="admin-password-input" placeholder="Admin password" onkeydown="if(event.key==='Enter') submitAdminLogin()"/>
+    <input
+      type="password"
+      class="login-input"
+      id="admin-password-input"
+      placeholder="Admin password"
+      onkeydown="if(event.key==='Enter') submitAdminLogin()"
+    />
     <div class="login-error" id="login-error"></div>
-    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitAdminLogin()">Sign in</button>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitAdminLogin()">
+      Sign in
+    </button>
   </div>
 </div>
 
@@ -234,12 +403,12 @@
       <img src="/sam-u-logo.png" alt="Sam U"/>
       <div>
         <div class="header-title">Sam U Admin</div>
-        <div class="header-sub">Invite codes · Users · Tile intelligence · by ReGuarded</div>
+        <div class="header-sub">Invite code management · by ReGuarded</div>
       </div>
       <button class="logout-btn" onclick="adminLogout()">Sign out</button>
     </header>
 
-    <!-- Stats Bar -->
+    <!-- Stats -->
     <div class="stats-bar fade-in">
       <div class="stat-card">
         <div class="stat-number" id="stat-total">—</div>
@@ -253,118 +422,55 @@
         <div class="stat-number" id="stat-users">—</div>
         <div class="stat-label">Registered Users</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number" id="stat-events">—</div>
-        <div class="stat-label">Events (30d)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number" id="stat-top-tile">—</div>
-        <div class="stat-label">Top Tile</div>
-      </div>
     </div>
 
-    <!-- Tab Navigation -->
-    <div class="tab-nav fade-in">
-      <button class="tab-btn active" onclick="switchTab('codes')">🔑 Invite Codes</button>
-      <button class="tab-btn" onclick="switchTab('users')">👥 Users</button>
-      <button class="tab-btn" onclick="switchTab('tiles')">📊 Tile Intelligence</button>
+    <!-- Create Code -->
+    <div class="section fade-in">
+      <div class="section-title">➕ Create New Invite Code</div>
+      <div class="create-row">
+        <input
+          type="text"
+          class="create-input"
+          id="new-code-label"
+          placeholder="Label (e.g. Sarah Jones)"
+          maxlength="50"
+        />
+        <input
+          type="text"
+          class="create-input"
+          id="new-code-value"
+          placeholder="Code (e.g. SARAH01) — or leave blank to auto-generate"
+          maxlength="20"
+          style="text-transform:uppercase;"
+          oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')"
+        />
+        <button class="btn-primary btn-generate" onclick="createCode()">
+          Create Code
+        </button>
+      </div>
+      <div class="create-hint">Label is for your reference only — testers never see it. Code must be letters and numbers only, no spaces.</div>
+      <div class="success-msg" id="create-success"></div>
+      <div class="error-msg" id="create-error"></div>
     </div>
 
-    <!-- ── TAB: Codes ── -->
-    <div class="tab-panel active" id="tab-codes">
-
-      <!-- Create Code -->
-      <div class="section fade-in">
-        <div class="section-title">➕ Create New Invite Code</div>
-        <div class="create-row">
-          <input type="text" class="create-input" id="new-code-label" placeholder="Label (e.g. Sarah Jones)" maxlength="50"/>
-          <input type="text" class="create-input" id="new-code-value" placeholder="Code (e.g. SARAH01) — or leave blank to auto-generate" maxlength="20" style="text-transform:uppercase;" oninput="this.value=this.value.toUpperCase().replace(/\s/g,'')"/>
-          <button class="btn-primary btn-generate" onclick="createCode()">Create Code</button>
-        </div>
-        <div class="create-hint">Label is for your reference only. Code must be letters and numbers only, no spaces.</div>
-        <div class="success-msg" id="create-success"></div>
-        <div class="error-msg" id="create-error"></div>
-      </div>
-
-      <!-- Codes List -->
-      <div class="section fade-in">
-        <div class="section-title">🔑 All Invite Codes</div>
-        <div class="table-scroll">
-          <table class="codes-table">
-            <thead>
-              <tr>
-                <th>Code</th><th>Label</th><th>Status</th><th>Uses</th><th>Created</th><th></th>
-              </tr>
-            </thead>
-            <tbody id="codes-tbody">
-              <tr class="loading-row"><td colspan="6">Loading codes...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ── TAB: Users ── -->
-    <div class="tab-panel" id="tab-users">
-      <div class="section fade-in">
-        <div class="section-title">
-          👥 Registered Users
-          <span class="section-subtitle" id="users-count-label"></span>
-        </div>
-        <div class="table-scroll">
-          <table class="users-table">
-            <thead>
-              <tr>
-                <th>Email</th><th>Name</th><th>University</th><th>Type</th><th>Invite Code</th><th>Signed Up</th>
-              </tr>
-            </thead>
-            <tbody id="users-tbody">
-              <tr class="loading-row"><td colspan="6">Loading users...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── TAB: Tile Intelligence ── -->
-    <div class="tab-panel" id="tab-tiles">
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-        <!-- Tile Usage Chart -->
-        <div class="section fade-in">
-          <div class="section-title">
-            📊 Tile Usage
-            <span class="section-subtitle">Last 30 days</span>
-          </div>
-          <div id="tile-chart">
-            <div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">Loading...</div>
-          </div>
-        </div>
-
-        <!-- Top Universities -->
-        <div class="section fade-in">
-          <div class="section-title">
-            🏫 Most Active Universities
-            <span class="section-subtitle">Last 30 days</span>
-          </div>
-          <div id="university-list">
-            <div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">Loading...</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Empty state hint if no events yet -->
-      <div id="events-empty" style="display:none;">
-        <div class="section fade-in" style="text-align:center;padding:40px;">
-          <div style="font-size:36px;margin-bottom:12px;">📡</div>
-          <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--blue-deep);margin-bottom:8px;">Tracking is live</div>
-          <div style="font-size:14px;color:var(--text-muted);line-height:1.7;max-width:440px;margin:0 auto;">The events table is ready. Tile usage data will appear here as users interact with Sam U. Check back after a few sessions.</div>
-        </div>
-      </div>
-
+    <!-- Codes List -->
+    <div class="section fade-in">
+      <div class="section-title">🔑 All Invite Codes</div>
+      <table class="codes-table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Label</th>
+            <th>Status</th>
+            <th>Uses</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="codes-tbody">
+          <tr class="loading-row"><td colspan="6">Loading codes...</td></tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -373,8 +479,10 @@
 <script>
   const ADMIN_SESSION_KEY = 'samu_admin_session';
 
+  // Check if already logged in
   window.addEventListener('load', () => {
-    if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'authenticated') {
+    const session = sessionStorage.getItem(ADMIN_SESSION_KEY);
+    if (session === 'authenticated') {
       showAdminScreen();
     }
   });
@@ -385,7 +493,10 @@
     const password = input.value.trim();
 
     errorEl.textContent = '';
-    if (!password) { errorEl.textContent = 'Please enter your admin password.'; return; }
+    if (!password) {
+      errorEl.textContent = 'Please enter your admin password.';
+      return;
+    }
 
     try {
       const response = await fetch('/api/chat', {
@@ -413,8 +524,6 @@
     document.getElementById('admin-screen').style.display = 'block';
     loadCodes();
     loadUserCount();
-    loadUsers();
-    loadTileStats();
   }
 
   function adminLogout() {
@@ -424,15 +533,6 @@
     document.getElementById('admin-password-input').value = '';
   }
 
-  function switchTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelector(`.tab-btn[onclick="switchTab('${tab}')"]`).classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
-  }
-
-  // ── Codes ──
-
   async function loadCodes() {
     try {
       const response = await fetch('/api/chat', {
@@ -441,6 +541,7 @@
         body: JSON.stringify({ type: 'list-codes' })
       });
       const data = await response.json();
+
       if (data.success && data.codes) {
         renderCodes(data.codes);
         document.getElementById('stat-total').textContent = data.codes.length;
@@ -459,7 +560,9 @@
         body: JSON.stringify({ type: 'count-users' })
       });
       const data = await response.json();
-      if (data.success) document.getElementById('stat-users').textContent = data.count;
+      if (data.success) {
+        document.getElementById('stat-users').textContent = data.count;
+      }
     } catch(err) {}
   }
 
@@ -469,12 +572,16 @@
       tbody.innerHTML = '<tr class="loading-row"><td colspan="6">No codes yet.</td></tr>';
       return;
     }
+
     tbody.innerHTML = codes.map(c => {
       const date = new Date(c.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      const statusBadge = c.active ? '<span class="badge-active">Active</span>' : '<span class="badge-inactive">Inactive</span>';
+      const statusBadge = c.active
+        ? '<span class="badge-active">Active</span>'
+        : '<span class="badge-inactive">Inactive</span>';
       const actionBtn = c.active
         ? `<button class="btn-deactivate" onclick="toggleCode('${c.id}', false)">Deactivate</button>`
         : `<button class="btn-activate" onclick="toggleCode('${c.id}', true)">Reactivate</button>`;
+
       return `
         <tr>
           <td><span class="code-text">${c.code}</span></td>
@@ -492,10 +599,16 @@
     const codeInput = document.getElementById('new-code-value').value.trim().toUpperCase();
     const successEl = document.getElementById('create-success');
     const errorEl = document.getElementById('create-error');
+
     successEl.textContent = '';
     errorEl.textContent = '';
 
-    if (!label) { errorEl.textContent = 'Please enter a label for this code.'; return; }
+    if (!label) {
+      errorEl.textContent = 'Please enter a label for this code.';
+      return;
+    }
+
+    // Auto-generate code if blank
     const code = codeInput || generateCode(label);
 
     try {
@@ -505,6 +618,7 @@
         body: JSON.stringify({ type: 'create-code', code, label })
       });
       const data = await response.json();
+
       if (data.success) {
         successEl.textContent = `✓ Code "${code}" created successfully.`;
         document.getElementById('new-code-label').value = '';
@@ -532,132 +646,11 @@
   }
 
   function generateCode(label) {
+    // Generate a code from the label + random suffix
     const base = label.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
     const suffix = Math.floor(Math.random() * 90 + 10);
     return base + suffix;
   }
-
-  // ── Users ──
-
-  async function loadUsers() {
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'list-users' })
-      });
-      const data = await response.json();
-      if (data.success && data.users) renderUsers(data.users);
-    } catch(err) {
-      document.getElementById('users-tbody').innerHTML = '<tr class="loading-row"><td colspan="6">Failed to load users.</td></tr>';
-    }
-  }
-
-  function renderUsers(users) {
-    const tbody = document.getElementById('users-tbody');
-    const countLabel = document.getElementById('users-count-label');
-    countLabel.textContent = users.length + ' user' + (users.length !== 1 ? 's' : '');
-
-    if (!users.length) {
-      tbody.innerHTML = '<tr class="loading-row"><td colspan="6">No registered users yet.</td></tr>';
-      return;
-    }
-
-    tbody.innerHTML = users.map(u => {
-      const date = u.created_at
-        ? new Date(u.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        : '—';
-      const typeBadge = u.user_type === 'parent'
-        ? '<span class="type-badge type-parent">👨‍👩‍👧 Parent</span>'
-        : '<span class="type-badge type-student">🎓 Student</span>';
-      return `
-        <tr>
-          <td style="font-weight:500;">${u.email || '—'}</td>
-          <td>${u.student_name || '—'}</td>
-          <td style="color:var(--text-muted);">${u.school || '—'}</td>
-          <td>${typeBadge}</td>
-          <td style="color:var(--text-muted);font-size:12px;letter-spacing:0.5px;">${u.invite_code || '—'}</td>
-          <td style="color:var(--text-muted);">${date}</td>
-        </tr>`;
-    }).join('');
-  }
-
-  // ── Tile Intelligence ──
-
-  async function loadTileStats() {
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'tile-stats' })
-      });
-      const data = await response.json();
-
-      if (!data.success) return;
-
-      // Update stat bar
-      document.getElementById('stat-events').textContent = data.totalEvents || 0;
-      if (data.tileCounts && data.tileCounts.length > 0) {
-        // Shorten top tile name for stat card
-        const topTile = data.tileCounts[0].tile;
-        const short = topTile.split(' ')[0].replace('&', '').slice(0, 8);
-        document.getElementById('stat-top-tile').textContent = short + '...';
-        document.getElementById('stat-top-tile').title = topTile;
-      }
-
-      if (data.totalEvents === 0) {
-        document.getElementById('tile-chart').innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">No events yet. Tracking is live.</div>';
-        document.getElementById('university-list').innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">No events yet.</div>';
-        document.getElementById('events-empty').style.display = 'block';
-        return;
-      }
-
-      renderTileChart(data.tileCounts);
-      renderUniversityList(data.universityCounts);
-
-    } catch(err) {
-      document.getElementById('tile-chart').innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:24px;">Failed to load stats.</div>';
-    }
-  }
-
-  function renderTileChart(tileCounts) {
-    const container = document.getElementById('tile-chart');
-    if (!tileCounts || !tileCounts.length) {
-      container.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">No tile events recorded yet.</div>';
-      return;
-    }
-
-    const max = tileCounts[0].count;
-    const urgentTiles = ['Legal & Arrest Situation'];
-
-    container.innerHTML = tileCounts.map(({ tile, count }) => {
-      const pct = Math.round((count / max) * 100);
-      const isUrgent = urgentTiles.some(t => tile.includes('Legal') || tile.includes('Arrest'));
-      const shortLabel = tile.replace(' Planning', '').replace(' Navigation', '').replace(' Guide', '').replace(' Help', '').replace(' Situation', '');
-      return `
-        <div class="tile-bar-row">
-          <div class="tile-bar-label" title="${tile}">${shortLabel}</div>
-          <div class="tile-bar-track">
-            <div class="tile-bar-fill${isUrgent ? ' urgent' : ''}" style="width:${pct}%"></div>
-          </div>
-          <div class="tile-bar-count">${count}</div>
-        </div>`;
-    }).join('');
-  }
-
-  function renderUniversityList(universityCounts) {
-    const container = document.getElementById('university-list');
-    if (!universityCounts || !universityCounts.length) {
-      container.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:13px;padding:24px;">No university data yet.</div>';
-      return;
-    }
-    container.innerHTML = universityCounts.map(({ university, count }) => `
-      <div class="uni-row">
-        <span class="uni-name">${university}</span>
-        <span class="uni-count">${count} event${count !== 1 ? 's' : ''}</span>
-      </div>`).join('');
-  }
 </script>
 </body>
 </html>
-
