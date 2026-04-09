@@ -133,7 +133,86 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
 
-    // ── COUNT USERS ──
+    // ── JOIN WAITLIST ──
+    if (type === 'join-waitlist') {
+      const { email, source } = body;
+      if (!email) return res.status(400).json({ success: false, error: 'Email required' });
+
+      const RESEND_KEY = process.env.RESEND_API_KEY;
+
+      // Check for duplicate
+      const dupRes = await fetch(
+        SUPABASE_URL + '/rest/v1/waitlist?email=eq.' + encodeURIComponent(email.toLowerCase()) + '&select=id',
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+          }
+        }
+      );
+      const dup = await dupRes.json();
+      if (dup && dup.length > 0) {
+        return res.status(200).json({ success: true, alreadyExists: true });
+      }
+
+      // Save to Supabase
+      const insertRes = await fetch(
+        SUPABASE_URL + '/rest/v1/waitlist',
+        {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify({
+            email: email.toLowerCase(),
+            source: source || 'website'
+          })
+        }
+      );
+      const inserted = await insertRes.json();
+
+      // Send email notification via Resend
+      if (RESEND_KEY) {
+        try {
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + RESEND_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: 'Sam U <notifications@reguarded.io>',
+              to: 'joeyterrazas1@gmail.com',
+              subject: '🛡️ New Sam U Waitlist Signup',
+              html: `
+                <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
+                  <img src="https://reguarded-sam.vercel.app/sam-u-logo.png" width="60" style="margin-bottom:20px;display:block;"/>
+                  <h2 style="color:#1B3A6B;font-size:20px;margin-bottom:8px;">New waitlist signup</h2>
+                  <p style="color:#3a5a8a;font-size:15px;margin-bottom:20px;">Someone just joined the Sam U waitlist.</p>
+                  <div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:20px;">
+                    <div style="font-size:13px;color:#6a85a8;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">Email</div>
+                    <div style="font-size:16px;font-weight:500;color:#1B3A6B;">${email.toLowerCase()}</div>
+                  </div>
+                  <div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;">
+                    <div style="font-size:13px;color:#6a85a8;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">Source</div>
+                    <div style="font-size:16px;font-weight:500;color:#1B3A6B;">${source || 'website'}</div>
+                  </div>
+                  <p style="color:#6a85a8;font-size:12px;margin-top:24px;">Sam U by ReGuarded · reguarded.io</p>
+                </div>
+              `
+            })
+          });
+        } catch(e) {
+          // Email failure is non-blocking — signup still succeeds
+          console.error('Resend error:', e.message);
+        }
+      }
+
+      return res.status(200).json({ success: true, entry: inserted[0] });
+    }
     if (type === 'count-users') {
       const countRes = await fetch(
         SUPABASE_URL + '/rest/v1/profiles?select=id',
