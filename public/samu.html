@@ -1115,7 +1115,7 @@
     "\n\nLIFE SKILLS PRINCIPLE: When relevant, share the insider knowledge that most young people don't have — the AutoZone battery tip, that you can dispute ER bills, that most universities have free legal services, that you never have to consent to a search without a warrant. These nuggets of practical wisdom are Sam's superpower." +
     "\n\nCRITICAL — IN-APP SEARCH RULE: Sam NEVER tells the user to search Google, check Google Maps, look something up on Yelp, or find a provider externally. Sam U has a built-in local search that automatically appears below every response. When recommending that the user find a provider of any kind — attorney, auto shop, oil change shop, urgent care, pharmacy, tow truck, bail bondsman, storage unit, moving truck, dorm supplies — follow these two rules without exception:" +
     "\n\nRULE 1 — PLACEMENT: The in-app search reference must always appear in the 'What to Do RIGHT NOW' section — not buried in Next Steps. Finding a provider is an immediate action, not a follow-up. If the user's request is to find somewhere to go, the very first or second bullet must point them to the search." +
-    "\n\nRULE 2 — BOLD FORMATTING: Always wrap the search call-to-action in **double asterisks** so it renders bold and stands out. Examples: '**Use the search below** to find highly-rated auto repair shops near campus.', '**Tap Find Defense Attorneys below** to see options near campus sorted by rating.', '**Use the search below** to find oil change shops near her location.' The bold text makes the call to action impossible to miss on a quick scroll." +
+    "\n\nRULE 2 — BOLD + UNDERLINE FORMATTING: Always wrap the search call-to-action phrase in **__double asterisks and underscores__** so it renders bold AND underlined in brand blue, making it stand out as a clear visual call to action. Examples: '**__Use the search below__** to find highly-rated auto repair shops near campus.', '**__Tap Find Defense Attorneys below__** to see options near campus sorted by rating.', '**__Use the search below__** to find oil change shops near her location.' Apply this formatting only to the action phrase itself — not the entire sentence." +
     "\n\nNever send the user outside the app to find local services. The search is already there — make sure they see it.";
   }
 
@@ -1173,10 +1173,14 @@
         const title = headerMatch[1].trim();
         const body = section.replace(/^##\s+.+?\n/, '').trim();
         const style = sectionColors[title] || { bg: '#F4F3EE', border: '#9896B8', icon: '📋', label: title };
+        const fmt = s => s
+          .replace(/\*\*__(.*?)__\*\*/g, '<strong><u style="text-decoration-color:var(--blue-brand);text-underline-offset:3px;">$1</u></strong>')
+          .replace(/__(.*?)__/g, '<u style="text-decoration-color:var(--blue-brand);text-underline-offset:3px;">$1</u>')
+          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         const bodyHtml = body.split('\n').filter(l => l.trim()).map(line => {
-          if (/^\d+\.\s/.test(line)) return `<li>${line.replace(/^\d+\.\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
-          if (/^[-•]\s/.test(line)) return `<li>${line.replace(/^[-•]\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
-          return `<p style="margin:0 0 8px;">${line.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
+          if (/^\d+\.\s/.test(line)) return `<li>${fmt(line.replace(/^\d+\.\s/,''))}</li>`;
+          if (/^[-•]\s/.test(line)) return `<li>${fmt(line.replace(/^[-•]\s/,''))}</li>`;
+          return `<p style="margin:0 0 8px;">${fmt(line)}</p>`;
         }).join('').replace(/(<li>.*?<\/li>)+/gs, match => `<ol style="padding-left:18px;margin:8px 0;">${match}</ol>`);
         html += `<div style="margin-bottom:18px;border-radius:10px;overflow:hidden;border:1.5px solid ${style.border}30;"><div style="background:${style.bg};padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid ${style.border}40;"><span style="font-size:16px;">${style.icon}</span><span style="font-size:14px;font-weight:600;color:#1a2a3a;font-family:'DM Sans',sans-serif;">${style.label}</span></div><div style="padding:14px 18px;background:white;font-size:14.5px;line-height:1.75;color:#1a2a3a;">${bodyHtml}</div></div>`;
       } else if (section.trim()) {
@@ -1635,5 +1639,4 @@
 </script>
 </body>
 </html>
-
 
