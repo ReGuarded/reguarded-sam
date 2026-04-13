@@ -72,563 +72,117 @@
   }
 
   .logo-icon { width: 54px; height: 54px; flex-shrink: 0; }
-
   .logo-text { display: flex; flex-direction: column; line-height: 1; }
-
-  .logo-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-
+  .logo-wordmark { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .logo-wordmark span.sam { color: var(--blue-brand); }
   .logo-wordmark span.u { color: var(--orange); }
+  .logo-tagline { font-size: 11px; font-weight: 400; color: var(--text-muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
 
-  .logo-tagline {
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--text-muted);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
+  .hero { background: var(--white); border-radius: var(--radius); padding: 36px 40px; margin-bottom: 28px; border: 1px solid var(--border); box-shadow: var(--shadow); animation: fadeUp 0.6s 0.1s ease both; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--blue-deep); line-height: 1.3; margin-bottom: 10px; }
+  .hero p { font-size: 15px; font-weight: 300; color: var(--text-secondary); line-height: 1.7; }
 
-  .hero {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 36px 40px;
-    margin-bottom: 28px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
+  .badge { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-pale); color: var(--blue-brand); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 999px; margin-bottom: 14px; letter-spacing: 0.3px; }
+  .badge-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; display: inline-block; }
 
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--blue-deep);
-    line-height: 1.3;
-    margin-bottom: 10px;
-  }
-
-  .hero p {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--text-secondary);
-    line-height: 1.7;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--blue-pale);
-    color: var(--blue-brand);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-    letter-spacing: 0.3px;
-  }
-
-  .badge-dot {
-    width: 7px; height: 7px;
-    background: var(--orange);
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 36px 40px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blue-deep);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .step-badge {
-    background: var(--blue-brand);
-    color: white;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 999px;
-    letter-spacing: 0.5px;
-  }
-
-  .card-subtitle {
-    font-size: 13.5px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-    line-height: 1.5;
-  }
+  .card { background: var(--white); border-radius: var(--radius); padding: 36px 40px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px; animation: fadeUp 0.6s 0.2s ease both; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--blue-deep); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .step-badge { background: var(--blue-brand); color: white; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.5px; }
+  .card-subtitle { font-size: 13.5px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
 
   .field { margin-bottom: 18px; }
+  .field-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; line-height: 1.5; }
 
-  .field-hint {
-    font-size: 11.5px;
-    color: var(--text-muted);
-    margin-top: 5px;
-    line-height: 1.5;
-  }
-
-  label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 7px;
-    letter-spacing: 0.2px;
-  }
+  label { display: block; font-size: 13px; font-weight: 500; color: var(--text-secondary); margin-bottom: 7px; letter-spacing: 0.2px; }
 
   input[type="text"], input[type="number"], select, textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text-primary);
-    background: var(--cream);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    appearance: none;
+    width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-primary); background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
   }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
-    background: var(--white);
-  }
-
+  input:focus, select:focus, textarea:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); background: var(--white); }
   textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
   .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-
-  .chip {
-    padding: 7px 14px;
-    border-radius: 999px;
-    border: 1.5px solid var(--border);
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-secondary);
-    background: var(--cream);
-    cursor: pointer;
-    transition: all 0.18s;
-    user-select: none;
-  }
-
+  .chip { padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--border); font-size: 13px; font-weight: 400; color: var(--text-secondary); background: var(--cream); cursor: pointer; transition: all 0.18s; user-select: none; }
   .chip:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
+  .chip.selected { background: var(--blue-pale); border-color: var(--blue-brand); color: var(--blue-brand); font-weight: 500; }
 
-  .chip.selected {
-    background: var(--blue-pale);
-    border-color: var(--blue-brand);
-    color: var(--blue-brand);
-    font-weight: 500;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--blue-brand);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 14px 28px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 16px rgba(26,95,168,0.28);
-  }
-
-  .btn-primary:hover {
-    background: var(--blue-mid);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 22px rgba(26,95,168,0.36);
-  }
-
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-brand); color: white; border: none; border-radius: var(--radius-sm); padding: 14px 28px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(26,95,168,0.28); }
+  .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(26,95,168,0.36); }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    color: var(--text-muted);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-
+  .btn-secondary { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--text-muted); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.18s; }
   .btn-secondary:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
 
-  /* ── Legal Help Now Button ── */
-  .btn-legal-now {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--danger);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 12px 22px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 16px rgba(206,17,38,0.35);
-    letter-spacing: 0.2px;
-  }
+  .btn-legal-now { display: inline-flex; align-items: center; gap: 8px; background: var(--danger); color: white; border: none; border-radius: var(--radius-sm); padding: 12px 22px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(206,17,38,0.35); letter-spacing: 0.2px; }
+  .btn-legal-now:hover { background: #a50e1e; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(206,17,38,0.45); }
 
-  .btn-legal-now:hover {
-    background: #a50e1e;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 22px rgba(206,17,38,0.45);
-  }
+  .legal-help-now-banner { background: #fff0f0; border: 2px solid var(--danger); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.3s ease both; }
+  .legal-help-now-banner .lhn-text { font-size: 14px; font-weight: 500; color: #7a0010; line-height: 1.5; flex: 1; }
+  .legal-help-now-banner .lhn-sub { font-size: 12px; color: #a32d2d; font-weight: 400; display: block; margin-top: 2px; }
 
-  /* ── Legal Help Now Banner (shown above response) ── */
-  .legal-help-now-banner {
-    background: #fff0f0;
-    border: 2px solid var(--danger);
-    border-radius: var(--radius-sm);
-    padding: 16px 20px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    flex-wrap: wrap;
-    animation: fadeUp 0.3s ease both;
-  }
+  .btn-row { display: flex; align-items: center; justify-content: space-between; margin-top: 28px; flex-wrap: wrap; gap: 12px; }
 
-  .legal-help-now-banner .lhn-text {
-    font-size: 14px;
-    font-weight: 500;
-    color: #7a0010;
-    line-height: 1.5;
-    flex: 1;
-  }
+  .welcome-screen { background: var(--white); border-radius: var(--radius); padding: 48px 40px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); text-align: center; animation: fadeUp 0.6s ease both; margin-bottom: 20px; }
+  .welcome-screen h1 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--blue-deep); margin-bottom: 10px; line-height: 1.3; }
+  .welcome-screen p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; max-width: 520px; margin: 0 auto 28px; font-weight: 300; }
 
-  .legal-help-now-banner .lhn-sub {
-    font-size: 12px;
-    color: #a32d2d;
-    font-weight: 400;
-    display: block;
-    margin-top: 2px;
-  }
-
-  .btn-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 28px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  /* Welcome screen */
-  .welcome-screen {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 48px 40px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    text-align: center;
-    animation: fadeUp 0.6s ease both;
-    margin-bottom: 20px;
-  }
-
-  .welcome-screen h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--blue-deep);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .welcome-screen p {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-    max-width: 520px;
-    margin: 0 auto 28px;
-    font-weight: 300;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 14px;
-    margin-bottom: 32px;
-    text-align: left;
-  }
-
-  .feature-item {
-    background: var(--blue-pale);
-    border-radius: var(--radius-sm);
-    padding: 16px;
-    border: 1px solid var(--border);
-  }
-
+  .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 32px; text-align: left; }
+  .feature-item { background: var(--blue-pale); border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border); }
   .feature-item .f-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(27,58,107,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
   .feature-item .f-title { font-size:13px; font-weight:500; color:var(--blue-deep); margin-bottom:4px; }
   .feature-item .f-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
 
-  /* Privacy badge */
-  .privacy-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--orange-pale);
-    border: 1px solid var(--orange-light);
-    border-radius: var(--radius-sm);
-    padding: 10px 16px;
-    margin-bottom: 24px;
-    font-size: 13px;
-    color: #8a0010;
-    line-height: 1.5;
-  }
+  .privacy-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--orange-pale); border: 1px solid var(--orange-light); border-radius: var(--radius-sm); padding: 10px 16px; margin-bottom: 24px; font-size: 13px; color: #8a0010; line-height: 1.5; }
 
-  /* User type selector */
-  .user-type-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .user-type-card {
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.18s;
-    text-align: center;
-    background: var(--cream);
-  }
-
+  .user-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .user-type-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.18s; text-align: center; background: var(--cream); }
   .user-type-card:hover { border-color: var(--blue-light); background: var(--blue-pale); }
-
-  .user-type-card.selected {
-    border-color: var(--blue-brand);
-    background: var(--blue-pale);
-    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
-  }
-
-  .user-type-card .ut-icon { font-size: 32px; display:block; margin-bottom:10px; }
+  .user-type-card.selected { border-color: var(--blue-brand); background: var(--blue-pale); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); }
   .user-type-card .ut-title { font-size:15px; font-weight:500; color:var(--blue-deep); margin-bottom:4px; }
   .user-type-card .ut-desc { font-size:12px; color:var(--text-muted); line-height:1.5; }
 
-  /* Profile bar */
-  .profile-bar {
-    background: var(--blue-pale);
-    border: 1px solid var(--blue-muted);
-    border-radius: var(--radius-sm);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    animation: fadeUp 0.4s ease both;
-  }
+  .profile-bar { background: var(--blue-pale); border: 1px solid var(--blue-muted); border-radius: var(--radius-sm); padding: 14px 20px; display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; animation: fadeUp 0.4s ease both; }
+  .profile-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--blue-deep); }
+  .profile-pill { background: white; border: 1px solid var(--blue-muted); border-radius: 999px; padding: 3px 10px; font-size: 12px; color: var(--blue-brand); font-weight: 400; }
+  .profile-edit { margin-left: auto; font-size: 12px; color: var(--blue-light); cursor: pointer; text-decoration: underline; }
 
-  .profile-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--blue-deep);
-  }
-
-  .profile-pill {
-    background: white;
-    border: 1px solid var(--blue-muted);
-    border-radius: 999px;
-    padding: 3px 10px;
-    font-size: 12px;
-    color: var(--blue-brand);
-    font-weight: 400;
-  }
-
-  .profile-edit {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--blue-light);
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  /* Category grid */
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  .cat-card {
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 12px;
-    cursor: pointer;
-    transition: all 0.18s;
-    background: var(--cream);
-    text-align: center;
-    user-select: none;
-  }
-
+  .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+  .cat-card { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 12px; cursor: pointer; transition: all 0.18s; background: var(--cream); text-align: center; user-select: none; }
   .cat-card:hover { border-color: var(--blue-muted); background: var(--blue-pale); }
-
-  .cat-card.selected {
-    border-color: var(--blue-brand);
-    background: var(--blue-pale);
-    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
-  }
-
+  .cat-card.selected { border-color: var(--blue-brand); background: var(--blue-pale); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); }
   .cat-card.urgent { border-color: #ef9090; background: #fff5f5; }
   .cat-card.urgent:hover { border-color: var(--danger); }
   .cat-card.urgent.selected { border-color: var(--danger); background: #ffecec; box-shadow: 0 0 0 3px rgba(226,75,74,0.12); }
-
-  .cat-card .cat-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: var(--blue-pale);
-    margin: 0 auto 8px;
-    flex-shrink: 0;
-  }
+  .cat-card .cat-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: var(--blue-pale); margin: 0 auto 8px; flex-shrink: 0; }
   .cat-card.urgent .cat-icon { background: #fde8eb; }
   .cat-card .cat-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); line-height: 1.3; display: block; }
   .cat-card.selected .cat-label { color: var(--blue-brand); }
   .cat-card.urgent.selected .cat-label { color: var(--danger); }
 
-  /* Problem area */
-  .problem-area textarea {
-    min-height: 130px;
-    font-size: 15px;
-    line-height: 1.7;
-    padding: 18px 20px;
-  }
-
+  .problem-area textarea { min-height: 130px; font-size: 15px; line-height: 1.7; padding: 18px 20px; }
   .problem-hint { margin-top: 10px; font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
 
-  .auto-tip-bar {
-    position: relative;
-    background: #fffbea;
-    border: 1px solid #f0d060;
-    border-radius: var(--radius-sm);
-    padding: 9px 32px 9px 14px;
-    margin-bottom: 12px;
-    font-size: 13px;
-    color: #5a4200;
-    line-height: 1.6;
-    animation: fadeUp 0.3s ease both;
-  }
+  .auto-tip-bar { position: relative; background: #fffbea; border: 1px solid #f0d060; border-radius: var(--radius-sm); padding: 9px 32px 9px 14px; margin-bottom: 12px; font-size: 13px; color: #5a4200; line-height: 1.6; animation: fadeUp 0.3s ease both; }
   .auto-tip-bar span { display: block; }
-  .auto-tip-dismiss {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    font-size: 14px;
-    color: #a08030;
-    cursor: pointer;
-    line-height: 1;
-    opacity: 0.7;
-    transition: opacity 0.15s;
-  }
+  .auto-tip-dismiss { position: absolute; top: 8px; right: 10px; font-size: 14px; color: #a08030; cursor: pointer; line-height: 1; opacity: 0.7; transition: opacity 0.15s; }
   .auto-tip-dismiss:hover { opacity: 1; }
 
-  /* Response */
-  .response-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    animation: fadeUp 0.5s ease both;
-    margin-top: 20px;
-  }
-
-  .response-header {
-    background: var(--blue-deep);
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .response-header .icon {
-    width: 36px; height: 36px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-
-  .response-header-text h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: white;
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-
+  .response-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden; animation: fadeUp 0.5s ease both; margin-top: 20px; }
+  .response-header { background: var(--blue-deep); padding: 20px 28px; display: flex; align-items: center; gap: 12px; }
+  .response-header .icon { width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .response-header-text h3 { font-family: 'Playfair Display', serif; font-size: 16px; color: white; font-weight: 700; margin-bottom: 2px; }
   .response-header-text p { font-size: 12px; color: rgba(255,255,255,0.65); font-weight: 300; }
-
   .response-body { padding: 28px 32px; }
   .response-body p { font-size: 15px; line-height: 1.8; color: var(--text-primary); margin-bottom: 14px; }
   .response-body strong { color: var(--blue-deep); font-weight: 500; }
   .response-body ol, .response-body ul { padding-left: 20px; margin: 10px 0 14px; }
   .response-body li { font-size: 15px; line-height: 1.8; color: var(--text-primary); margin-bottom: 6px; }
-
-  .response-footer {
-    padding: 16px 32px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
+  .response-footer { padding: 16px 32px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   .response-footer-note { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
   .shield-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block; }
 
-  /* Loading */
   .loading-state { padding: 36px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
   .loading-dots { display: flex; gap: 8px; align-items: center; }
   .loading-dots span { width: 9px; height: 9px; background: var(--blue-muted); border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
@@ -636,70 +190,24 @@
   .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
   .loading-label { font-size: 14px; color: var(--text-muted); font-weight: 300; }
 
-  /* Feedback */
-  .feedback-bar {
-    display: flex; align-items: center; gap: 12px;
-    padding: 14px 20px;
-    background: var(--blue-pale);
-    border-top: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-
+  .feedback-bar { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--blue-pale); border-top: 1px solid var(--border); flex-wrap: wrap; }
   .feedback-label { font-size: 13px; color: var(--text-secondary); flex: 1; }
-
-  .feedback-btn {
-    padding: 7px 16px; border-radius: 999px;
-    border: 1.5px solid var(--border); background: white;
-    cursor: pointer; font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text-secondary); transition: all 0.18s;
-    display: flex; align-items: center; gap: 5px;
-  }
-
+  .feedback-btn { padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--border); background: white; cursor: pointer; font-size: 13px; font-family: 'DM Sans', sans-serif; color: var(--text-secondary); transition: all 0.18s; display: flex; align-items: center; gap: 5px; }
   .feedback-btn:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
   .feedback-btn.positive.active { background: #EAF3DE; border-color: #639922; color: #3B6D11; }
   .feedback-btn.negative.active { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
-
-  .feedback-comment {
-    width: 100%; margin-top: 8px; padding: 10px 14px;
-    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif; font-size: 13px;
-    color: var(--text-primary); background: white; resize: none; outline: none;
-  }
-
-  .feedback-submit {
-    margin-top: 8px; padding: 8px 18px;
-    background: var(--blue-brand); color: white; border: none;
-    border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; cursor: pointer;
-  }
-
+  .feedback-comment { width: 100%; margin-top: 8px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text-primary); background: white; resize: none; outline: none; }
+  .feedback-submit { margin-top: 8px; padding: 8px 18px; background: var(--blue-brand); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; }
   .feedback-thanks { font-size: 13px; color: var(--success); font-weight: 500; padding: 10px 0; }
 
-  /* Modal */
-  .modal-overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,35,102,0.5); z-index:1000;
-    align-items:center; justify-content:center; padding:20px;
-  }
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,35,102,0.5); z-index:1000; align-items:center; justify-content:center; padding:20px; }
   .modal-overlay.active { display:flex; }
-  .modal-box {
-    background:white; border-radius:var(--radius); padding:36px;
-    max-width:480px; width:100%; box-shadow:var(--shadow-lg);
-    position:relative; animation: fadeUp 0.3s ease both;
-  }
+  .modal-box { background:white; border-radius:var(--radius); padding:36px; max-width:480px; width:100%; box-shadow:var(--shadow-lg); position:relative; animation: fadeUp 0.3s ease both; }
   .modal-close { position:absolute; top:16px; right:16px; background:none; border:none; font-size:20px; color:var(--text-muted); cursor:pointer; }
   .modal-box h2 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--blue-deep); margin-bottom:10px; }
   .modal-box p { font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:14px; }
 
-  /* Print */
-  .btn-print {
-    display:inline-flex; align-items:center; gap:6px;
-    background:transparent; color:var(--text-muted);
-    border:1.5px solid var(--border); border-radius:var(--radius-sm);
-    padding:8px 16px; font-family:'DM Sans',sans-serif;
-    font-size:13px; cursor:pointer; transition:all 0.18s;
-  }
+  .btn-print { display:inline-flex; align-items:center; gap:6px; background:transparent; color:var(--text-muted); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:8px 16px; font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer; transition:all 0.18s; }
   .btn-print:hover { border-color:var(--blue-muted); color:var(--blue-brand); }
 
   @media print {
@@ -710,20 +218,13 @@
     body { background:white !important; }
   }
 
-  /* Progress */
   .progress-bar { display:flex; align-items:center; margin-bottom:28px; }
   .progress-step { display:flex; align-items:center; gap:8px; flex:1; }
   .progress-line { flex:1; height:2px; background:var(--border); margin:0 8px; }
-  .progress-num {
-    width:28px; height:28px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:12px; font-weight:600; color:white; flex-shrink:0;
-  }
+  .progress-num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:white; flex-shrink:0; }
 
-  /* Floating POC btn */
   #poc-feedback-btn { display:none; position:fixed; bottom:24px; right:24px; z-index:100; }
 
-  /* Animations */
   @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
   @keyframes bounce { 0%,80%,100% { transform:scale(0.7); opacity:0.5; } 40% { transform:scale(1.0); opacity:1; } }
 
@@ -741,68 +242,17 @@
     .field-row { grid-template-columns:1fr; }
   }
 
-  /* ── Local Search ── */
-  .search-trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--blue-pale);
-    border: 1.5px solid var(--blue-muted);
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--blue-brand);
-    cursor: pointer;
-    transition: all 0.18s;
-    margin-top: 8px;
-  }
+  .search-trigger { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-pale); border: 1.5px solid var(--blue-muted); border-radius: var(--radius-sm); padding: 8px 16px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--blue-brand); cursor: pointer; transition: all 0.18s; margin-top: 8px; }
   .search-trigger:hover { background: var(--orange); color: white; border-color: var(--orange); }
 
-  .places-container {
-    margin-top: 20px;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .places-header {
-    background: var(--blue-deep);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
+  .places-container { margin-top: 20px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); animation: fadeUp 0.4s ease both; }
+  .places-header { background: var(--blue-deep); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
   .places-header h4 { font-family: 'Playfair Display', serif; font-size: 15px; color: white; font-weight: 700; flex: 1; }
   .places-header p { font-size: 11px; color: rgba(255,255,255,0.65); }
-
   .business-cards { background: white; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-
-  .business-card {
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    transition: border-color 0.18s;
-    cursor: pointer;
-  }
-
+  .business-card { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; transition: border-color 0.18s; cursor: pointer; }
   .business-card:hover { border-color: var(--blue-muted); }
-
-  .business-rank {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--blue-brand); color: white;
-    font-size: 12px; font-weight: 600;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; font-family: 'DM Sans', sans-serif;
-  }
-
+  .business-rank { width: 28px; height: 28px; border-radius: 50%; background: var(--blue-brand); color: white; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'DM Sans', sans-serif; }
   .business-info { flex: 1; min-width: 0; }
   .business-name { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .business-address { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -818,815 +268,123 @@
   .places-loading { padding: 32px; text-align: center; color: var(--text-muted); font-size: 14px; background: white; }
   .places-error { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; background: white; }
 
-
-  /* ── School Autocomplete ── */
   .autocomplete-wrapper { position: relative; }
-
-  .autocomplete-input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text-primary);
-    background: var(--cream);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-  }
-
-  .autocomplete-input:focus {
-    border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
-    background: var(--white);
-  }
-
-  .autocomplete-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1.5px solid var(--blue-muted);
-    border-top: none;
-    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-    max-height: 220px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: var(--shadow-lg);
-    display: none;
-  }
-
+  .autocomplete-input { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-primary); background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .autocomplete-input:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); background: var(--white); }
+  .autocomplete-dropdown { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1.5px solid var(--blue-muted); border-top: none; border-radius: 0 0 var(--radius-sm) var(--radius-sm); max-height: 220px; overflow-y: auto; z-index: 1000; box-shadow: var(--shadow-lg); display: none; }
   .autocomplete-dropdown.open { display: block; }
-
-  .autocomplete-item {
-    padding: 10px 16px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.12s;
-  }
-
+  .autocomplete-item { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--border); transition: background 0.12s; }
   .autocomplete-item:last-child { border-bottom: none; }
   .autocomplete-item:hover { background: var(--blue-pale); }
-
-  .autocomplete-item .school-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--blue-deep);
-  }
-
-  .autocomplete-item .school-location {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .autocomplete-selected {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: var(--blue-pale);
-    border: 1.5px solid var(--blue-brand);
-    border-radius: var(--radius-sm);
-    margin-top: 4px;
-  }
-
+  .autocomplete-item .school-name { font-size: 13px; font-weight: 500; color: var(--blue-deep); }
+  .autocomplete-item .school-location { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .autocomplete-selected { display: none; align-items: center; gap: 10px; padding: 10px 14px; background: var(--blue-pale); border: 1.5px solid var(--blue-brand); border-radius: var(--radius-sm); margin-top: 4px; }
   .autocomplete-selected.visible { display: flex; }
   .autocomplete-selected .school-selected-name { font-size: 13px; font-weight: 500; color: var(--blue-deep); flex: 1; }
   .autocomplete-selected .school-selected-loc { font-size: 11px; color: var(--text-muted); }
   .autocomplete-change { font-size: 11px; color: var(--blue-light); cursor: pointer; text-decoration: underline; }
 
-
-  /* ── Campus Safety Card ── */
-  .campus-safety-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1.5px solid #CE1126;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 20px;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .campus-safety-header {
-    background: var(--blue-deep);
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
-  }
-
+  .campus-safety-card { background: var(--white); border-radius: var(--radius); border: 1.5px solid #CE1126; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
+  .campus-safety-header { background: var(--blue-deep); padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
   .campus-safety-header:hover { opacity: 0.95; }
-
-  .campus-safety-header h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    color: white;
-    font-weight: 700;
-    flex: 1;
-    margin: 0;
-  }
-
-  .campus-safety-header p {
-    font-size: 11px;
-    color: rgba(255,255,255,0.7);
-    margin: 0;
-  }
-
-  .safety-toggle {
-    font-size: 20px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.75);
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-    margin-left: auto;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-  }
-
+  .campus-safety-header h4 { font-family: 'Playfair Display', serif; font-size: 14px; color: white; font-weight: 700; flex: 1; margin: 0; }
+  .campus-safety-header p { font-size: 11px; color: rgba(255,255,255,0.7); margin: 0; }
+  .safety-toggle { font-size: 20px; font-weight: 300; color: rgba(255,255,255,0.75); transition: transform 0.25s ease; flex-shrink: 0; margin-left: auto; line-height: 1; display: flex; align-items: center; }
   .campus-safety-card.collapsed .safety-toggle { transform: rotate(-180deg); }
   .campus-safety-card.collapsed .safety-contacts-grid { display: none; }
   .campus-safety-card.collapsed .safety-disclaimer { display: none; }
   .campus-safety-card.collapsed .safety-loading { display: none; }
+  .safety-loading { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .safety-contacts-grid { padding: 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .safety-contact-item { background: var(--blue-pale); border-radius: var(--radius-sm); padding: 12px 14px; border: 1px solid var(--border); transition: border-color 0.15s; }
+  .safety-contact-item.urgent { background: #fff5f5; border-color: #ef9090; }
+  .safety-contact-item .contact-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .safety-contact-item.urgent .contact-label { color: #a32d2d; }
+  .safety-contact-item .contact-name { font-size: 13px; font-weight: 500; color: var(--blue-deep); margin-bottom: 4px; line-height: 1.3; }
+  .safety-contact-item .contact-phone { font-size: 14px; font-weight: 600; color: var(--blue-brand); text-decoration: none; display: block; }
+  .safety-contact-item.urgent .contact-phone { color: #a32d2d; }
+  .safety-contact-item .contact-phone:hover { text-decoration: underline; }
+  .safety-contact-item .contact-hours { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+  .safety-disclaimer { padding: 10px 16px; background: #fffbf0; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .safety-verify-link { color: var(--orange); text-decoration: underline; cursor: pointer; font-weight: 500; }
+  @media (max-width: 560px) { .safety-contacts-grid { grid-template-columns: 1fr; } }
 
-  .safety-loading {
-    padding: 20px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .safety-contacts-grid {
-    padding: 16px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .safety-contact-item {
-    background: var(--blue-pale);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    transition: border-color 0.15s;
-  }
-
-  .safety-contact-item.urgent {
-    background: #fff5f5;
-    border-color: #ef9090;
-  }
-
-  .safety-contact-item .contact-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-
-  .safety-contact-item.urgent .contact-label {
-    color: #a32d2d;
-  }
-
-  .safety-contact-item .contact-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--blue-deep);
-    margin-bottom: 4px;
-    line-height: 1.3;
-  }
-
-  .safety-contact-item .contact-phone {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--blue-brand);
-    text-decoration: none;
-    display: block;
-  }
-
-  .safety-contact-item.urgent .contact-phone {
-    color: #a32d2d;
-  }
-
-  .safety-contact-item .contact-phone:hover {
-    text-decoration: underline;
-  }
-
-  .safety-contact-item .contact-hours {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 3px;
-  }
-
-  .safety-disclaimer {
-    padding: 10px 16px;
-    background: #fffbf0;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .safety-verify-link {
-    color: var(--orange);
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 500;
-  }
-
-  @media (max-width: 560px) {
-    .safety-contacts-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── Move-In Card ── */
-  .movein-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1.5px solid #1d9e75;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    margin-bottom: 20px;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .movein-header {
-    background: #0f6e56;
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
-  }
-
+  .movein-card { background: var(--white); border-radius: var(--radius); border: 1.5px solid #1d9e75; box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
+  .movein-header { background: #0f6e56; padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
   .movein-header:hover { opacity: 0.95; }
-
-  .movein-header h4 {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px;
-    color: white;
-    font-weight: 700;
-    flex: 1;
-    margin: 0;
-  }
-
-  .movein-header p {
-    font-size: 11px;
-    color: rgba(255,255,255,0.7);
-    margin: 0;
-  }
-
-  .movein-toggle {
-    font-size: 20px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.75);
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-    margin-left: auto;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-  }
-
+  .movein-header h4 { font-family: 'Playfair Display', serif; font-size: 14px; color: white; font-weight: 700; flex: 1; margin: 0; }
+  .movein-header p { font-size: 11px; color: rgba(255,255,255,0.7); margin: 0; }
+  .movein-toggle { font-size: 20px; font-weight: 300; color: rgba(255,255,255,0.75); transition: transform 0.25s ease; flex-shrink: 0; margin-left: auto; line-height: 1; display: flex; align-items: center; }
   .movein-card.collapsed .movein-toggle { transform: rotate(-180deg); }
   .movein-card.collapsed .movein-body { display: none; }
   .movein-card.collapsed .movein-disclaimer { display: none; }
   .movein-card.collapsed .movein-loading { display: none; }
-
-  .movein-loading {
-    padding: 20px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .movein-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .movein-dates-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .movein-item {
-    background: #eafaf4;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    border: 1px solid #9fe1cb;
-  }
-
-  .movein-item .mi-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: #0f6e56;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-
-  .movein-item .mi-value {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--blue-deep);
-    line-height: 1.4;
-  }
-
-  .movein-item .mi-phone {
-    font-size: 14px;
-    font-weight: 600;
-    color: #0f6e56;
-    text-decoration: none;
-    display: block;
-    margin-top: 2px;
-  }
-
+  .movein-loading { padding: 20px; text-align: center; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .movein-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .movein-dates-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .movein-item { background: #eafaf4; border-radius: var(--radius-sm); padding: 12px 14px; border: 1px solid #9fe1cb; }
+  .movein-item .mi-label { font-size: 11px; font-weight: 500; color: #0f6e56; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .movein-item .mi-value { font-size: 13px; font-weight: 500; color: var(--blue-deep); line-height: 1.4; }
+  .movein-item .mi-phone { font-size: 14px; font-weight: 600; color: #0f6e56; text-decoration: none; display: block; margin-top: 2px; }
   .movein-item .mi-phone:hover { text-decoration: underline; }
+  .movein-checklist { background: #eafaf4; border-radius: var(--radius-sm); padding: 12px 14px; border: 1px solid #9fe1cb; }
+  .movein-checklist .mi-label { font-size: 11px; font-weight: 500; color: #0f6e56; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .movein-checklist ul { padding-left: 16px; margin: 0; }
+  .movein-checklist li { font-size: 12.5px; color: var(--text-primary); line-height: 1.7; }
+  .movein-disclaimer { padding: 10px 16px; background: #f0faf6; border-top: 1px solid #9fe1cb; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .movein-verify-link { color: #0f6e56; text-decoration: underline; cursor: pointer; font-weight: 500; }
+  @media (max-width: 560px) { .movein-dates-row { grid-template-columns: 1fr; } }
 
-  .movein-checklist {
-    background: #eafaf4;
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    border: 1px solid #9fe1cb;
-  }
+  #invite-gate { position: fixed; inset: 0; background: var(--cream); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadeUp 0.5s ease both; }
+  #invite-gate::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(26,95,168,0.09) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 100%, rgba(206,17,38,0.07) 0%, transparent 50%); pointer-events: none; }
+  .gate-box { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-lg); padding: 48px 44px; max-width: 460px; width: 100%; text-align: center; position: relative; z-index: 1; animation: fadeUp 0.5s 0.1s ease both; }
+  .gate-logo-mark { width: 160px; height: auto; margin: 0 auto 16px; display: block; }
+  .gate-divider { width: 48px; height: 2px; background: linear-gradient(90deg, var(--blue-brand), var(--orange)); border-radius: 999px; margin: 0 auto 24px; }
+  .gate-welcome { font-size: 15px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 28px; font-weight: 300; }
+  .gate-welcome strong { color: var(--blue-deep); font-weight: 500; }
+  .gate-input-wrap { position: relative; margin-bottom: 14px; }
+  .gate-input { width: 100%; padding: 14px 20px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500; color: var(--text-primary); background: var(--cream); text-align: center; letter-spacing: 3px; text-transform: uppercase; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .gate-input::placeholder { letter-spacing: 1px; text-transform: none; font-weight: 300; color: var(--text-muted); font-size: 14px; }
+  .gate-input:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); background: var(--white); }
+  .gate-input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(206,17,38,0.12); animation: shake 0.4s ease; }
+  .gate-error { font-size: 13px; color: var(--danger); margin-bottom: 14px; min-height: 18px; font-weight: 400; }
+  .gate-btn { width: 100%; padding: 15px; background: var(--blue-brand); color: white; border: none; border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(26,95,168,0.28); display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .gate-btn:hover { background: var(--blue-mid); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(26,95,168,0.36); }
+  .gate-footer { margin-top: 24px; font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+  @media (max-width: 480px) { .gate-box { padding: 36px 24px; } }
 
-  .movein-checklist .mi-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: #0f6e56;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 8px;
-  }
+  #email-screen { background: var(--white); border-radius: var(--radius); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px; animation: fadeUp 0.5s ease both; text-align: center; }
+  .email-screen-logo { width: 80px; height: auto; margin: 0 auto 16px; display: block; }
+  .email-screen-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blue-deep); margin-bottom: 8px; }
+  .email-screen-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; font-weight: 300; }
+  .email-input-wrap { max-width: 380px; margin: 0 auto 12px; }
+  .email-input { width: 100%; padding: 13px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text-primary); background: var(--cream); outline: none; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
+  .email-input:focus { border-color: var(--blue-light); box-shadow: 0 0 0 3px rgba(91,155,213,0.15); background: var(--white); }
+  .email-input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(192,18,48,0.12); }
+  .email-error { font-size: 13px; color: var(--danger); min-height: 18px; margin-bottom: 12px; }
+  .email-submit-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-brand); color: white; border: none; border-radius: var(--radius-sm); padding: 13px 32px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 16px rgba(27,58,107,0.25); }
+  .email-submit-btn:hover { background: var(--blue-mid); transform: translateY(-1px); }
+  .email-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .email-privacy { font-size: 12px; color: var(--text-muted); margin-top: 16px; line-height: 1.5; }
 
-  .movein-checklist ul {
-    padding-left: 16px;
-    margin: 0;
-  }
+  .returning-banner { background: #eafaf4; border: 1.5px solid #1d9e75; border-radius: var(--radius-sm); padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.4s ease both; }
+  .returning-banner .rb-text { font-size: 14px; color: #0f6e56; font-weight: 500; flex: 1; }
+  .returning-banner .rb-sub { font-size: 12px; color: #1d9e75; font-weight: 300; display: block; margin-top: 2px; }
+  .rb-edit { font-size: 12px; color: #1d9e75; text-decoration: underline; cursor: pointer; white-space: nowrap; }
 
-  .movein-checklist li {
-    font-size: 12.5px;
-    color: var(--text-primary);
-    line-height: 1.7;
-  }
-
-  .movein-disclaimer {
-    padding: 10px 16px;
-    background: #f0faf6;
-    border-top: 1px solid #9fe1cb;
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .movein-verify-link {
-    color: #0f6e56;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 500;
-  }
-
-  @media (max-width: 560px) {
-    .movein-dates-row { grid-template-columns: 1fr; }
-  }
-
-  /* ── Invite Gate ── */
-  #invite-gate {
-    position: fixed;
-    inset: 0;
-    background: var(--cream);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  #invite-gate::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(26,95,168,0.09) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(206,17,38,0.07) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  .gate-box {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-lg);
-    padding: 48px 44px;
-    max-width: 460px;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-    animation: fadeUp 0.5s 0.1s ease both;
-  }
-
-  .gate-logo-mark {
-    width: 160px;
-    height: auto;
-    margin: 0 auto 16px;
-    display: block;
-  }
-
-  .gate-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 4px;
-  }
-
-  .gate-wordmark .sam { color: var(--blue-brand); }
-  .gate-wordmark .u   { color: var(--orange); }
-
-  .gate-tagline {
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-
-  .gate-divider {
-    width: 48px;
-    height: 2px;
-    background: linear-gradient(90deg, var(--blue-brand), var(--orange));
-    border-radius: 999px;
-    margin: 0 auto 24px;
-  }
-
-  .gate-welcome {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.75;
-    margin-bottom: 28px;
-    font-weight: 300;
-  }
-
-  .gate-welcome strong {
-    color: var(--blue-deep);
-    font-weight: 500;
-  }
-
-  .gate-input-wrap {
-    position: relative;
-    margin-bottom: 14px;
-  }
-
-  .gate-input {
-    width: 100%;
-    padding: 14px 20px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--text-primary);
-    background: var(--cream);
-    text-align: center;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .gate-input::placeholder {
-    letter-spacing: 1px;
-    text-transform: none;
-    font-weight: 300;
-    color: var(--text-muted);
-    font-size: 14px;
-  }
-
-  .gate-input:focus {
-    border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(26,95,168,0.12);
-    background: var(--white);
-  }
-
-  .gate-input.error {
-    border-color: var(--danger);
-    box-shadow: 0 0 0 3px rgba(206,17,38,0.12);
-    animation: shake 0.4s ease;
-  }
-
-  .gate-error {
-    font-size: 13px;
-    color: var(--danger);
-    margin-bottom: 14px;
-    min-height: 18px;
-    font-weight: 400;
-  }
-
-  .gate-btn {
-    width: 100%;
-    padding: 15px;
-    background: var(--blue-brand);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 4px 16px rgba(26,95,168,0.28);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .gate-btn:hover {
-    background: var(--blue-mid);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 22px rgba(26,95,168,0.36);
-  }
-
-  .gate-footer {
-    margin-top: 24px;
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%       { transform: translateX(-8px); }
-    40%       { transform: translateX(8px); }
-    60%       { transform: translateX(-5px); }
-    80%       { transform: translateX(5px); }
-  }
-
-  @media (max-width: 480px) {
-    .gate-box { padding: 36px 24px; }
-  }
-
-  /* ── Email Screen ── */
-  #email-screen {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 40px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    margin-bottom: 20px;
-    animation: fadeUp 0.5s ease both;
-    text-align: center;
-  }
-
-  .email-screen-logo {
-    width: 80px;
-    height: auto;
-    margin: 0 auto 16px;
-    display: block;
-  }
-
-  .email-screen-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--blue-deep);
-    margin-bottom: 8px;
-  }
-
-  .email-screen-sub {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  .email-input-wrap {
-    max-width: 380px;
-    margin: 0 auto 12px;
-  }
-
-  .email-input {
-    width: 100%;
-    padding: 13px 18px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    color: var(--text-primary);
-    background: var(--cream);
-    outline: none;
-    text-align: center;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .email-input:focus {
-    border-color: var(--blue-light);
-    box-shadow: 0 0 0 3px rgba(91,155,213,0.15);
-    background: var(--white);
-  }
-
-  .email-input.error {
-    border-color: var(--danger);
-    box-shadow: 0 0 0 3px rgba(192,18,48,0.12);
-  }
-
-  .email-error {
-    font-size: 13px;
-    color: var(--danger);
-    min-height: 18px;
-    margin-bottom: 12px;
-  }
-
-  .email-submit-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--blue-brand);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 13px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
-    box-shadow: 0 4px 16px rgba(27,58,107,0.25);
-  }
-
-  .email-submit-btn:hover {
-    background: var(--blue-mid);
-    transform: translateY(-1px);
-  }
-
-  .email-submit-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .email-privacy {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 16px;
-    line-height: 1.5;
-  }
-
-  /* Returning user welcome */
-  .returning-banner {
-    background: #eafaf4;
-    border: 1.5px solid #1d9e75;
-    border-radius: var(--radius-sm);
-    padding: 14px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .returning-banner .rb-text {
-    font-size: 14px;
-    color: #0f6e56;
-    font-weight: 500;
-    flex: 1;
-  }
-
-  .returning-banner .rb-sub {
-    font-size: 12px;
-    color: #1d9e75;
-    font-weight: 300;
-    display: block;
-    margin-top: 2px;
-  }
-
-  .rb-edit {
-    font-size: 12px;
-    color: #1d9e75;
-    text-decoration: underline;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  /* ── Spring Break Mode ── */
-  .spring-break-banner {
-    background: var(--white);
-    border: 1.5px solid var(--blue-muted);
-    border-radius: var(--radius-sm);
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: fadeUp 0.4s ease both;
-  }
-
+  .spring-break-banner { background: var(--white); border: 1.5px solid var(--blue-muted); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.4s ease both; }
   .spring-break-banner .sb-icon { font-size: 20px; flex-shrink: 0; }
-
-  .spring-break-banner .sb-text {
-    flex: 1;
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .spring-break-banner .sb-text strong {
-    color: var(--blue-deep);
-    font-weight: 500;
-  }
-
-  .sb-setup-btn {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--blue-brand);
-    background: var(--blue-pale);
-    border: 1px solid var(--blue-muted);
-    border-radius: var(--radius-sm);
-    padding: 6px 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
+  .spring-break-banner .sb-text { flex: 1; font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .spring-break-banner .sb-text strong { color: var(--blue-deep); font-weight: 500; }
+  .sb-setup-btn { font-size: 12px; font-weight: 500; color: var(--blue-brand); background: var(--blue-pale); border: 1px solid var(--blue-muted); border-radius: var(--radius-sm); padding: 6px 12px; cursor: pointer; white-space: nowrap; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
   .sb-setup-btn:hover { background: var(--blue-brand); color: white; border-color: var(--blue-brand); }
+  .sb-active-badge { display: inline-flex; align-items: center; gap: 6px; background: #eafaf4; border: 1px solid #1d9e75; border-radius: 999px; padding: 4px 12px; font-size: 12px; color: #0f6e56; font-weight: 500; margin-bottom: 16px; animation: fadeUp 0.3s ease both; }
 
-  .sb-active-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #eafaf4;
-    border: 1px solid #1d9e75;
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: #0f6e56;
-    font-weight: 500;
-    margin-bottom: 16px;
-    animation: fadeUp 0.3s ease both;
-  }
-
-  /* Spring Break setup form */
-  .sb-form {
-    background: var(--white);
-    border: 1.5px solid var(--blue-muted);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 16px;
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .sb-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--blue-deep);
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .sb-form-sub {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 18px;
-    line-height: 1.5;
-  }
-
-  .sb-loading {
-    font-size: 13px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
+  .sb-form { background: var(--white); border: 1.5px solid var(--blue-muted); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; animation: fadeUp 0.4s ease both; }
+  .sb-form-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--blue-deep); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .sb-form-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
+  .sb-loading { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 </style>
 </head>
 <body>
@@ -1634,50 +392,26 @@
 <!-- ── Invite Gate ── -->
 <div id="invite-gate">
   <div class="gate-box">
-
-    <!-- Logo mark — Sam U -->
     <img src="/sam-u-logo.png" alt="Sam U by ReGuarded" class="gate-logo-mark" style="object-fit:contain;"/>
-
     <div class="gate-divider"></div>
-
     <p class="gate-welcome">
       You've been personally invited to try <strong>Sam U</strong> — an AI-powered guardian for college students and their parents.<br/><br/>
       Enter your access code to get started.
     </p>
-
     <div class="gate-input-wrap">
-      <input
-        class="gate-input"
-        id="gate-input"
-        type="text"
-        placeholder="Enter your access code"
-        maxlength="20"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="characters"
-        spellcheck="false"
-        onkeydown="if(event.key==='Enter') submitGate()"
-      />
+      <input class="gate-input" id="gate-input" type="text" placeholder="Enter your access code" maxlength="20" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" onkeydown="if(event.key==='Enter') submitGate()"/>
     </div>
-
     <div class="gate-error" id="gate-error"></div>
-
     <button class="gate-btn" onclick="submitGate()">
       Enter Sam U
       <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-
-    <div class="gate-footer">
-      🔒 Access is by invitation only.<br/>
-      Need a code? Contact <strong>Joey Terrazas</strong> at ReGuarded.
-    </div>
-
+    <div class="gate-footer">🔒 Access is by invitation only.<br/>Need a code? Contact <strong>Joey Terrazas</strong> at ReGuarded.</div>
   </div>
 </div>
 
 <div class="page">
 
-  <!-- Global loader — shown during profile auto-lookup -->
   <div id="global-loader" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:20px;">
     <img src="/sam-u-logo.png" alt="Sam U" style="width:80px;height:auto;opacity:0.8;"/>
     <div class="loading-dots"><span></span><span></span><span></span></div>
@@ -1690,14 +424,7 @@
     <div class="email-screen-title">Welcome to Sam U</div>
     <div class="email-screen-sub">Enter your email so Sam can remember you.<br/>No password needed — ever.</div>
     <div class="email-input-wrap">
-      <input
-        class="email-input"
-        id="email-input"
-        type="email"
-        placeholder="your@email.com"
-        autocomplete="email"
-        onkeydown="if(event.key==='Enter') submitEmail()"
-      />
+      <input class="email-input" id="email-input" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter') submitEmail()"/>
     </div>
     <div class="email-error" id="email-error"></div>
     <button class="email-submit-btn" id="email-submit-btn" onclick="submitEmail()">
@@ -1730,11 +457,9 @@
     <img src="/sam-u-logo.png" alt="Sam U by ReGuarded" style="width:140px;height:auto;object-fit:contain;margin:0 auto 20px;display:block;"/>
     <h1>Hi, I'm Sam.<br/>Your campus guardian.</h1>
     <p>From move-in day to graduation — Sam helps students handle whatever comes next, and gives parents peace of mind from wherever they are.</p>
-
     <div class="privacy-badge">
       🔒 <span><strong>Student privacy guaranteed.</strong> Sam never shares your conversations with parents. What you ask stays between you and Sam.</span>
     </div>
-
     <div class="feature-grid">
       <div class="feature-item">
         <div class="f-icon" style="background:rgba(192,18,48,0.12);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
@@ -1767,7 +492,6 @@
         <div class="f-desc">Checklists, university resources, and local services — all in one place</div>
       </div>
     </div>
-
     <button class="btn-primary" onclick="startOnboarding()" style="font-size:16px;padding:16px 36px;">
       Get started — meet Sam
       <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1784,7 +508,6 @@
 
   <!-- STEP 1: Profile -->
   <div class="card" id="step1-card" style="display:none;">
-
     <div class="progress-bar">
       <div class="progress-step">
         <div class="progress-num" style="background:var(--blue-brand);">1</div>
@@ -1796,13 +519,8 @@
         <span style="font-size:13px;color:var(--text-muted);">Get Help</span>
       </div>
     </div>
-
-    <div class="card-title">
-      <span class="step-badge">Step 1 of 2</span>
-      Who's using Sam today?
-    </div>
+    <div class="card-title"><span class="step-badge">Step 1 of 2</span> Who's using Sam today?</div>
     <div class="card-subtitle">Sam works for both students and parents — just a little differently. Tell us who you are so Sam can speak your language.</div>
-
     <div class="user-type-grid" id="user-type-grid">
       <div class="user-type-card" onclick="selectUserType(this,'student')" data-type="student">
         <div style="width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
@@ -1815,9 +533,7 @@
         <div class="ut-desc">I'm helping my student navigate a situation from a distance.</div>
       </div>
     </div>
-
     <div id="profile-fields" style="display:none;">
-
       <div class="field-row">
         <div class="field">
           <label id="name-label">Your first name</label>
@@ -1842,7 +558,6 @@
           <div class="field-hint">Start typing your school name — Sam uses the exact location for local searches.</div>
         </div>
       </div>
-
       <div class="field-row">
         <div class="field">
           <label>Year in school</label>
@@ -1867,7 +582,6 @@
           </select>
         </div>
       </div>
-
       <div class="field">
         <label>Do you have a car on campus?</label>
         <div class="chip-group" id="car-group">
@@ -1877,26 +591,19 @@
         </div>
         <div class="field-hint">Helps Sam tailor car trouble and transportation advice.</div>
       </div>
-
       <div class="field">
         <label>Emergency contact <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label>
         <div class="field-row">
-          <div class="field" style="margin-bottom:0;">
-            <input type="text" id="emergency-name" placeholder="Name (e.g. Dad — Joey)"/>
-          </div>
-          <div class="field" style="margin-bottom:0;">
-            <input type="text" id="emergency-phone" placeholder="Phone (e.g. 512-555-0100)"/>
-          </div>
+          <div class="field" style="margin-bottom:0;"><input type="text" id="emergency-name" placeholder="Name (e.g. Dad — Joey)"/></div>
+          <div class="field" style="margin-bottom:0;"><input type="text" id="emergency-phone" placeholder="Phone (e.g. 512-555-0100)"/></div>
         </div>
         <div class="field-hint">For serious situations like arrests, Sam will remind you to call this person immediately.</div>
       </div>
-
       <div class="field">
         <label for="extra-context">Anything else Sam should know? <span style="font-weight:300;color:var(--text-muted)">(optional)</span></label>
         <textarea id="extra-context" placeholder="e.g. I'm in a sorority. I have a 2019 Honda Civic. My parents are in Dallas. I'm pre-law." style="min-height:70px;"></textarea>
         <div class="field-hint">The more specific you are, the better Sam's advice will be.</div>
       </div>
-
       <div class="btn-row">
         <span style="font-size:12.5px;color:var(--text-muted);">🔒 Your info stays private — never shared.</span>
         <button class="btn-primary" onclick="saveProfile()">
@@ -1910,7 +617,6 @@
   <!-- STEP 2: Get Help -->
   <div class="card hidden" id="step2-card">
     <div id="profile-bar-container"></div>
-
     <div class="progress-bar">
       <div class="progress-step">
         <div class="progress-num" style="background:var(--success);">✓</div>
@@ -1923,13 +629,9 @@
       </div>
     </div>
 
-    <!-- Campus Safety Card — always loads when school is set -->
     <div id="campus-safety-container"></div>
-
-    <!-- Move-In Resource Card — only loads when Move-In Day tile is selected -->
     <div id="movein-container"></div>
 
-    <!-- Spring Break seasonal banner (Feb 1 - Mar 31) -->
     <div id="spring-break-banner" style="display:none;">
       <div class="spring-break-banner">
         <span class="sb-icon">🌴</span>
@@ -1938,7 +640,6 @@
       </div>
     </div>
 
-    <!-- Spring Break active badge -->
     <div id="spring-break-active-badge" style="display:none;">
       <div class="sb-active-badge">
         🌴 Spring Break Mode active — searches anchored to travel location
@@ -1946,10 +647,7 @@
       </div>
     </div>
 
-    <div class="card-title">
-      <span class="step-badge">Step 2 of 2</span>
-      What's going on?
-    </div>
+    <div class="card-title"><span class="step-badge">Step 2 of 2</span> What's going on?</div>
     <div class="card-subtitle">Choose a category — then tell Sam what's happening in your own words.</div>
 
     <div class="category-grid" id="category-grid">
@@ -2088,25 +786,55 @@
 </div>
 
 <script>
-  // ── Gate & Session Constants (must be defined first) ──
   const GATE_KEY = 'samu_access_granted';
   const EMAIL_KEY = 'samu_user_email';
-
-  // ── Invite Gate ──
   const VALID_CODES = [];
+  let studentProfile = {};
+  let selectedCategory = '';
+  let selectedUserType = '';
+  let currentEmail = '';
+  let feedbackSent = false;
+  let pocRating = '';
+  let pocRecommend = '';
 
+  // ── Event Logging ──
+  function generateSessionId() {
+    return 'sess_' + Math.random().toString(36).slice(2, 10) + '_' + Date.now();
+  }
+
+  const SESSION_ID_KEY = 'samu_session_id';
+  function getSessionId() {
+    let id = sessionStorage.getItem(SESSION_ID_KEY);
+    if (!id) { id = generateSessionId(); sessionStorage.setItem(SESSION_ID_KEY, id); }
+    return id;
+  }
+
+  function logEvent(tile, eventType) {
+    try {
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'log-event',
+          userEmail: studentProfile.email || null,
+          university: studentProfile.school || null,
+          userType: studentProfile.userType || null,
+          tile: tile || null,
+          eventType: eventType || 'tile_tap',
+          sessionId: getSessionId()
+        })
+      }).catch(() => {});
+    } catch(e) {}
+  }
+
+  // ── Gate ──
   function checkGate() {
     const stored = localStorage.getItem(GATE_KEY);
     if (stored) {
       document.getElementById('invite-gate').style.display = 'none';
       const savedEmail = localStorage.getItem(EMAIL_KEY);
-      if (savedEmail) {
-        currentEmail = savedEmail;
-        showLoadingScreen();
-        fetchProfileByEmail(savedEmail);
-      } else {
-        showEmailScreen();
-      }
+      if (savedEmail) { currentEmail = savedEmail; showLoadingScreen(); fetchProfileByEmail(savedEmail); }
+      else { showEmailScreen(); }
     }
   }
 
@@ -2116,7 +844,6 @@
     document.getElementById('main-hero').style.display = 'none';
     document.getElementById('step1-card').style.display = 'none';
     document.getElementById('step2-card').classList.add('hidden');
-    // Show a minimal loading indicator in the page area
     const loader = document.getElementById('global-loader');
     if (loader) loader.style.display = 'flex';
   }
@@ -2128,31 +855,20 @@
 
   async function fetchProfileByEmail(email) {
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'get-profile', email })
-      });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'get-profile', email }) });
       const data = await response.json();
       hideLoadingScreen();
-
       if (data.success && data.found) {
         studentProfile = { ...data.profile, email };
         document.getElementById('step2-card').classList.remove('hidden');
         document.getElementById('main-hero').style.display = 'block';
         document.getElementById('poc-feedback-btn').style.display = 'block';
-        renderProfileBar();
-        renderReturningBanner();
+        renderProfileBar(); renderReturningBanner();
         if (studentProfile.school) loadCampusSafety(studentProfile.school);
         checkSeasonalBanner();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        showEmailScreen();
-      }
-    } catch(err) {
-      hideLoadingScreen();
-      showEmailScreen();
-    }
+      } else { showEmailScreen(); }
+    } catch(err) { hideLoadingScreen(); showEmailScreen(); }
   }
 
   async function submitGate() {
@@ -2160,55 +876,27 @@
     const errorEl = document.getElementById('gate-error');
     const btn = document.querySelector('.gate-btn');
     const code = input.value.trim().toUpperCase();
-
-    errorEl.textContent = '';
-    input.classList.remove('error');
-
-    if (!code) {
-      errorEl.textContent = 'Please enter your access code.';
-      input.classList.add('error');
-      input.focus();
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Checking...';
-
+    errorEl.textContent = ''; input.classList.remove('error');
+    if (!code) { errorEl.textContent = 'Please enter your access code.'; input.classList.add('error'); input.focus(); return; }
+    btn.disabled = true; btn.textContent = 'Checking...';
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'validate-code', code })
-      });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'validate-code', code }) });
       const data = await response.json();
-
       if (data.valid) {
         localStorage.setItem(GATE_KEY, code);
         const gate = document.getElementById('invite-gate');
-        gate.style.opacity = '0';
-        gate.style.transition = 'opacity 0.4s ease';
-        setTimeout(() => {
-          gate.style.display = 'none';
-          showEmailScreen();
-        }, 400);
+        gate.style.opacity = '0'; gate.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => { gate.style.display = 'none'; showEmailScreen(); }, 400);
       } else {
-        errorEl.textContent = 'That code isn\'t valid. Check with ReGuarded for your personal access code.';
-        input.classList.add('error');
-        input.select();
+        errorEl.textContent = "That code isn't valid. Check with ReGuarded for your personal access code.";
+        input.classList.add('error'); input.select();
         setTimeout(() => input.classList.remove('error'), 1500);
       }
-    } catch(err) {
-      errorEl.textContent = 'Connection error. Please try again.';
-    }
-
+    } catch(err) { errorEl.textContent = 'Connection error. Please try again.'; }
     btn.disabled = false;
     btn.innerHTML = 'Enter Sam U <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
-  // ── Phase 2: Persistent Profiles ──
-  let studentProfile = {};
-
-  // After gate is cleared, show email screen
   function showEmailScreen() {
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('email-screen').style.display = 'block';
@@ -2223,44 +911,24 @@
     const errorEl = document.getElementById('email-error');
     const btn = document.getElementById('email-submit-btn');
     const email = input.value.trim().toLowerCase();
-
-    errorEl.textContent = '';
-    input.classList.remove('error');
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errorEl.textContent = 'Please enter a valid email address.';
-      input.classList.add('error');
-      input.focus();
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Looking you up...';
-    currentEmail = email;
-    localStorage.setItem(EMAIL_KEY, email);
-
+    errorEl.textContent = ''; input.classList.remove('error');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errorEl.textContent = 'Please enter a valid email address.'; input.classList.add('error'); input.focus(); return; }
+    btn.disabled = true; btn.textContent = 'Looking you up...';
+    currentEmail = email; localStorage.setItem(EMAIL_KEY, email);
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'get-profile', email })
-      });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'get-profile', email }) });
       const data = await response.json();
-
       if (data.success && data.found) {
-        // Returning user — load profile and skip Step 1
         studentProfile = { ...data.profile, email };
         document.getElementById('email-screen').style.display = 'none';
         document.getElementById('step1-card').classList.add('hidden');
         document.getElementById('step2-card').classList.remove('hidden');
         document.getElementById('main-hero').style.display = 'block';
         document.getElementById('poc-feedback-btn').style.display = 'block';
-        renderProfileBar();
-        renderReturningBanner();
+        renderProfileBar(); renderReturningBanner();
         if (studentProfile.school) loadCampusSafety(studentProfile.school);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        // New user — show welcome screen then onboarding
         document.getElementById('email-screen').style.display = 'none';
         document.getElementById('welcome-screen').style.display = 'block';
         document.getElementById('main-hero').style.display = 'none';
@@ -2268,12 +936,10 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch(err) {
-      // On error fall through to onboarding
       document.getElementById('email-screen').style.display = 'none';
       document.getElementById('main-hero').style.display = 'block';
       document.getElementById('step1-card').style.display = 'block';
     }
-
     btn.disabled = false;
     btn.innerHTML = 'Continue <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
@@ -2283,26 +949,15 @@
     const existing = document.getElementById('returning-banner');
     if (existing) existing.remove();
     const banner = document.createElement('div');
-    banner.id = 'returning-banner';
-    banner.className = 'returning-banner';
-    banner.innerHTML = `
-      <div style="font-size:22px;">👋</div>
-      <div class="rb-text">
-        Welcome back, ${p.name}!
-        <span class="rb-sub">${p.school || ''}${p.year ? ' · ' + p.year : ''} · ${p.userType === 'parent' ? 'Parent' : 'Student'}</span>
-      </div>
-      <span class="rb-edit" onclick="resetToEmail()">Not you?</span>
-    `;
+    banner.id = 'returning-banner'; banner.className = 'returning-banner';
+    banner.innerHTML = `<div style="font-size:22px;">👋</div><div class="rb-text">Welcome back, ${p.name}!<span class="rb-sub">${p.school||''}${p.year?' · '+p.year:''} · ${p.userType==='parent'?'Parent':'Student'}</span></div><span class="rb-edit" onclick="resetToEmail()">Not you?</span>`;
     const container = document.getElementById('profile-bar-container');
-    container.innerHTML = '';
-    container.appendChild(banner);
+    container.innerHTML = ''; container.appendChild(banner);
   }
 
   function resetToEmail() {
     localStorage.removeItem(EMAIL_KEY);
-    currentEmail = '';
-    studentProfile = {};
-    selectedCategory = '';
+    currentEmail = ''; studentProfile = {}; selectedCategory = '';
     document.getElementById('step2-card').classList.add('hidden');
     document.getElementById('main-hero').style.display = 'none';
     document.getElementById('step1-card').style.display = 'none';
@@ -2316,23 +971,12 @@
     if (!currentEmail) return;
     const inviteCode = localStorage.getItem('samu_access_granted') || '';
     try {
-      await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'save-profile',
-          profile: { ...studentProfile, email: currentEmail, inviteCode }
-        })
-      });
-    } catch(err) {
-      console.error('Profile save error:', err);
-    }
+      await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'save-profile', profile: { ...studentProfile, email: currentEmail, inviteCode } }) });
+    } catch(err) { console.error('Profile save error:', err); }
   }
 
   document.querySelectorAll('.chip-group').forEach(group => {
-    group.querySelectorAll('.chip').forEach(chip => {
-      chip.addEventListener('click', () => chip.classList.toggle('selected'));
-    });
+    group.querySelectorAll('.chip').forEach(chip => { chip.addEventListener('click', () => chip.classList.toggle('selected')); });
   });
 
   function getSelectedChips(groupId) {
@@ -2348,8 +992,7 @@
 
   function selectUserType(card, type) {
     document.querySelectorAll('.user-type-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    selectedUserType = type;
+    card.classList.add('selected'); selectedUserType = type;
     document.getElementById('profile-fields').style.display = 'block';
     if (type === 'student') {
       document.getElementById('name-label').textContent = 'Your first name';
@@ -2364,34 +1007,10 @@
 
   function saveProfile() {
     const name = document.getElementById('student-name').value.trim();
-    if (!name) {
-      document.getElementById('student-name').focus();
-      document.getElementById('student-name').style.borderColor = '#C01230';
-      setTimeout(() => document.getElementById('student-name').style.borderColor = '', 2000);
-      return;
-    }
-    if (!selectedUserType) {
-      alert('Please select whether you are the student or the parent.');
-      return;
-    }
-
-    studentProfile = {
-      name,
-      email: currentEmail,
-      userType: selectedUserType,
-      school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(),
-      schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(),
-      year: document.getElementById('student-year').value,
-      housing: document.getElementById('student-housing').value,
-      hasCar: getSelectedChips('car-group'),
-      emergencyName: document.getElementById('emergency-name').value.trim(),
-      emergencyPhone: document.getElementById('emergency-phone').value.trim(),
-      extraContext: document.getElementById('extra-context').value.trim()
-    };
-
-    // Save to Supabase
+    if (!name) { document.getElementById('student-name').focus(); document.getElementById('student-name').style.borderColor = '#C01230'; setTimeout(() => document.getElementById('student-name').style.borderColor = '', 2000); return; }
+    if (!selectedUserType) { alert('Please select whether you are the student or the parent.'); return; }
+    studentProfile = { name, email: currentEmail, userType: selectedUserType, school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(), schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(), year: document.getElementById('student-year').value, housing: document.getElementById('student-housing').value, hasCar: getSelectedChips('car-group'), emergencyName: document.getElementById('emergency-name').value.trim(), emergencyPhone: document.getElementById('emergency-phone').value.trim(), extraContext: document.getElementById('extra-context').value.trim() };
     saveProfileToSupabase();
-
     document.getElementById('step1-card').classList.add('hidden');
     document.getElementById('step2-card').classList.remove('hidden');
     document.getElementById('poc-feedback-btn').style.display = 'block';
@@ -2404,17 +1023,7 @@
   function renderProfileBar() {
     const p = studentProfile;
     const typeLabel = p.userType === 'student' ? '🎓 Student' : '👨‍👩‍👧 Parent';
-    document.getElementById('profile-bar-container').innerHTML = `
-      <div class="profile-bar">
-        <div>
-          <div class="profile-name">${p.name}</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.school || ''}${p.year ? ' · ' + p.year : ''}</div>
-        </div>
-        <span class="profile-pill">${typeLabel}</span>
-        ${p.housing ? `<span class="profile-pill">${p.housing}</span>` : ''}
-        ${p.hasCar && p.hasCar.length ? `<span class="profile-pill">🚗 ${p.hasCar[0]}</span>` : ''}
-        <span class="profile-edit" onclick="editProfile()">Edit profile</span>
-      </div>`;
+    document.getElementById('profile-bar-container').innerHTML = `<div class="profile-bar"><div><div class="profile-name">${p.name}</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.school||''}${p.year?' · '+p.year:''}</div></div><span class="profile-pill">${typeLabel}</span>${p.housing?`<span class="profile-pill">${p.housing}</span>`:''} ${p.hasCar&&p.hasCar.length?`<span class="profile-pill">🚗 ${p.hasCar[0]}</span>`:''}<span class="profile-edit" onclick="editProfile()">Edit profile</span></div>`;
   }
 
   function editProfile() {
@@ -2428,32 +1037,16 @@
     document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     selectedCategory = card.dataset.cat;
+
+    // ── CHANGE 1: Log tile tap event ──
+    logEvent(selectedCategory, 'tile_tap');
+
     const ta = document.getElementById('problem-input');
-    ta.placeholder = card.dataset.placeholder;
-    ta.value = '';
-
-    // Auto tip bar for Auto tile
+    ta.placeholder = card.dataset.placeholder; ta.value = '';
     const tipBar = document.getElementById('auto-tip-bar');
-    if (selectedCategory === 'Auto & Car Trouble Help') {
-      tipBar.style.display = 'flex';
-    } else {
-      tipBar.style.display = 'none';
-    }
-
-    // Spring Break tile — show setup form instead of textarea
-    if (selectedCategory === 'Spring Break Planning') {
-      document.getElementById('problem-area').style.display = 'block';
-      renderSpringBreakForm();
-      return;
-    }
-
-    // Move-In Day — load resources
-    if (selectedCategory === 'Move-In Day Planning') {
-      if (studentProfile.school) loadMoveIn(studentProfile.school);
-    } else {
-      document.getElementById('movein-container').innerHTML = '';
-    }
-
+    if (selectedCategory === 'Auto & Car Trouble Help') { tipBar.style.display = 'flex'; } else { tipBar.style.display = 'none'; }
+    if (selectedCategory === 'Spring Break Planning') { document.getElementById('problem-area').style.display = 'block'; renderSpringBreakForm(); return; }
+    if (selectedCategory === 'Move-In Day Planning') { if (studentProfile.school) loadMoveIn(studentProfile.school); } else { document.getElementById('movein-container').innerHTML = ''; }
     document.getElementById('problem-area').style.display = 'block';
     setTimeout(() => ta.focus(), 100);
   }
@@ -2480,8 +1073,6 @@
     const isStudent = p.userType === 'student';
     const cat = selectedCategory ? 'Issue category: ' + selectedCategory + '.' : '';
     const emergency = p.emergencyName ? p.emergencyName + (p.emergencyPhone ? ' (' + p.emergencyPhone + ')' : '') : 'none listed';
-
-    // Spring Break context
     const sb = getSpringBreakData();
     const sbActive = isSpringBreakActive();
     const sbContext = sbActive && sb ?
@@ -2504,6 +1095,13 @@
     "\n- Arrest is NOT a conviction. One night in jail is survivable. A DWI conviction on record is not." +
     "\n- Call the emergency contact immediately after the stop if possible." +
     "\n\nFor AUTO situations: Always warn against taking cars to unknown repair shops for simple issues. Give the AutoZone/O'Reilly/Advance Auto Parts tip for batteries and simple parts — they often install for free. Recommend AAA or roadside assistance for breakdowns. Always prioritize safety first if broken down on a road." +
+    "\n\nOIL CHANGE & INSPECTION SHOPS — CONSUMER PROTECTION: This is one of the highest-risk environments for upselling and predatory pricing targeted at young people. Sam must always include these warnings when oil changes or inspections are involved:" +
+    "\n- The air filter trick: Techs routinely pull the air filter out, bring it inside, and show you how 'dirty' it looks. Most filters that look dirty are still functional — they are designed to catch debris. Unless the filter is visibly clogged or falling apart, you almost never need to replace it at an oil change. Say: 'No thank you on the air filter — I'll check it myself.' A good shop will also just blow it out with compressed air as a courtesy at no charge." +
+    "\n- The cabin air filter upsell: Same playbook. Often marked up 3-5x the retail price. Decline and buy at AutoZone for $15-25 if needed." +
+    "\n- The 'while we have it up' extras: Brake inspection, transmission fluid, power steering fluid, fuel injector cleaner — these are almost always unnecessary at a routine oil change unless the car is showing symptoms. Say: 'Just the oil change today, thanks.'" +
+    "\n- Pricing: Jiffy Lube and Valvoline are typically transparent about pricing upfront — it's posted. If a shop won't tell you the price before starting, walk away." +
+    "\n- State inspection: In most states this is a separate service from an oil change. Typical cost is $7-$25 depending on state. Never pay more than that for a basic safety/emissions inspection." +
+    "\n- Best approach: Call ahead and ask for the total price for a conventional/synthetic oil change BEFORE driving in. Get the price confirmed. Then stick to it." +
     "\n\nFor SCAMS & PREDATORY situations: Be direct and validating — if something feels wrong, it probably is. Give them the exact words to say to push back or walk away." +
     "\n\nFor MOVE-IN DAY situations: This is one of the most stressful and logistically complex days a family faces. Your role is to be the calm, organized friend who has done this before. Key guidance: (1) Always acknowledge the emotional dimension — especially for freshman parents sending their child away for the first time. (2) Provide a practical, prioritized checklist tailored to their school, year, and housing situation. (3) For out-of-state or out-of-town parents, address the box shipping and storage question proactively. (4) Parking is almost always the biggest day-of stress — give specific practical tips. (5) Remind parents that move-in day is chaotic for everyone — it always works out. (6) Always mention that the university's official move-in guide has the most current dates and logistics. (7) For freshmen specifically — remind parents this is also an emotional transition, not just a logistics exercise. Encourage them to be present, not just efficient." +
     "\n\nAlways structure your response in exactly these three sections:" +
@@ -2521,111 +1119,39 @@
     const problem = document.getElementById('problem-input').value.trim();
     if (!problem) { document.getElementById('problem-input').focus(); return; }
 
+    // ── CHANGE 2: Log question submit event ──
+    logEvent(selectedCategory, 'question_submit');
+
     const btn = document.getElementById('get-help-btn');
     btn.disabled = true;
-
     const isLegal = selectedCategory === 'Legal & Arrest Situation';
-
     const responseArea = document.getElementById('response-area');
-    responseArea.innerHTML = `
-      <div class="response-card">
-        <div class="response-header">
-          <div class="icon">🎓</div>
-          <div class="response-header-text">
-            <h3>Sam is on it...</h3>
-            <p>Looking into this for ${studentProfile.name}</p>
-          </div>
-        </div>
-        <div class="loading-state">
-          <div class="loading-dots"><span></span><span></span><span></span></div>
-          <div class="loading-label">Sam is working on this for you...</div>
-        </div>
-      </div>`;
-
+    responseArea.innerHTML = `<div class="response-card"><div class="response-header"><div class="icon">🎓</div><div class="response-header-text"><h3>Sam is on it...</h3><p>Looking into this for ${studentProfile.name}</p></div></div><div class="loading-state"><div class="loading-dots"><span></span><span></span><span></span></div><div class="loading-label">Sam is working on this for you...</div></div></div>`;
     responseArea.scrollIntoView({behavior:'smooth',block:'nearest'});
 
     try {
       const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          system: buildSystemPrompt(),
-          messages: [{role:'user', content: problem}],
-          max_tokens: 1000
-        })
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ system: buildSystemPrompt(), messages: [{role:'user', content: problem}], max_tokens: 1000 })
       });
-
       const data = await response.json();
       if (data.error) throw new Error('API error: ' + data.error.message);
       if (!response.ok) throw new Error('HTTP ' + response.status);
-
       const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n');
       if (!text) throw new Error('Empty response from Sam.');
-
       const formatted = formatResponse(text);
 
-      // ── CHANGE 3: Legal Help Now banner + button in response footer ──
-      const legalBanner = isLegal ? `
-        <div class="legal-help-now-banner" id="legal-help-now-banner">
-          <div class="lhn-text">
-            Need a lawyer right now?
-            <span class="lhn-sub">Sam will find criminal defense attorneys near ${studentProfile.school || 'campus'} — tap to call directly.</span>
-          </div>
-          <button class="btn-legal-now" onclick="legalHelpNow()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Legal Help Now</button>
-        </div>
-        <div id="legal-help-now-results" style="display:none;">
-          <div id="legal-now-places"></div>
-        </div>` : '';
-
+      const legalBanner = isLegal ? `<div class="legal-help-now-banner" id="legal-help-now-banner"><div class="lhn-text">Need a lawyer right now?<span class="lhn-sub">Sam will find criminal defense attorneys near ${studentProfile.school || 'campus'} — tap to call directly.</span></div><button class="btn-legal-now" onclick="legalHelpNow()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Legal Help Now</button></div><div id="legal-help-now-results" style="display:none;"><div id="legal-now-places"></div></div>` : '';
       const legalFooterBtn = isLegal ? `<button class="btn-legal-now" onclick="legalHelpNow()" style="font-size:13px;padding:10px 18px;display:inline-flex;align-items:center;gap:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Legal Help Now</button>` : '';
 
-      responseArea.innerHTML = `
-        <div class="response-card">
-          <div class="response-header">
-            <div class="icon">🎓</div>
-            <div class="response-header-text">
-              <h3>Sam's advice for ${studentProfile.name}</h3>
-              <p>Personalized to their situation</p>
-            </div>
-          </div>
-          <div class="response-body">
-            ${legalBanner}
-            ${formatted}
-          </div>
-          <div class="response-footer">
-            <div class="response-footer-note">
-              <span class="shield-dot"></span>
-              Sam U by ReGuarded — always here when you need it
-            </div>
-            ${legalFooterBtn}
-            <button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button>
-            <button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button>
-          </div>
-          <div id="samu-local-search-area"></div>
-          <div class="feedback-bar" id="feedback-bar">
-            <span class="feedback-label">Was Sam's advice helpful?</span>
-            <button class="feedback-btn positive" onclick="submitFeedback('positive')" id="fb-positive">👍 Yes, helpful</button>
-            <button class="feedback-btn negative" onclick="submitFeedback('negative')" id="fb-negative">👎 Not quite</button>
-            <div id="feedback-comment-area" style="display:none;width:100%;">
-              <textarea class="feedback-comment" id="feedback-comment" rows="2" placeholder="What was missing or could be better?"></textarea>
-              <button class="feedback-submit" onclick="saveFeedbackComment()">Send feedback</button>
-            </div>
-            <div id="feedback-thanks" class="feedback-thanks" style="display:none;">Thank you — your feedback helps us improve Sam U.</div>
-          </div>
-        </div>`;
+      responseArea.innerHTML = `<div class="response-card"><div class="response-header"><div class="icon">🎓</div><div class="response-header-text"><h3>Sam's advice for ${studentProfile.name}</h3><p>Personalized to their situation</p></div></div><div class="response-body">${legalBanner}${formatted}</div><div class="response-footer"><div class="response-footer-note"><span class="shield-dot"></span>Sam U by ReGuarded — always here when you need it</div>${legalFooterBtn}<button class="btn-print" onclick="window.print()">🖨️ Print Sam's advice</button><button class="btn-secondary" onclick="resetProblem()">Ask Sam another question</button></div><div id="samu-local-search-area"></div><div class="feedback-bar" id="feedback-bar"><span class="feedback-label">Was Sam's advice helpful?</span><button class="feedback-btn positive" onclick="submitFeedback('positive')" id="fb-positive">👍 Yes, helpful</button><button class="feedback-btn negative" onclick="submitFeedback('negative')" id="fb-negative">👎 Not quite</button><div id="feedback-comment-area" style="display:none;width:100%;"><textarea class="feedback-comment" id="feedback-comment" rows="2" placeholder="What was missing or could be better?"></textarea><button class="feedback-submit" onclick="saveFeedbackComment()">Send feedback</button></div><div id="feedback-thanks" class="feedback-thanks" style="display:none;">Thank you — your feedback helps us improve Sam U.</div></div></div>`;
 
       const samuSearchArea = document.getElementById('samu-local-search-area');
       if (samuSearchArea) detectAndAddSearchSamu(text, samuSearchArea);
 
     } catch(err) {
-      responseArea.innerHTML = `
-        <div class="response-card">
-          <div class="response-body">
-            <p><strong>Something went wrong.</strong> Error: ${err.message}</p>
-          </div>
-        </div>`;
+      responseArea.innerHTML = `<div class="response-card"><div class="response-body"><p><strong>Something went wrong.</strong> Error: ${err.message}</p></div></div>`;
     }
-
     btn.disabled = false;
   }
 
@@ -2635,42 +1161,29 @@
       'Next Steps':           { bg: '#EAF3DE', border: '#639922', icon: '✅', label: 'Next Steps' },
       'Good to Know':         { bg: '#E8F2FB', border: '#3460a0', icon: '💡', label: 'Good to Know' }
     };
-
     const sections = text.split(/(?=##\s)/);
     let html = '';
-
     sections.forEach(section => {
       const headerMatch = section.match(/^##\s+(.+?)\n/);
       if (headerMatch) {
         const title = headerMatch[1].trim();
         const body = section.replace(/^##\s+.+?\n/, '').trim();
         const style = sectionColors[title] || { bg: '#F4F3EE', border: '#9896B8', icon: '📋', label: title };
-
         const bodyHtml = body.split('\n').filter(l => l.trim()).map(line => {
           if (/^\d+\.\s/.test(line)) return `<li>${line.replace(/^\d+\.\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
           if (/^[-•]\s/.test(line)) return `<li>${line.replace(/^[-•]\s/,'').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</li>`;
           return `<p style="margin:0 0 8px;">${line.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
         }).join('').replace(/(<li>.*?<\/li>)+/gs, match => `<ol style="padding-left:18px;margin:8px 0;">${match}</ol>`);
-
-        html += `
-          <div style="margin-bottom:18px;border-radius:10px;overflow:hidden;border:1.5px solid ${style.border}30;">
-            <div style="background:${style.bg};padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid ${style.border}40;">
-              <span style="font-size:16px;">${style.icon}</span>
-              <span style="font-size:14px;font-weight:600;color:#1a2a3a;font-family:'DM Sans',sans-serif;">${style.label}</span>
-            </div>
-            <div style="padding:14px 18px;background:white;font-size:14.5px;line-height:1.75;color:#1a2a3a;">${bodyHtml}</div>
-          </div>`;
+        html += `<div style="margin-bottom:18px;border-radius:10px;overflow:hidden;border:1.5px solid ${style.border}30;"><div style="background:${style.bg};padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid ${style.border}40;"><span style="font-size:16px;">${style.icon}</span><span style="font-size:14px;font-weight:600;color:#1a2a3a;font-family:'DM Sans',sans-serif;">${style.label}</span></div><div style="padding:14px 18px;background:white;font-size:14.5px;line-height:1.75;color:#1a2a3a;">${bodyHtml}</div></div>`;
       } else if (section.trim()) {
         html += `<p style="margin-bottom:16px;font-size:15px;line-height:1.8;">${section.trim().replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`;
       }
     });
-
     return html || `<p>${text}</p>`;
   }
 
   function resetProblem() {
-    feedbackSent = false;
-    clearCategory();
+    feedbackSent = false; clearCategory();
     document.getElementById('problem-input').value = '';
     document.getElementById('response-area').innerHTML = '';
     window.scrollTo({top: document.getElementById('step2-card').offsetTop - 20, behavior:'smooth'});
@@ -2680,24 +1193,13 @@
     if (feedbackSent) return;
     document.getElementById('fb-positive').classList.toggle('active', type === 'positive');
     document.getElementById('fb-negative').classList.toggle('active', type === 'negative');
-    try {
-      const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]');
-      existing.push({ timestamp: new Date().toISOString(), category: selectedCategory, rating: type, userType: studentProfile.userType });
-      localStorage.setItem('samu_feedback', JSON.stringify(existing));
-    } catch(e) {}
-    if (type === 'negative') {
-      document.getElementById('feedback-comment-area').style.display = 'block';
-    } else {
-      feedbackSent = true;
-      document.getElementById('feedback-thanks').style.display = 'block';
-    }
+    try { const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]'); existing.push({ timestamp: new Date().toISOString(), category: selectedCategory, rating: type, userType: studentProfile.userType }); localStorage.setItem('samu_feedback', JSON.stringify(existing)); } catch(e) {}
+    if (type === 'negative') { document.getElementById('feedback-comment-area').style.display = 'block'; }
+    else { feedbackSent = true; document.getElementById('feedback-thanks').style.display = 'block'; }
   }
 
   function saveFeedbackComment() {
-    try {
-      const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]');
-      if (existing.length > 0) { existing[existing.length-1].comment = document.getElementById('feedback-comment').value.trim(); localStorage.setItem('samu_feedback', JSON.stringify(existing)); }
-    } catch(e) {}
+    try { const existing = JSON.parse(localStorage.getItem('samu_feedback') || '[]'); if (existing.length > 0) { existing[existing.length-1].comment = document.getElementById('feedback-comment').value.trim(); localStorage.setItem('samu_feedback', JSON.stringify(existing)); } } catch(e) {}
     feedbackSent = true;
     document.getElementById('feedback-comment-area').style.display = 'none';
     document.getElementById('feedback-thanks').style.display = 'block';
@@ -2705,21 +1207,13 @@
 
   function showPremiumModal() { document.getElementById('premium-modal').classList.add('active'); }
   function closePremiumModal() { document.getElementById('premium-modal').classList.remove('active'); }
-  function notifyMePremium() {
-    document.getElementById('premium-thanks').style.display = 'block';
-    try { const e = JSON.parse(localStorage.getItem('samu_premium') || '[]'); e.push({timestamp: new Date().toISOString()}); localStorage.setItem('samu_premium', JSON.stringify(e)); } catch(e) {}
-  }
-
+  function notifyMePremium() { document.getElementById('premium-thanks').style.display = 'block'; try { const e = JSON.parse(localStorage.getItem('samu_premium') || '[]'); e.push({timestamp: new Date().toISOString()}); localStorage.setItem('samu_premium', JSON.stringify(e)); } catch(e) {} }
   function openPocModal() { document.getElementById('poc-modal').classList.add('active'); }
   function closePocModal() { document.getElementById('poc-modal').classList.remove('active'); }
   function setPocRating(btn, val) { document.querySelectorAll('#poc-rating-group .chip').forEach(c => c.classList.remove('selected')); btn.classList.add('selected'); pocRating = val; }
   function setPocRecommend(btn, val) { document.querySelectorAll('#poc-recommend-group .chip').forEach(c => c.classList.remove('selected')); btn.classList.add('selected'); pocRecommend = val; }
   function submitPocFeedback() {
-    try {
-      const e = JSON.parse(localStorage.getItem('samu_poc_feedback') || '[]');
-      e.push({ timestamp: new Date().toISOString(), rating: pocRating, wentWell: document.getElementById('poc-well').value.trim(), improve: document.getElementById('poc-improve').value.trim(), recommend: pocRecommend, userType: studentProfile.userType });
-      localStorage.setItem('samu_poc_feedback', JSON.stringify(e));
-    } catch(e) {}
+    try { const e = JSON.parse(localStorage.getItem('samu_poc_feedback') || '[]'); e.push({ timestamp: new Date().toISOString(), rating: pocRating, wentWell: document.getElementById('poc-well').value.trim(), improve: document.getElementById('poc-improve').value.trim(), recommend: pocRecommend, userType: studentProfile.userType }); localStorage.setItem('samu_poc_feedback', JSON.stringify(e)); } catch(e) {}
     document.getElementById('poc-thanks').style.display = 'block';
     setTimeout(() => closePocModal(), 3000);
   }
@@ -2727,79 +1221,38 @@
   async function searchNearby(query, location, containerId, title) {
     const container = document.getElementById(containerId);
     if (!container) return;
-
-    container.innerHTML = `
-      <div class="places-container">
-        <div class="places-header">
-          <div><h4>📍 Finding ${title} near ${location}...</h4><p>Searching by rating and proximity</p></div>
-        </div>
-        <div class="places-loading">
-          <div class="loading-dots" style="justify-content:center;"><span></span><span></span><span></span></div>
-          <p style="margin-top:12px;">Sam is finding trusted options nearby...</p>
-        </div>
-      </div>`;
-
+    container.innerHTML = `<div class="places-container"><div class="places-header"><div><h4>📍 Finding ${title} near ${location}...</h4><p>Searching by rating and proximity</p></div></div><div class="places-loading"><div class="loading-dots" style="justify-content:center;"><span></span><span></span><span></span></div><p style="margin-top:12px;">Sam is finding trusted options nearby...</p></div></div>`;
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'places', query, location, radius: 8000 })
-      });
-
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'places', query, location, radius: 8000 }) });
       const data = await response.json();
-
       if (!data.results || data.results.length === 0) {
         const debugMsg = data.debug ? ' (API: ' + (data.debug.status || data.debug.geoStatus || 'unknown') + ')' : '';
         container.innerHTML = `<div class="places-container"><div class="places-header"><h4>📍 ${title}</h4></div><div class="places-error">No results found near ${location}${debugMsg}. <a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="color:var(--blue-brand);">Search on Google Maps instead →</a></div></div>`;
         return;
       }
-
       const cards = data.results.map((b, i) => {
         const stars = b.rating ? '★'.repeat(Math.round(b.rating)) + '☆'.repeat(5 - Math.round(b.rating)) : '';
         const openBadge = b.isOpen === true ? '<span class="open-badge open">Open now</span>' : b.isOpen === false ? '<span class="open-badge closed">Closed</span>' : '';
         const mapsLink = `https://www.google.com/maps/place/?q=place_id:${b.placeId}`;
-        return `
-          <div class="business-card" onclick="window.open('${mapsLink}','_blank')">
-            <div class="business-rank">${i + 1}</div>
-            <div class="business-info">
-              <div class="business-name">${b.name}</div>
-              <div class="business-address">${b.address}</div>
-              <div class="business-meta">
-                ${b.rating ? `<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>` : ''}
-                ${openBadge}
-              </div>
-            </div>
-            <div class="business-actions">
-              <a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>
-              ${b.phone ? `<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>` : ''}
-            </div>
-          </div>`;
+        return `<div class="business-card" onclick="window.open('${mapsLink}','_blank')"><div class="business-rank">${i+1}</div><div class="business-info"><div class="business-name">${b.name}</div><div class="business-address">${b.address}</div><div class="business-meta">${b.rating?`<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>`:''} ${openBadge}</div></div><div class="business-actions"><a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>${b.phone?`<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>`:''}</div></div>`;
       }).join('');
-
-      container.innerHTML = `
-        <div class="places-container">
-          <div class="places-header">
-            <div><h4>📍 ${title} near ${location}</h4><p>Sorted by rating · ${data.results.length} results found</p></div>
-            <a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a>
-          </div>
-          <div class="business-cards">${cards}</div>
-        </div>`;
-
-    } catch(err) {
-      container.innerHTML = `<div class="places-container"><div class="places-error">Search failed: ${err.message}</div></div>`;
-    }
+      container.innerHTML = `<div class="places-container"><div class="places-header"><div><h4>📍 ${title} near ${location}</h4><p>Sorted by rating · ${data.results.length} results found</p></div><a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a></div><div class="business-cards">${cards}</div></div>`;
+    } catch(err) { container.innerHTML = `<div class="places-container"><div class="places-error">Search failed: ${err.message}</div></div>`; }
   }
 
   function detectAndAddSearchSamu(responseText, responseContainer) {
-    const p = studentProfile;
-    const location = getActiveSearchLocation(); // Uses Spring Break location if active
+    const location = getActiveSearchLocation();
     const searches = [];
-
     const cat = selectedCategory || '';
+
     if (/battery|dead battery|won.t start|jump start/i.test(responseText)) {
       searches.push({ query: 'AutoZone auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
     }
-    if (/mechanic|auto repair|check engine|oil change|brake|tire/i.test(responseText) && !/battery|dead battery/i.test(responseText)) {
+    // ── CHANGE 3: Oil change / inspection dedicated search trigger ──
+    if (/oil change|lube|jiffy lube|valvoline|inspection sticker|state inspection/i.test(responseText) || (cat === 'Auto & Car Trouble Help' && /oil|inspection/i.test(responseText))) {
+      searches.push({ query: 'oil change lube shop', title: 'Oil Change & Lube Shops', icon: '🛢️' });
+    }
+    if (/mechanic|auto repair|check engine|brake|tire/i.test(responseText) && !/battery|dead battery/i.test(responseText) && !/oil change|lube/i.test(responseText)) {
       searches.push({ query: 'auto repair shop', title: 'Auto Repair Shops', icon: '🔧' });
     }
     if (/tow|towing|tow truck|broken down|roadside|stuck on/i.test(responseText) && !cat.includes('Legal') && !cat.includes('Arrest')) {
@@ -2811,17 +1264,14 @@
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
     }
-    // Always show attorney search for Legal & Arrest
     if ((cat === 'Legal & Arrest Situation' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
       searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
     }
-    // Move-In Day local services
     if (cat === 'Move-In Day Planning' || cat.includes('Move-In')) {
       searches.push({ query: 'storage units near university', title: 'Storage Units Near Campus', icon: '📦' });
       searches.push({ query: 'Target Walmart college supplies', title: 'Dorm Supply Stores', icon: '🛒' });
       searches.push({ query: 'truck van rental', title: 'Truck & Van Rentals', icon: '🚚' });
     }
-    // Spring Break local services
     if (cat === 'Spring Break Planning' || cat.includes('Spring Break')) {
       searches.push({ query: 'criminal defense attorney', title: 'Defense Attorneys', icon: '⚖️' });
       searches.push({ query: 'urgent care clinic', title: 'Urgent Care', icon: '🏥' });
@@ -2838,34 +1288,25 @@
 
     const searchDiv = document.createElement('div');
     searchDiv.style.cssText = 'padding:16px 18px;background:#f0f7ff;border-top:1px solid var(--border);';
-
     const titleEl = document.createElement('p');
     titleEl.style.cssText = 'font-size:13px;font-weight:500;color:var(--blue-deep);margin-bottom:10px;';
     titleEl.textContent = '📍 Find trusted providers near ' + location + ':';
     searchDiv.appendChild(titleEl);
-
     const btnRow = document.createElement('div');
     btnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;';
-
     searches.forEach(function(s, i) {
       const resultId = 'samu-sr-' + i + '-' + Date.now();
       const btn = document.createElement('button');
       btn.className = 'search-trigger';
       btn.textContent = s.icon + ' Find ' + s.title;
-      btn.addEventListener('click', function() {
-        searchNearby(s.query, location, resultId, s.title);
-      });
+      btn.addEventListener('click', function() { searchNearby(s.query, location, resultId, s.title); });
       const resultDiv = document.createElement('div');
-      resultDiv.id = resultId;
-      resultDiv.style.width = '100%';
-      btnRow.appendChild(btn);
-      btnRow.appendChild(resultDiv);
+      resultDiv.id = resultId; resultDiv.style.width = '100%';
+      btnRow.appendChild(btn); btnRow.appendChild(resultDiv);
     });
-
     searchDiv.appendChild(btnRow);
     responseContainer.appendChild(searchDiv);
   }
-
 
   /* ── Universities Database ── */
   const UNIVERSITIES = [
@@ -2980,40 +1421,20 @@
 
   function filterSchools(query) {
     const dropdown = document.getElementById('school-dropdown');
-    if (!query || query.length < 2) {
-      dropdown.classList.remove('open');
-      return;
-    }
-
+    if (!query || query.length < 2) { dropdown.classList.remove('open'); return; }
     const q = query.toLowerCase();
-    const matches = UNIVERSITIES.filter(u =>
-      u.name.toLowerCase().includes(q) ||
-      u.city.toLowerCase().includes(q)
-    ).slice(0, 8);
-
-    if (matches.length === 0) {
-      dropdown.classList.remove('open');
-      return;
-    }
-
-    dropdown.innerHTML = matches.map((u, i) => `
-      <div class="autocomplete-item" onclick="selectSchool(${UNIVERSITIES.indexOf(u)})">
-        <div class="school-name">${u.name}</div>
-        <div class="school-location">${u.city}</div>
-      </div>`).join('');
-
+    const matches = UNIVERSITIES.filter(u => u.name.toLowerCase().includes(q) || u.city.toLowerCase().includes(q)).slice(0, 8);
+    if (matches.length === 0) { dropdown.classList.remove('open'); return; }
+    dropdown.innerHTML = matches.map((u, i) => `<div class="autocomplete-item" onclick="selectSchool(${UNIVERSITIES.indexOf(u)})"><div class="school-name">${u.name}</div><div class="school-location">${u.city}</div></div>`).join('');
     dropdown.classList.add('open');
   }
 
   function selectSchool(idx) {
-    const school = UNIVERSITIES[idx];
-    selectedSchool = school;
-
+    const school = UNIVERSITIES[idx]; selectedSchool = school;
     document.getElementById('student-school').value = school.address;
     document.getElementById('student-school-address').value = school.address;
     document.getElementById('school-search').value = '';
     document.getElementById('school-dropdown').classList.remove('open');
-
     document.getElementById('school-selected-name').textContent = school.name;
     document.getElementById('school-selected-loc').textContent = school.city;
     document.getElementById('school-selected').classList.add('visible');
@@ -3028,127 +1449,40 @@
   }
 
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.autocomplete-wrapper')) {
-      document.getElementById('school-dropdown').classList.remove('open');
-    }
+    if (!e.target.closest('.autocomplete-wrapper')) document.getElementById('school-dropdown').classList.remove('open');
   });
-
 
   /* ── Move-In Resources ── */
   let moveInData = null;
 
-  function toggleMoveIn() {
-    const card = document.getElementById('movein-card');
-    if (!card) return;
-    card.classList.toggle('collapsed');
-  }
+  function toggleMoveIn() { const card = document.getElementById('movein-card'); if (!card) return; card.classList.toggle('collapsed'); }
 
   async function loadMoveIn(schoolName) {
     const container = document.getElementById('movein-container');
     if (!container || !schoolName) return;
-
-    container.innerHTML = `
-      <div class="movein-card collapsed" id="movein-card">
-        <div class="movein-header" onclick="toggleMoveIn()">
-          <div>
-            <h4>🎓 Move-In Resources — ${schoolName}</h4>
-            <p>Loading move-in info...</p>
-          </div>
-          <span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="movein-loading">
-          <div class="loading-dots"><span></span><span></span><span></span></div>
-          <span>Loading move-in information...</span>
-        </div>
-      </div>`;
-
-    const prompt = `You are a research assistant. Find current move-in information for: ${schoolName}
-
-Return ONLY a JSON object with these fields (omit any you are not confident about):
-{"moveInDates":{"freshmen":"...","returning":"...","earlyCheckin":"..."},"checkInLocation":"...","housingOffice":{"phone":"...","email":"..."},"keyPickup":"...","parking":"...","whatToBring":["...","...","..."],"officialGuideUrl":"...","notes":"..."}`;
-
+    container.innerHTML = `<div class="movein-card collapsed" id="movein-card"><div class="movein-header" onclick="toggleMoveIn()"><div><h4>🎓 Move-In Resources — ${schoolName}</h4><p>Loading move-in info...</p></div><span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="movein-loading"><div class="loading-dots"><span></span><span></span><span></span></div><span>Loading move-in information...</span></div></div>`;
+    const prompt = `You are a research assistant. Find current move-in information for: ${schoolName}\n\nReturn ONLY a JSON object with these fields (omit any you are not confident about):\n{"moveInDates":{"freshmen":"...","returning":"...","earlyCheckin":"..."},"checkInLocation":"...","housingOffice":{"phone":"...","email":"..."},"keyPickup":"...","parking":"...","whatToBring":["...","...","..."],"officialGuideUrl":"...","notes":"..."}`;
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
-
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] }) });
       const data = await response.json();
       const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-
-      try {
-        const clean = text.replace(/```json|```/g, '').trim();
-        const parsed = JSON.parse(clean);
-        moveInData = parsed;
-        renderMoveIn(schoolName, parsed);
-      } catch(e) {
-        container.innerHTML = '';
-      }
-    } catch(err) {
-      container.innerHTML = '';
-    }
+      try { const clean = text.replace(/```json|```/g, '').trim(); const parsed = JSON.parse(clean); moveInData = parsed; renderMoveIn(schoolName, parsed); } catch(e) { container.innerHTML = ''; }
+    } catch(err) { container.innerHTML = ''; }
   }
 
   function renderMoveIn(schoolName, data) {
     const container = document.getElementById('movein-container');
     if (!container) return;
-
     const items = [];
-
-    if (data.moveInDates) {
-      if (data.moveInDates.freshmen) items.push({ label: 'Freshmen Move-In', value: data.moveInDates.freshmen });
-      if (data.moveInDates.returning) items.push({ label: 'Returning Students', value: data.moveInDates.returning });
-      if (data.moveInDates.earlyCheckin) items.push({ label: 'Early Check-In', value: data.moveInDates.earlyCheckin });
-    }
+    if (data.moveInDates) { if (data.moveInDates.freshmen) items.push({ label: 'Freshmen Move-In', value: data.moveInDates.freshmen }); if (data.moveInDates.returning) items.push({ label: 'Returning Students', value: data.moveInDates.returning }); if (data.moveInDates.earlyCheckin) items.push({ label: 'Early Check-In', value: data.moveInDates.earlyCheckin }); }
     if (data.checkInLocation) items.push({ label: 'Check-In Location', value: data.checkInLocation });
     if (data.keyPickup) items.push({ label: 'Key Pickup', value: data.keyPickup });
     if (data.parking) items.push({ label: 'Parking', value: data.parking });
-
-    const dateCards = items.map(item => `
-      <div class="movein-item">
-        <div class="mi-label">${item.label}</div>
-        <div class="mi-value">${item.value}</div>
-      </div>`).join('');
-
-    const phoneHtml = data.housingOffice && data.housingOffice.phone ?
-      `<div class="movein-item" style="grid-column:1/-1;">
-        <div class="mi-label">Housing Office</div>
-        <a class="mi-phone" href="tel:${data.housingOffice.phone.replace(/[^0-9+]/g,'')}">${data.housingOffice.phone}</a>
-        ${data.housingOffice.email ? `<div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${data.housingOffice.email}</div>` : ''}
-      </div>` : '';
-
-    const checklistHtml = data.whatToBring && data.whatToBring.length ?
-      `<div class="movein-checklist">
-        <div class="mi-label">What to Bring</div>
-        <ul>${data.whatToBring.slice(0,6).map(i => `<li>${i}</li>`).join('')}</ul>
-      </div>` : '';
-
-    const websiteLink = data.officialGuideUrl ?
-      `<a class="movein-verify-link" href="${data.officialGuideUrl}" target="_blank">View official move-in guide →</a>` : '';
-
-    container.innerHTML = `
-      <div class="movein-card collapsed" id="movein-card">
-        <div class="movein-header" onclick="toggleMoveIn()">
-          <div>
-            <h4>🎓 Move-In Resources — ${schoolName}</h4>
-            <p>Tap to view dates, checklist & contacts</p>
-          </div>
-          <span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="movein-body">
-          <div class="movein-dates-row">${dateCards}${phoneHtml}</div>
-          ${checklistHtml}
-          ${data.notes ? `<div style="font-size:12.5px;color:var(--text-muted);padding:4px 2px;line-height:1.6;">${data.notes}</div>` : ''}
-        </div>
-        <div class="movein-disclaimer">
-          ⚠️ Always verify dates directly with your university. ${websiteLink}
-        </div>
-      </div>`;
+    const dateCards = items.map(item => `<div class="movein-item"><div class="mi-label">${item.label}</div><div class="mi-value">${item.value}</div></div>`).join('');
+    const phoneHtml = data.housingOffice && data.housingOffice.phone ? `<div class="movein-item" style="grid-column:1/-1;"><div class="mi-label">Housing Office</div><a class="mi-phone" href="tel:${data.housingOffice.phone.replace(/[^0-9+]/g,'')}">${data.housingOffice.phone}</a>${data.housingOffice.email?`<div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${data.housingOffice.email}</div>`:''}</div>` : '';
+    const checklistHtml = data.whatToBring && data.whatToBring.length ? `<div class="movein-checklist"><div class="mi-label">What to Bring</div><ul>${data.whatToBring.slice(0,6).map(i => `<li>${i}</li>`).join('')}</ul></div>` : '';
+    const websiteLink = data.officialGuideUrl ? `<a class="movein-verify-link" href="${data.officialGuideUrl}" target="_blank">View official move-in guide →</a>` : '';
+    container.innerHTML = `<div class="movein-card collapsed" id="movein-card"><div class="movein-header" onclick="toggleMoveIn()"><div><h4>🎓 Move-In Resources — ${schoolName}</h4><p>Tap to view dates, checklist & contacts</p></div><span class="movein-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="movein-body"><div class="movein-dates-row">${dateCards}${phoneHtml}</div>${checklistHtml}${data.notes?`<div style="font-size:12.5px;color:var(--text-muted);padding:4px 2px;line-height:1.6;">${data.notes}</div>`:''}</div><div class="movein-disclaimer">⚠️ Always verify dates directly with your university. ${websiteLink}</div></div>`;
   }
 
   let campusSafetyData = null;
@@ -3157,172 +1491,45 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
     const card = document.getElementById('safety-card');
     if (!card) return;
     card.classList.toggle('collapsed');
-    const toggle = card.querySelector('.safety-toggle');
     const subtitle = card.querySelector('.campus-safety-header p');
-    if (card.classList.contains('collapsed')) {
-      if (subtitle) subtitle.textContent = 'Tap to view contacts & resources';
-    } else {
-      if (subtitle) subtitle.textContent = 'Tap to collapse · tap any number to call';
-    }
+    if (card.classList.contains('collapsed')) { if (subtitle) subtitle.textContent = 'Tap to view contacts & resources'; }
+    else { if (subtitle) subtitle.textContent = 'Tap to collapse · tap any number to call'; }
   }
 
   async function loadCampusSafety(schoolName) {
     const container = document.getElementById('campus-safety-container');
     if (!container || !schoolName) return;
-
-    container.innerHTML = `
-      <div class="campus-safety-card collapsed" id="safety-card">
-        <div class="campus-safety-header" onclick="toggleSafety()">
-          <div>
-            <h4>🛡️ Campus Safety & Resources — ${schoolName}</h4>
-            <p>Loading contacts...</p>
-          </div>
-          <span class="safety-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="safety-loading">
-          <div class="loading-dots"><span></span><span></span><span></span></div>
-          <span>Loading campus safety contacts...</span>
-        </div>
-      </div>`;
-
+    container.innerHTML = `<div class="campus-safety-card collapsed" id="safety-card"><div class="campus-safety-header" onclick="toggleSafety()"><div><h4>🛡️ Campus Safety & Resources — ${schoolName}</h4><p>Loading contacts...</p></div><span class="safety-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="safety-loading"><div class="loading-dots"><span></span><span></span><span></span></div><span>Loading campus safety contacts...</span></div></div>`;
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'campus-safety', school: schoolName })
-      });
-
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'campus-safety', school: schoolName }) });
       const data = await response.json();
-
-      if (!data.success || !data.contacts) {
-        container.innerHTML = '';
-        return;
-      }
-
+      if (!data.success || !data.contacts) { container.innerHTML = ''; return; }
       campusSafetyData = data.contacts;
       renderCampusSafety(schoolName, data.contacts);
-
-    } catch(err) {
-      container.innerHTML = '';
-    }
+    } catch(err) { container.innerHTML = ''; }
   }
 
   function renderCampusSafety(schoolName, contacts) {
     const container = document.getElementById('campus-safety-container');
     if (!container) return;
-
     const items = [];
-
-    if (contacts.campusPolice) {
-      items.push({
-        label: 'Campus Police',
-        name: contacts.campusPolice.name || 'University Police',
-        phone: contacts.campusPolice.phone,
-        hours: contacts.campusPolice.hours || '24/7',
-        urgent: true
-      });
-    }
-
-    if (contacts.safeWalk) {
-      items.push({
-        label: 'Safe Walk / Escort',
-        name: contacts.safeWalk.name || 'Safe Walk Program',
-        phone: contacts.safeWalk.phone,
-        hours: contacts.safeWalk.description || 'Evening hours',
-        urgent: false
-      });
-    }
-
-    if (contacts.counseling) {
-      items.push({
-        label: 'Crisis & Counseling',
-        name: contacts.counseling.name || 'Counseling Services',
-        phone: contacts.counseling.phone,
-        hours: contacts.counseling.hours || '24/7 crisis line',
-        urgent: false
-      });
-    }
-
-    if (contacts.studentHealth) {
-      items.push({
-        label: 'Student Health',
-        name: contacts.studentHealth.name || 'Student Health Services',
-        phone: contacts.studentHealth.phone,
-        hours: contacts.studentHealth.hours || 'See website for hours',
-        urgent: false
-      });
-    }
-
-    if (contacts.deanOfStudents) {
-      items.push({
-        label: 'Dean of Students',
-        name: contacts.deanOfStudents.name || 'Dean of Students',
-        phone: contacts.deanOfStudents.phone,
-        hours: '',
-        urgent: false
-      });
-    }
-
-    if (contacts.other && contacts.other.length > 0) {
-      contacts.other.slice(0, 2).forEach(o => {
-        if (o.phone) {
-          items.push({
-            label: o.name || 'Campus Resource',
-            name: o.description || '',
-            phone: o.phone,
-            hours: '',
-            urgent: false
-          });
-        }
-      });
-    }
-
-    if (items.length === 0) {
-      container.innerHTML = '';
-      return;
-    }
-
-    const cards = items.map(item => `
-      <div class="safety-contact-item ${item.urgent ? 'urgent' : ''}">
-        <div class="contact-label">${item.label}</div>
-        <div class="contact-name">${item.name}</div>
-        ${item.phone ? `<a class="contact-phone" href="tel:${item.phone.replace(/[^0-9+]/g,'')}">${item.phone}</a>` : ''}
-        ${item.hours ? `<div class="contact-hours">${item.hours}</div>` : ''}
-      </div>`).join('');
-
-    const websiteLink = contacts.website ?
-      `<a class="safety-verify-link" href="${contacts.website}" target="_blank">Verify on university website →</a>` :
-      '';
-
-    container.innerHTML = `
-      <div class="campus-safety-card collapsed" id="safety-card">
-        <div class="campus-safety-header" onclick="toggleSafety()">
-          <div>
-            <h4>🛡️ Campus Safety & Resources — ${schoolName}</h4>
-            <p>Tap to view contacts & resources</p>
-          </div>
-          <span class="safety-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        </div>
-        <div class="safety-contacts-grid">${cards}</div>
-        <div class="safety-disclaimer">
-          ⚠️ Always verify critical numbers directly with your university. ${websiteLink}
-        </div>
-      </div>`;
+    if (contacts.campusPolice) items.push({ label: 'Campus Police', name: contacts.campusPolice.name || 'University Police', phone: contacts.campusPolice.phone, hours: contacts.campusPolice.hours || '24/7', urgent: true });
+    if (contacts.safeWalk) items.push({ label: 'Safe Walk / Escort', name: contacts.safeWalk.name || 'Safe Walk Program', phone: contacts.safeWalk.phone, hours: contacts.safeWalk.description || 'Evening hours', urgent: false });
+    if (contacts.counseling) items.push({ label: 'Crisis & Counseling', name: contacts.counseling.name || 'Counseling Services', phone: contacts.counseling.phone, hours: contacts.counseling.hours || '24/7 crisis line', urgent: false });
+    if (contacts.studentHealth) items.push({ label: 'Student Health', name: contacts.studentHealth.name || 'Student Health Services', phone: contacts.studentHealth.phone, hours: contacts.studentHealth.hours || 'See website for hours', urgent: false });
+    if (contacts.deanOfStudents) items.push({ label: 'Dean of Students', name: contacts.deanOfStudents.name || 'Dean of Students', phone: contacts.deanOfStudents.phone, hours: '', urgent: false });
+    if (contacts.other && contacts.other.length > 0) { contacts.other.slice(0, 2).forEach(o => { if (o.phone) items.push({ label: o.name || 'Campus Resource', name: o.description || '', phone: o.phone, hours: '', urgent: false }); }); }
+    if (items.length === 0) { container.innerHTML = ''; return; }
+    const cards = items.map(item => `<div class="safety-contact-item ${item.urgent?'urgent':''}"><div class="contact-label">${item.label}</div><div class="contact-name">${item.name}</div>${item.phone?`<a class="contact-phone" href="tel:${item.phone.replace(/[^0-9+]/g,'')}">${item.phone}</a>`:''} ${item.hours?`<div class="contact-hours">${item.hours}</div>`:''}</div>`).join('');
+    const websiteLink = contacts.website ? `<a class="safety-verify-link" href="${contacts.website}" target="_blank">Verify on university website →</a>` : '';
+    container.innerHTML = `<div class="campus-safety-card collapsed" id="safety-card"><div class="campus-safety-header" onclick="toggleSafety()"><div><h4>🛡️ Campus Safety & Resources — ${schoolName}</h4><p>Tap to view contacts & resources</p></div><span class="safety-toggle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 6.5L9 11.5L14 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="safety-contacts-grid">${cards}</div><div class="safety-disclaimer">⚠️ Always verify critical numbers directly with your university. ${websiteLink}</div></div>`;
   }
 
   /* ── Spring Break Mode ── */
   const SB_KEY = 'samu_spring_break';
 
-  function getSpringBreakData() {
-    try {
-      const raw = localStorage.getItem(SB_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch(e) { return null; }
-  }
-
-  function saveSpringBreakData(data) {
-    localStorage.setItem(SB_KEY, JSON.stringify(data));
-  }
+  function getSpringBreakData() { try { const raw = localStorage.getItem(SB_KEY); return raw ? JSON.parse(raw) : null; } catch(e) { return null; } }
+  function saveSpringBreakData(data) { localStorage.setItem(SB_KEY, JSON.stringify(data)); }
 
   function clearSpringBreak() {
     localStorage.removeItem(SB_KEY);
@@ -3334,24 +1541,14 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
   function isSpringBreakActive() {
     const sb = getSpringBreakData();
     if (!sb || !sb.departure || !sb.returnDate) return false;
-    const today = new Date();
-    today.setHours(0,0,0,0);
-    const dep = new Date(sb.departure);
-    const ret = new Date(sb.returnDate);
-    // Auto-expire check
-    if (today > ret) {
-      localStorage.removeItem(SB_KEY);
-      return false;
-    }
+    const today = new Date(); today.setHours(0,0,0,0);
+    const dep = new Date(sb.departure); const ret = new Date(sb.returnDate);
+    if (today > ret) { localStorage.removeItem(SB_KEY); return false; }
     return today >= dep && today <= ret;
   }
 
   function getActiveSearchLocation() {
-    // Returns travel location if Spring Break is active, otherwise campus location
-    if (isSpringBreakActive()) {
-      const sb = getSpringBreakData();
-      return sb.hotelAddress || sb.destination || studentProfile.schoolAddress || studentProfile.school;
-    }
+    if (isSpringBreakActive()) { const sb = getSpringBreakData(); return sb.hotelAddress || sb.destination || studentProfile.schoolAddress || studentProfile.school; }
     return studentProfile.schoolAddress || studentProfile.school || 'near campus';
   }
 
@@ -3359,60 +1556,39 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
     if (studentProfile.userType !== 'parent') return;
     const sb = getSpringBreakData();
     const today = new Date();
-    const month = today.getMonth() + 1; // 1-12
-    const isSeason = month >= 2 && month <= 3; // Feb-Mar
-
+    const month = today.getMonth() + 1;
+    const isSeason = month >= 2 && month <= 3;
     if (sb && (isSpringBreakActive() || new Date(sb.departure) > today)) {
-      // Already set up — show active badge, hide banner
       document.getElementById('spring-break-active-badge').style.display = 'block';
       const badge = document.querySelector('.sb-active-badge');
-      if (badge && sb.destination) {
-        badge.innerHTML = `🌴 Spring Break Mode active — ${sb.destination} · <span style="cursor:pointer;text-decoration:underline;font-size:11px;" onclick="clearSpringBreak()">Turn off</span>`;
-      }
+      if (badge && sb.destination) badge.innerHTML = `🌴 Spring Break Mode active — ${sb.destination} · <span style="cursor:pointer;text-decoration:underline;font-size:11px;" onclick="clearSpringBreak()">Turn off</span>`;
       document.getElementById('spring-break-banner').style.display = 'none';
     } else if (isSeason && !sb) {
-      // Seasonal window — show the prompt banner
       document.getElementById('spring-break-banner').style.display = 'block';
       document.getElementById('spring-break-active-badge').style.display = 'none';
     }
   }
 
-  function selectSpringBreakTile() {
-    const tile = document.getElementById('spring-break-tile');
-    if (tile) selectCategory(tile);
-  }
+  function selectSpringBreakTile() { const tile = document.getElementById('spring-break-tile'); if (tile) selectCategory(tile); }
 
   async function loadSpringBreakDates(schoolName) {
     const loadingEl = document.getElementById('sb-dates-loading');
     const formEl = document.getElementById('sb-date-fields');
     if (loadingEl) loadingEl.style.display = 'flex';
     if (formEl) formEl.style.display = 'none';
-
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 400,
-          messages: [{ role: 'user', content: `Find the official Spring Break dates for ${schoolName} for the current or upcoming academic year. Return ONLY a JSON object: {"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD","note":"..."}. If not found, return {"startDate":"","endDate":"","note":"Not found"}.` }]
-        })
-      });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 400, messages: [{ role: 'user', content: `Find the official Spring Break dates for ${schoolName} for the current or upcoming academic year. Return ONLY a JSON object: {"startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD","note":"..."}. If not found, return {"startDate":"","endDate":"","note":"Not found"}.` }] }) });
       const data = await response.json();
       const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
       const clean = text.replace(/```json|```/g, '').trim();
       const parsed = JSON.parse(clean);
-
       if (parsed.startDate) {
-        const depInput = document.getElementById('sb-departure');
-        const retInput = document.getElementById('sb-return');
-        if (depInput) depInput.value = parsed.startDate;
-        if (retInput) retInput.value = parsed.endDate;
+        const depInput = document.getElementById('sb-departure'); const retInput = document.getElementById('sb-return');
+        if (depInput) depInput.value = parsed.startDate; if (retInput) retInput.value = parsed.endDate;
         const note = document.getElementById('sb-dates-note');
         if (note) note.textContent = `Spring Break dates pre-filled from ${schoolName}. Verify with your university.`;
       }
     } catch(e) {}
-
     if (loadingEl) loadingEl.style.display = 'none';
     if (formEl) formEl.style.display = 'block';
   }
@@ -3421,55 +1597,8 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
     const school = studentProfile.school || 'your university';
     const container = document.getElementById('problem-area');
     if (!container) return;
-
-    container.innerHTML = `
-      <div class="sb-form">
-        <div class="sb-form-title">🌴 Spring Break Setup</div>
-        <div class="sb-form-sub">Set your student's travel details so Sam can help from anywhere — not just campus.</div>
-
-        <div class="sb-loading" id="sb-dates-loading" style="display:none;">
-          <div class="loading-dots" style="scale:0.7;"><span></span><span></span><span></span></div>
-          <span>Looking up ${school} Spring Break dates...</span>
-        </div>
-
-        <div id="sb-date-fields">
-          <div class="field-row" style="margin-bottom:14px;">
-            <div class="field" style="margin-bottom:0;">
-              <label style="font-size:12px;">Departure date</label>
-              <input type="date" id="sb-departure" style="font-size:14px;"/>
-            </div>
-            <div class="field" style="margin-bottom:0;">
-              <label style="font-size:12px;">Return date</label>
-              <input type="date" id="sb-return" style="font-size:14px;"/>
-            </div>
-          </div>
-
-          <div class="field" style="margin-bottom:14px;">
-            <label style="font-size:12px;">Travel destination</label>
-            <input type="text" id="sb-destination" placeholder="e.g. Panama City Beach, FL" style="font-size:14px;"/>
-          </div>
-
-          <div class="field" style="margin-bottom:14px;">
-            <label style="font-size:12px;">Hotel name &amp; address <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label>
-            <input type="text" id="sb-hotel" placeholder="e.g. Sheraton Panama City Beach, 4114 Jan Cooley Dr" style="font-size:14px;"/>
-            <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;line-height:1.5;">Sam will anchor all local searches — attorneys, urgent care, auto — to this location while Spring Break is active.</div>
-          </div>
-
-          <div id="sb-dates-note" style="font-size:11.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.5;"></div>
-
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
-            <button class="btn-primary" onclick="saveSpringBreakAndAsk()" style="flex:1;">
-              Save &amp; Ask Sam to prepare
-              <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button class="btn-secondary" onclick="clearCategory()">Cancel</button>
-          </div>
-        </div>
-      </div>`;
-
+    container.innerHTML = `<div class="sb-form"><div class="sb-form-title">🌴 Spring Break Setup</div><div class="sb-form-sub">Set your student's travel details so Sam can help from anywhere — not just campus.</div><div class="sb-loading" id="sb-dates-loading" style="display:none;"><div class="loading-dots" style="scale:0.7;"><span></span><span></span><span></span></div><span>Looking up ${school} Spring Break dates...</span></div><div id="sb-date-fields"><div class="field-row" style="margin-bottom:14px;"><div class="field" style="margin-bottom:0;"><label style="font-size:12px;">Departure date</label><input type="date" id="sb-departure" style="font-size:14px;"/></div><div class="field" style="margin-bottom:0;"><label style="font-size:12px;">Return date</label><input type="date" id="sb-return" style="font-size:14px;"/></div></div><div class="field" style="margin-bottom:14px;"><label style="font-size:12px;">Travel destination</label><input type="text" id="sb-destination" placeholder="e.g. Panama City Beach, FL" style="font-size:14px;"/></div><div class="field" style="margin-bottom:14px;"><label style="font-size:12px;">Hotel name &amp; address <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label><input type="text" id="sb-hotel" placeholder="e.g. Sheraton Panama City Beach, 4114 Jan Cooley Dr" style="font-size:14px;"/><div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;line-height:1.5;">Sam will anchor all local searches — attorneys, urgent care, auto — to this location while Spring Break is active.</div></div><div id="sb-dates-note" style="font-size:11.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.5;"></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;"><button class="btn-primary" onclick="saveSpringBreakAndAsk()" style="flex:1;">Save &amp; Ask Sam to prepare <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="btn-secondary" onclick="clearCategory()">Cancel</button></div></div></div>`;
     container.style.display = 'block';
-
-    // Auto-load Spring Break dates from university
     if (studentProfile.school) loadSpringBreakDates(studentProfile.school);
   }
 
@@ -3478,34 +1607,17 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
     const returnDate = document.getElementById('sb-return')?.value;
     const destination = document.getElementById('sb-destination')?.value.trim();
     const hotel = document.getElementById('sb-hotel')?.value.trim();
-
-    if (!destination) {
-      alert('Please enter a travel destination.');
-      return;
-    }
-
-    const sbData = {
-      departure: departure || '',
-      returnDate: returnDate || '',
-      destination,
-      hotelAddress: hotel || destination
-    };
-
-    saveSpringBreakData(sbData);
-    checkSeasonalBanner();
-
-    // Build the auto-prompt for Sam
+    if (!destination) { alert('Please enter a travel destination.'); return; }
+    const sbData = { departure: departure || '', returnDate: returnDate || '', destination, hotelAddress: hotel || destination };
+    saveSpringBreakData(sbData); checkSeasonalBanner();
     const prompt = `My student is going to ${destination} for Spring Break${departure ? ` from ${departure} to ${returnDate}` : ''}${hotel ? `, staying at ${hotel}` : ''}. Help me prepare. What should I know, what should they bring, and what should we set up in advance in case something goes wrong?`;
-
     document.getElementById('problem-input').value = prompt;
     document.getElementById('problem-area').innerHTML = '';
     document.getElementById('problem-area').style.display = 'none';
-
-    // Trigger Sam's response directly
     getHelp();
   }
 
-  // ── Run gate check after all functions are defined ──
+  // ── Run gate check ──
   checkGate();
 
   // ── Register Service Worker for PWA ──
@@ -3516,7 +1628,6 @@ Return ONLY a JSON object with these fields (omit any you are not confident abou
         .catch(err => console.log('Sam U SW error:', err));
     });
   }
-
 </script>
 </body>
 </html>
