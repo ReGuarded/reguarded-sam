@@ -1285,8 +1285,14 @@
     if (/bail bond/i.test(responseText)) {
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
     }
-    if ((cat === 'Legal & Arrest Situation' || cat.includes('Legal') || cat.includes('Arrest')) && !searches.find(s => s.query.includes('attorney'))) {
-      searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
+    if (cat === 'Legal & Arrest Situation' || cat.includes('Legal') || cat.includes('Arrest')) {
+  if (!searches.find(s => s.query.includes('attorney'))) {
+    searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
+  }
+  if (!searches.find(s => s.query.includes('bail'))) {
+    searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
+  }
+});
     }
     if (cat === 'Move-In Day Planning' || cat.includes('Move-In')) {
       searches.push({ query: 'storage units near university', title: 'Storage Units Near Campus', icon: '📦' });
