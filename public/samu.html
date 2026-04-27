@@ -388,6 +388,68 @@
   .sb-form-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--blue-deep); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
   .sb-form-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
   .sb-loading { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+
+  /* ── Recent Request Chips ── */
+  .recent-chips-wrap {
+    margin-bottom: 10px;
+    animation: fadeUp 0.25s ease both;
+  }
+  .recent-chips-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    display: block;
+  }
+  .recent-chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .recent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px 6px 12px;
+    border-radius: 999px;
+    border: 1.5px solid var(--blue-muted);
+    background: var(--blue-pale);
+    font-size: 12px;
+    color: var(--blue-brand);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+    max-width: 260px;
+    user-select: none;
+  }
+  .recent-chip:hover {
+    background: var(--blue-brand);
+    color: white;
+    border-color: var(--blue-brand);
+  }
+  .recent-chip-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: block;
+  }
+  .recent-chip-x {
+    font-size: 10px;
+    opacity: 0.55;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 1px 3px;
+    border-radius: 50%;
+    transition: opacity 0.15s;
+  }
+  .recent-chip:hover .recent-chip-x { opacity: 0.85; }
+  @media (max-width: 480px) {
+    .recent-chip { max-width: 100%; }
+    .recent-chip-text { max-width: calc(100vw - 120px); }
+  }
 </style>
 </head>
 <body>
@@ -707,7 +769,9 @@
       <span class="auto-tip-dismiss" onclick="document.getElementById('auto-tip-bar').style.display='none'">✕</span>
     </div>
 
+    <!-- problem-area: recent chips inject here, above textarea -->
     <div class="problem-area" id="problem-area" style="display:none;">
+      <div id="recent-chips-container"></div>
       <textarea id="problem-input" placeholder="Describe what's happening..."></textarea>
       <div class="problem-hint">Is it something else? <span style="color:var(--blue-light);cursor:pointer;text-decoration:underline;" onclick="clearCategory()">Choose a different category</span></div>
     </div>
@@ -808,6 +872,76 @@
   let feedbackSent = false;
   let pocRating = '';
   let pocRecommend = '';
+
+  // ── Recent Requests History ──
+  const RECENT_MAX = 3;
+
+  function recentKey(category) {
+    // Safe localStorage key from category name
+    return 'samu_recent_' + category.toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').slice(0, 40);
+  }
+
+  function getRecentRequests(category) {
+    try {
+      return JSON.parse(localStorage.getItem(recentKey(category)) || '[]');
+    } catch(e) { return []; }
+  }
+
+  function saveRecentRequest(category, text) {
+    if (!category || !text || text.trim().length < 10) return;
+    const trimmed = text.trim();
+    try {
+      let existing = getRecentRequests(category);
+      // Remove duplicate if already saved
+      existing = existing.filter(r => r !== trimmed);
+      // Prepend newest, cap at RECENT_MAX
+      existing.unshift(trimmed);
+      existing = existing.slice(0, RECENT_MAX);
+      localStorage.setItem(recentKey(category), JSON.stringify(existing));
+    } catch(e) {}
+  }
+
+  function deleteRecentRequest(category, index) {
+    try {
+      let existing = getRecentRequests(category);
+      existing.splice(index, 1);
+      localStorage.setItem(recentKey(category), JSON.stringify(existing));
+      renderRecentChips(category);
+    } catch(e) {}
+  }
+
+  function renderRecentChips(category) {
+    const container = document.getElementById('recent-chips-container');
+    if (!container) return;
+    const recents = getRecentRequests(category);
+    if (!recents || recents.length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+    const chips = recents.map((text, i) => {
+      const display = text.length > 42 ? text.slice(0, 42) + '…' : text;
+      // Escape for use in onclick attr
+      const escaped = text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      return `<div class="recent-chip" onclick="applyRecentChip('${escaped}')" title="${text.replace(/"/g,'&quot;')}">
+        <span class="recent-chip-text">${display.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</span>
+        <span class="recent-chip-x" onclick="event.stopPropagation(); deleteRecentRequest('${category.replace(/'/g,"\\'")}', ${i})" title="Remove">✕</span>
+      </div>`;
+    }).join('');
+    container.innerHTML = `<div class="recent-chips-wrap">
+      <span class="recent-chips-label">Recent</span>
+      <div class="recent-chips-row">${chips}</div>
+    </div>`;
+  }
+
+  function applyRecentChip(text) {
+    const ta = document.getElementById('problem-input');
+    if (ta) {
+      ta.value = text;
+      ta.focus();
+      // Scroll caret to end
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+    }
+  }
 
   // ── Event Logging ──
   function generateSessionId() {
@@ -1050,7 +1184,6 @@
     card.classList.add('selected');
     selectedCategory = card.dataset.cat;
 
-    // ── CHANGE 1: Log tile tap event ──
     logEvent(selectedCategory, 'tile_tap');
 
     const ta = document.getElementById('problem-input');
@@ -1060,6 +1193,10 @@
     if (selectedCategory === 'Spring Break Planning') { document.getElementById('problem-area').style.display = 'block'; renderSpringBreakForm(); return; }
     if (selectedCategory === 'Move-In Day Planning') { if (studentProfile.school) loadMoveIn(studentProfile.school); } else { document.getElementById('movein-container').innerHTML = ''; }
     document.getElementById('problem-area').style.display = 'block';
+
+    // Render recent chips for this category
+    renderRecentChips(selectedCategory);
+
     setTimeout(() => ta.focus(), 100);
   }
 
@@ -1070,6 +1207,9 @@
     document.getElementById('problem-input').value = '';
     document.getElementById('auto-tip-bar').style.display = 'none';
     document.getElementById('movein-container').innerHTML = '';
+    // Clear chips
+    const chipsContainer = document.getElementById('recent-chips-container');
+    if (chipsContainer) chipsContainer.innerHTML = '';
   }
 
   function legalHelpNow() {
@@ -1136,7 +1276,11 @@
     const problem = document.getElementById('problem-input').value.trim();
     if (!problem) { document.getElementById('problem-input').focus(); return; }
 
-    // ── CHANGE 2: Log question submit event ──
+    // Save this request to recent history BEFORE calling API
+    if (selectedCategory && selectedCategory !== 'Spring Break Planning') {
+      saveRecentRequest(selectedCategory, problem);
+    }
+
     logEvent(selectedCategory, 'question_submit');
 
     const btn = document.getElementById('get-help-btn');
@@ -1269,7 +1413,6 @@
     if (/battery|dead battery|won.t start|jump start/i.test(responseText)) {
       searches.push({ query: 'AutoZone auto parts store', title: 'Auto Parts Stores', icon: '🔩' });
     }
-    // ── CHANGE 3: Oil change / inspection dedicated search trigger ──
     if (/oil change|lube|jiffy lube|valvoline|inspection sticker|state inspection/i.test(responseText) || (cat === 'Auto & Car Trouble Help' && /oil|inspection/i.test(responseText))) {
       searches.push({ query: 'oil change lube shop', title: 'Oil Change & Lube Shops', icon: '🛢️' });
     }
@@ -1286,12 +1429,12 @@
       searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
     }
     if (cat === 'Legal & Arrest Situation' || cat.includes('Legal') || cat.includes('Arrest')) {
-  if (!searches.find(s => s.query.includes('attorney'))) {
-    searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
-  }
-  if (!searches.find(s => s.query.includes('bail'))) {
-    searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
-  }
+      if (!searches.find(s => s.query.includes('attorney'))) {
+        searches.push({ query: 'criminal defense attorney DWI', title: 'Defense Attorneys', icon: '⚖️' });
+      }
+      if (!searches.find(s => s.query.includes('bail'))) {
+        searches.push({ query: 'bail bondsman', title: 'Bail Bond Services', icon: '🏛️' });
+      }
     }
     if (cat === 'Move-In Day Planning' || cat.includes('Move-In')) {
       searches.push({ query: 'storage units near university', title: 'Storage Units Near Campus', icon: '📦' });
