@@ -389,6 +389,49 @@
   .sb-form-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5; }
   .sb-loading { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 
+  /* ── My Students Screen ── */
+  #my-students-screen { background: var(--white); border-radius: var(--radius); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
+  .my-students-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blue-deep); margin-bottom: 6px; }
+  .my-students-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.6; font-weight: 300; }
+  .student-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .student-select-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 20px 18px; cursor: pointer; transition: all 0.18s; background: var(--cream); position: relative; }
+  .student-select-card:hover { border-color: var(--blue-light); background: var(--blue-pale); transform: translateY(-1px); box-shadow: var(--shadow); }
+  .student-select-card .sc-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-brand), var(--blue-light)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: white; margin-bottom: 12px; }
+  .student-select-card .sc-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--blue-deep); margin-bottom: 4px; }
+  .student-select-card .sc-school { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.4; }
+  .student-select-card .sc-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .student-select-card .sc-pill { background: white; border: 1px solid var(--blue-muted); border-radius: 999px; padding: 2px 8px; font-size: 11px; color: var(--blue-brand); }
+  .student-select-card .sc-edit { position: absolute; top: 12px; right: 12px; font-size: 13px; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px; transition: all 0.15s; }
+  .student-select-card .sc-edit:hover { color: var(--blue-brand); background: var(--blue-pale); }
+  .student-add-card { border: 2px dashed var(--border); border-radius: var(--radius); padding: 20px 18px; cursor: pointer; transition: all 0.18s; background: var(--cream); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px; text-align: center; }
+  .student-add-card:hover { border-color: var(--blue-muted); background: var(--blue-pale); }
+  .student-add-card .add-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--blue-pale); border: 2px dashed var(--blue-muted); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 10px; }
+  .student-add-card .add-label { font-size: 13px; font-weight: 500; color: var(--text-muted); }
+  @media (max-width: 480px) { .student-cards-grid { grid-template-columns: 1fr; } #my-students-screen { padding: 28px 20px; } }
+
+  /* ── Student count picker ── */
+  .student-count-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .count-card { border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all 0.18s; text-align: center; background: var(--cream); }
+  .count-card:hover { border-color: var(--blue-light); background: var(--blue-pale); }
+  .count-card.selected { border-color: var(--blue-brand); background: var(--blue-pale); box-shadow: 0 0 0 3px rgba(26,95,168,0.12); }
+  .count-card .cc-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--blue-deep); margin-bottom: 6px; }
+  .count-card .cc-label { font-size: 13px; color: var(--text-muted); }
+  .count-card.selected .cc-label { color: var(--blue-brand); }
+
+  /* ── Student transition screen ── */
+  .student-transition { background: var(--white); border-radius: var(--radius); padding: 48px 40px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); text-align: center; animation: fadeUp 0.5s ease both; margin-bottom: 20px; }
+  .student-transition h2 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--blue-deep); margin-bottom: 10px; }
+  .student-transition p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; max-width: 440px; margin: 0 auto 28px; font-weight: 300; }
+
+  /* ── Step 2 student switcher ── */
+  .student-switcher { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .student-switcher-label { font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+  .switcher-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--border); font-size: 13px; font-weight: 400; color: var(--text-muted); background: var(--cream); cursor: pointer; transition: all 0.18s; font-family: 'DM Sans', sans-serif; }
+  .switcher-chip:hover { border-color: var(--blue-muted); color: var(--blue-brand); }
+  .switcher-chip.active { background: var(--blue-brand); border-color: var(--blue-brand); color: white; font-weight: 500; }
+  .switcher-chip .sw-avatar { width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .switcher-chip:not(.active) .sw-avatar { background: var(--blue-pale); color: var(--blue-brand); }
+
   /* ── Recent Request Chips ── */
   .recent-chips-wrap {
     margin-bottom: 10px;
@@ -499,6 +542,32 @@
     <div class="email-privacy">🔒 Your email is only used to save your profile. Sam never sends marketing emails.</div>
   </div>
 
+  <!-- My Students Screen (parents only) -->
+  <div id="my-students-screen" style="display:none;">
+    <img src="/sam-u-logo.png" alt="Sam U" style="width:64px;height:auto;object-fit:contain;display:block;margin-bottom:16px;"/>
+    <div class="my-students-title">Your Students</div>
+    <div class="my-students-sub">Tap a student to get help — Sam will switch to their profile.</div>
+    <div class="student-cards-grid" id="student-cards-grid">
+      <!-- rendered by renderMyStudentsScreen() -->
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <span style="font-size:12px;color:var(--text-muted);cursor:pointer;text-decoration:underline;" onclick="resetToEmail()">Not you? Sign out</span>
+    </div>
+  </div>
+
+  <!-- Student transition screen (between student 1 and student 2 setup) -->
+  <div id="student-transition-screen" style="display:none;">
+    <div class="student-transition">
+      <div style="font-size:48px;margin-bottom:16px;">🎓</div>
+      <h2>Student 1 is all set!</h2>
+      <p>Now let's set up your second student. It only takes a minute.</p>
+      <button class="btn-primary" onclick="startStudent2Setup()" style="font-size:15px;padding:14px 32px;">
+        Set up Student 2
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
   <!-- Header -->
   <header>
     <img src="/sam-u-logo.png" alt="Sam U" class="logo-icon" style="width:70px;height:auto;object-fit:contain;"/>
@@ -584,8 +653,8 @@
         <span style="font-size:13px;color:var(--text-muted);">Get Help</span>
       </div>
     </div>
-    <div class="card-title"><span class="step-badge">Step 1 of 2</span> Who's using Sam today?</div>
-    <div class="card-subtitle">Sam works for both students and parents — just a little differently. Tell us who you are so Sam can speak your language.</div>
+    <div class="card-title"><span class="step-badge" id="step1-badge">Step 1 of 2</span> <span id="step1-title">Who's using Sam today?</span></div>
+    <div class="card-subtitle" id="step1-subtitle">Sam works for both students and parents — just a little differently. Tell us who you are so Sam can speak your language.</div>
     <div class="user-type-grid" id="user-type-grid">
       <div class="user-type-card" onclick="selectUserType(this,'student')" data-type="student">
         <div style="width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
@@ -596,6 +665,21 @@
         <div style="width:48px;height:48px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="ut-title">I'm the parent</div>
         <div class="ut-desc">I'm helping my student navigate a situation from a distance.</div>
+      </div>
+    </div>
+
+    <!-- Student count picker — shown only for parents -->
+    <div id="student-count-section" style="display:none;">
+      <div style="font-size:14px;font-weight:500;color:var(--text-secondary);margin-bottom:12px;">How many college students are you setting up Sam for?</div>
+      <div class="student-count-grid">
+        <div class="count-card" onclick="selectStudentCount(this, 1)">
+          <div class="cc-num">1</div>
+          <div class="cc-label">Just one student</div>
+        </div>
+        <div class="count-card" onclick="selectStudentCount(this, 2)">
+          <div class="cc-num">2</div>
+          <div class="cc-label">Two students</div>
+        </div>
       </div>
     </div>
     <div id="profile-fields" style="display:none;">
@@ -682,6 +766,8 @@
   <!-- STEP 2: Get Help -->
   <div class="card hidden" id="step2-card">
     <div id="profile-bar-container"></div>
+    <!-- Student switcher chips — only visible for parents with 2 students -->
+    <div id="student-switcher-container" style="display:none;"></div>
     <div class="progress-bar">
       <div class="progress-step">
         <div class="progress-num" style="background:var(--success);">✓</div>
@@ -868,10 +954,41 @@
   let studentProfile = {};
   let selectedCategory = '';
   let selectedUserType = '';
+  let selectedStudentCount = 1;   // 1 or 2 — set during parent onboarding
+  let currentSetupIndex = 0;      // 0 = setting up student 1, 1 = setting up student 2
+  let activeProfileIndex = 0;     // which profile is currently active (0 or 1)
   let currentEmail = '';
   let feedbackSent = false;
   let pocRating = '';
   let pocRecommend = '';
+
+  // ── Multi-Profile Storage ──
+  function profilesKey() { return 'samu_profiles_' + currentEmail; }
+  function activeIndexKey() { return 'samu_active_index_' + currentEmail; }
+
+  function getProfiles() {
+    try { return JSON.parse(localStorage.getItem(profilesKey()) || '[]'); } catch(e) { return []; }
+  }
+
+  function saveProfiles(profiles) {
+    try { localStorage.setItem(profilesKey(), JSON.stringify(profiles)); } catch(e) {}
+  }
+
+  function getActiveIndex() {
+    try { return parseInt(localStorage.getItem(activeIndexKey()) || '0', 10); } catch(e) { return 0; }
+  }
+
+  function setActiveIndex(idx) {
+    try { localStorage.setItem(activeIndexKey(), String(idx)); } catch(e) {}
+    activeProfileIndex = idx;
+  }
+
+  function activateProfile(idx) {
+    const profiles = getProfiles();
+    if (!profiles[idx]) return;
+    setActiveIndex(idx);
+    studentProfile = { ...profiles[idx], email: currentEmail };
+  }
 
   // ── Recent Requests History ──
   const RECENT_MAX = 3;
@@ -1005,14 +1122,32 @@
       const data = await response.json();
       hideLoadingScreen();
       if (data.success && data.found) {
-        studentProfile = { ...data.profile, email };
-        document.getElementById('step2-card').classList.remove('hidden');
-        document.getElementById('main-hero').style.display = 'block';
-        document.getElementById('poc-feedback-btn').style.display = 'block';
-        renderProfileBar(); renderReturningBanner();
-        if (studentProfile.school) loadCampusSafety(studentProfile.school);
-        checkSeasonalBanner();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Check for locally stored multi-profiles first
+        const localProfiles = getProfiles();
+        if (localProfiles.length > 0) {
+          // Returning user with local profiles — go to My Students or Step 2
+          const idx = getActiveIndex();
+          activeProfileIndex = Math.min(idx, localProfiles.length - 1);
+          studentProfile = { ...localProfiles[activeProfileIndex], email };
+          if (localProfiles.length > 1 || localProfiles[0].userType === 'parent') {
+            // Parent with profiles — show My Students screen
+            showMyStudentsScreen();
+          } else {
+            // Single student — go straight to Step 2
+            enterStep2();
+          }
+        } else {
+          // Legacy single profile from Supabase
+          studentProfile = { ...data.profile, email };
+          // Migrate to local profiles array
+          saveProfiles([data.profile]);
+          setActiveIndex(0);
+          if (data.profile.userType === 'parent') {
+            showMyStudentsScreen();
+          } else {
+            enterStep2();
+          }
+        }
       } else { showEmailScreen(); }
     } catch(err) { hideLoadingScreen(); showEmailScreen(); }
   }
@@ -1043,13 +1178,132 @@
     btn.innerHTML = 'Enter Sam U <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
-  function showEmailScreen() {
+  function hideAllScreens() {
     document.getElementById('welcome-screen').style.display = 'none';
-    document.getElementById('email-screen').style.display = 'block';
+    document.getElementById('email-screen').style.display = 'none';
+    document.getElementById('my-students-screen').style.display = 'none';
+    document.getElementById('student-transition-screen').style.display = 'none';
     document.getElementById('main-hero').style.display = 'none';
     document.getElementById('step1-card').style.display = 'none';
+    document.getElementById('step1-card').classList.remove('hidden');
     document.getElementById('step2-card').classList.add('hidden');
-    setTimeout(() => document.getElementById('email-input').focus(), 300);
+  }
+
+  function showMyStudentsScreen() {
+    hideAllScreens();
+    renderMyStudentsScreen();
+    document.getElementById('my-students-screen').style.display = 'block';
+    document.getElementById('poc-feedback-btn').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function enterStep2() {
+    hideAllScreens();
+    document.getElementById('main-hero').style.display = 'block';
+    document.getElementById('step2-card').classList.remove('hidden');
+    document.getElementById('poc-feedback-btn').style.display = 'block';
+    renderProfileBar();
+    renderStudentSwitcher();
+    if (studentProfile.userType === 'parent') {
+      renderReturningBanner();
+    }
+    if (studentProfile.school) loadCampusSafety(studentProfile.school);
+    checkSeasonalBanner();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderMyStudentsScreen() {
+    const profiles = getProfiles();
+    const grid = document.getElementById('student-cards-grid');
+    if (!grid) return;
+    let html = '';
+    profiles.forEach((p, i) => {
+      const initials = p.name ? p.name.slice(0, 1).toUpperCase() : '?';
+      const pills = [p.year, p.housing].filter(Boolean).map(v => `<span class="sc-pill">${v}</span>`).join('');
+      html += `<div class="student-select-card" onclick="selectStudentAndEnter(${i})">
+        <button class="sc-edit" onclick="event.stopPropagation(); editStudentProfile(${i})" title="Edit">✏️</button>
+        <div class="sc-avatar">${initials}</div>
+        <div class="sc-name">${p.name}</div>
+        <div class="sc-school">${p.school || 'School not set'}</div>
+        <div class="sc-pills">${pills}</div>
+      </div>`;
+    });
+    // Add card if only 1 profile
+    if (profiles.length < 2) {
+      html += `<div class="student-add-card" onclick="addSecondStudent()">
+        <div class="add-icon">+</div>
+        <div class="add-label">Add a second student</div>
+      </div>`;
+    }
+    grid.innerHTML = html;
+  }
+
+  function selectStudentAndEnter(idx) {
+    activateProfile(idx);
+    enterStep2();
+  }
+
+  function addSecondStudent() {
+    currentSetupIndex = 1;
+    selectedStudentCount = 2;
+    selectedUserType = 'parent';
+    hideAllScreens();
+    resetStep1Form();
+    updateStep1Labels();
+    document.getElementById('step1-card').style.display = 'block';
+    document.getElementById('profile-fields').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function editStudentProfile(idx) {
+    activateProfile(idx);
+    currentSetupIndex = idx;
+    selectedStudentCount = getProfiles().length;
+    selectedUserType = 'parent';
+    hideAllScreens();
+    populateStep1Form(studentProfile);
+    document.getElementById('step1-card').style.display = 'block';
+    document.getElementById('profile-fields').style.display = 'block';
+    updateStep1Labels();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderStudentSwitcher() {
+    const profiles = getProfiles();
+    const container = document.getElementById('student-switcher-container');
+    if (!container) return;
+    if (profiles.length < 2 || studentProfile.userType !== 'parent') {
+      container.style.display = 'none';
+      return;
+    }
+    container.style.display = 'block';
+    const chips = profiles.map((p, i) => {
+      const isActive = i === activeProfileIndex;
+      const initials = p.name ? p.name.slice(0, 1).toUpperCase() : '?';
+      return `<div class="switcher-chip ${isActive ? 'active' : ''}" onclick="switchToStudent(${i})">
+        <span class="sw-avatar">${initials}</span>
+        ${p.name}
+      </div>`;
+    }).join('');
+    container.innerHTML = `<div class="student-switcher">
+      <span class="student-switcher-label">Helping:</span>
+      ${chips}
+    </div>`;
+  }
+
+  function switchToStudent(idx) {
+    if (idx === activeProfileIndex) return;
+    activateProfile(idx);
+    // Reset current session state
+    clearCategory();
+    document.getElementById('response-area').innerHTML = '';
+    document.getElementById('campus-safety-container').innerHTML = '';
+    document.getElementById('movein-container').innerHTML = '';
+    renderProfileBar();
+    renderStudentSwitcher();
+    if (studentProfile.school) loadCampusSafety(studentProfile.school);
+    checkSeasonalBanner();
+    window.scrollTo({ top: document.getElementById('step2-card').offsetTop - 20, behavior: 'smooth' });
   }
 
   async function submitEmail() {
@@ -1065,20 +1319,32 @@
       const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'get-profile', email }) });
       const data = await response.json();
       if (data.success && data.found) {
-        studentProfile = { ...data.profile, email };
-        document.getElementById('email-screen').style.display = 'none';
-        document.getElementById('step1-card').classList.add('hidden');
-        document.getElementById('step2-card').classList.remove('hidden');
-        document.getElementById('main-hero').style.display = 'block';
-        document.getElementById('poc-feedback-btn').style.display = 'block';
-        renderProfileBar(); renderReturningBanner();
-        if (studentProfile.school) loadCampusSafety(studentProfile.school);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Check local profiles first
+        const localProfiles = getProfiles();
+        if (localProfiles.length > 0) {
+          const idx = getActiveIndex();
+          activeProfileIndex = Math.min(idx, localProfiles.length - 1);
+          studentProfile = { ...localProfiles[activeProfileIndex], email };
+          document.getElementById('email-screen').style.display = 'none';
+          if (localProfiles.length > 1 || localProfiles[0].userType === 'parent') {
+            showMyStudentsScreen();
+          } else {
+            enterStep2();
+          }
+        } else {
+          studentProfile = { ...data.profile, email };
+          saveProfiles([data.profile]);
+          setActiveIndex(0);
+          document.getElementById('email-screen').style.display = 'none';
+          if (data.profile.userType === 'parent') {
+            showMyStudentsScreen();
+          } else {
+            enterStep2();
+          }
+        }
       } else {
         document.getElementById('email-screen').style.display = 'none';
         document.getElementById('welcome-screen').style.display = 'block';
-        document.getElementById('main-hero').style.display = 'none';
-        document.getElementById('step1-card').style.display = 'none';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch(err) {
@@ -1090,13 +1356,22 @@
     btn.innerHTML = 'Continue <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
+  function showEmailScreen() {
+    hideAllScreens();
+    document.getElementById('email-screen').style.display = 'block';
+    setTimeout(() => document.getElementById('email-input').focus(), 300);
+  }
+
   function renderReturningBanner() {
     const p = studentProfile;
     const existing = document.getElementById('returning-banner');
     if (existing) existing.remove();
+    const profiles = getProfiles();
+    // Only show returning banner for parents in Step 2 (single student or after switching)
+    if (p.userType !== 'parent') return;
     const banner = document.createElement('div');
     banner.id = 'returning-banner'; banner.className = 'returning-banner';
-    banner.innerHTML = `<div style="font-size:22px;">👋</div><div class="rb-text">Welcome back, ${p.name}!<span class="rb-sub">${p.school||''}${p.year?' · '+p.year:''} · ${p.userType==='parent'?'Parent':'Student'}</span></div><span class="rb-edit" onclick="resetToEmail()">Not you?</span>`;
+    banner.innerHTML = `<div style="font-size:22px;">👋</div><div class="rb-text">Helping ${p.name}<span class="rb-sub">${p.school||''}${p.year?' · '+p.year:''}</span></div>${profiles.length > 1 ? '' : `<span class="rb-edit" onclick="resetToEmail()">Not you?</span>`}`;
     const container = document.getElementById('profile-bar-container');
     container.innerHTML = ''; container.appendChild(banner);
   }
@@ -1104,20 +1379,22 @@
   function resetToEmail() {
     localStorage.removeItem(EMAIL_KEY);
     currentEmail = ''; studentProfile = {}; selectedCategory = '';
-    document.getElementById('step2-card').classList.add('hidden');
-    document.getElementById('main-hero').style.display = 'none';
-    document.getElementById('step1-card').style.display = 'none';
-    document.getElementById('email-screen').style.display = 'block';
-    document.getElementById('email-input').value = '';
+    activeProfileIndex = 0;
     document.getElementById('response-area').innerHTML = '';
+    showEmailScreen();
+    document.getElementById('email-input').value = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function saveProfileToSupabase() {
     if (!currentEmail) return;
     const inviteCode = localStorage.getItem('samu_access_granted') || '';
+    const profiles = getProfiles();
     try {
-      await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'save-profile', profile: { ...studentProfile, email: currentEmail, inviteCode } }) });
+      // Save primary profile (index 0) to Supabase for backwards compatibility
+      // Full profiles array saved in localStorage
+      const primary = profiles[0] || studentProfile;
+      await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'save-profile', profile: { ...primary, email: currentEmail, inviteCode, profileCount: profiles.length } }) });
     } catch(err) { console.error('Profile save error:', err); }
   }
 
@@ -1130,6 +1407,19 @@
   }
 
   function startOnboarding() {
+    // Reset multi-profile state for fresh onboarding
+    selectedUserType = '';
+    selectedStudentCount = 1;
+    currentSetupIndex = 0;
+    document.querySelectorAll('.user-type-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.count-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('student-count-section').style.display = 'none';
+    document.getElementById('profile-fields').style.display = 'none';
+    document.getElementById('user-type-grid').style.display = 'grid';
+    const badge = document.getElementById('step1-badge');
+    const title = document.getElementById('step1-title');
+    if (badge) badge.textContent = 'Step 1 of 2';
+    if (title) title.textContent = "Who's using Sam today?";
     document.getElementById('welcome-screen').style.display = 'none';
     document.getElementById('main-hero').style.display = 'block';
     document.getElementById('step1-card').style.display = 'block';
@@ -1139,15 +1429,82 @@
   function selectUserType(card, type) {
     document.querySelectorAll('.user-type-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected'); selectedUserType = type;
-    document.getElementById('profile-fields').style.display = 'block';
-    if (type === 'student') {
+    if (type === 'parent') {
+      // Show student count picker before profile fields
+      document.getElementById('student-count-section').style.display = 'block';
+      document.getElementById('profile-fields').style.display = 'none';
+    } else {
+      // Student — go straight to profile fields
+      document.getElementById('student-count-section').style.display = 'none';
+      document.getElementById('profile-fields').style.display = 'block';
+      selectedStudentCount = 1;
+      currentSetupIndex = 0;
+      updateStep1Labels();
       document.getElementById('name-label').textContent = 'Your first name';
       document.getElementById('school-label').textContent = 'Your university';
       document.getElementById('student-name').placeholder = 'e.g. Mia';
+    }
+  }
+
+  function selectStudentCount(card, count) {
+    document.querySelectorAll('.count-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedStudentCount = count;
+    currentSetupIndex = 0;
+    document.getElementById('profile-fields').style.display = 'block';
+    updateStep1Labels();
+    document.getElementById('name-label').textContent = "Student's first name";
+    document.getElementById('school-label').textContent = "Their university";
+    document.getElementById('student-name').placeholder = 'e.g. Mia';
+    setTimeout(() => document.getElementById('student-name').focus(), 100);
+  }
+
+  function updateStep1Labels() {
+    const badge = document.getElementById('step1-badge');
+    const title = document.getElementById('step1-title');
+    if (!badge || !title) return;
+    if (selectedUserType === 'parent' && selectedStudentCount === 2) {
+      const num = currentSetupIndex === 0 ? '1' : '2';
+      badge.textContent = `Student ${num} of 2`;
+      title.textContent = currentSetupIndex === 0 ? "Tell us about your first student" : "Tell us about your second student";
     } else {
-      document.getElementById('name-label').textContent = "Student's first name";
-      document.getElementById('school-label').textContent = "Their university";
-      document.getElementById('student-name').placeholder = "e.g. Mia";
+      badge.textContent = 'Step 1 of 2';
+      title.textContent = "Who's using Sam today?";
+    }
+  }
+
+  function resetStep1Form() {
+    document.getElementById('student-name').value = '';
+    document.getElementById('student-year').value = '';
+    document.getElementById('student-housing').value = '';
+    document.getElementById('emergency-name').value = '';
+    document.getElementById('emergency-phone').value = '';
+    document.getElementById('extra-context').value = '';
+    document.querySelectorAll('#car-group .chip').forEach(c => c.classList.remove('selected'));
+    clearSchool();
+    selectedSchool = null;
+  }
+
+  function populateStep1Form(p) {
+    document.getElementById('student-name').value = p.name || '';
+    document.getElementById('student-year').value = p.year || '';
+    document.getElementById('student-housing').value = p.housing || '';
+    document.getElementById('emergency-name').value = p.emergencyName || '';
+    document.getElementById('emergency-phone').value = p.emergencyPhone || '';
+    document.getElementById('extra-context').value = p.extraContext || '';
+    document.querySelectorAll('#car-group .chip').forEach(c => {
+      c.classList.toggle('selected', p.hasCar && p.hasCar.includes(c.dataset.value));
+    });
+    if (p.school) {
+      const match = UNIVERSITIES.find(u => u.name === p.school);
+      if (match) {
+        selectedSchool = match;
+        document.getElementById('student-school').value = match.address;
+        document.getElementById('student-school-address').value = match.address;
+        document.getElementById('school-selected-name').textContent = match.name;
+        document.getElementById('school-selected-loc').textContent = match.city;
+        document.getElementById('school-selected').classList.add('visible');
+      }
     }
   }
 
@@ -1155,15 +1512,55 @@
     const name = document.getElementById('student-name').value.trim();
     if (!name) { document.getElementById('student-name').focus(); document.getElementById('student-name').style.borderColor = '#C01230'; setTimeout(() => document.getElementById('student-name').style.borderColor = '', 2000); return; }
     if (!selectedUserType) { alert('Please select whether you are the student or the parent.'); return; }
-    studentProfile = { name, email: currentEmail, userType: selectedUserType, school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(), schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(), year: document.getElementById('student-year').value, housing: document.getElementById('student-housing').value, hasCar: getSelectedChips('car-group'), emergencyName: document.getElementById('emergency-name').value.trim(), emergencyPhone: document.getElementById('emergency-phone').value.trim(), extraContext: document.getElementById('extra-context').value.trim() };
+
+    const profile = {
+      name, email: currentEmail, userType: selectedUserType,
+      school: selectedSchool ? selectedSchool.name : document.getElementById('student-school').value.trim(),
+      schoolAddress: document.getElementById('student-school-address').value.trim() || document.getElementById('student-school').value.trim(),
+      year: document.getElementById('student-year').value,
+      housing: document.getElementById('student-housing').value,
+      hasCar: getSelectedChips('car-group'),
+      emergencyName: document.getElementById('emergency-name').value.trim(),
+      emergencyPhone: document.getElementById('emergency-phone').value.trim(),
+      extraContext: document.getElementById('extra-context').value.trim()
+    };
+
+    // Save into profiles array
+    let profiles = getProfiles();
+    profiles[currentSetupIndex] = profile;
+    saveProfiles(profiles);
+    setActiveIndex(currentSetupIndex);
+    studentProfile = { ...profile, email: currentEmail };
+
     saveProfileToSupabase();
-    document.getElementById('step1-card').classList.add('hidden');
-    document.getElementById('step2-card').classList.remove('hidden');
-    document.getElementById('poc-feedback-btn').style.display = 'block';
-    renderProfileBar();
-    if (studentProfile.school) loadCampusSafety(studentProfile.school);
-    checkSeasonalBanner();
+
+    // Determine next step
+    if (selectedUserType === 'parent' && selectedStudentCount === 2 && currentSetupIndex === 0) {
+      // Show transition screen before Student 2 setup
+      hideAllScreens();
+      document.getElementById('student-transition-screen').style.display = 'block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else if (selectedUserType === 'parent') {
+      // All parent profiles done — go to My Students screen
+      showMyStudentsScreen();
+    } else {
+      // Student — go straight to Step 2
+      enterStep2();
+    }
+  }
+
+  function startStudent2Setup() {
+    currentSetupIndex = 1;
+    hideAllScreens();
+    resetStep1Form();
+    updateStep1Labels();
+    document.getElementById('name-label').textContent = "Student's first name";
+    document.getElementById('school-label').textContent = "Their university";
+    document.getElementById('student-name').placeholder = 'e.g. Jake';
+    document.getElementById('profile-fields').style.display = 'block';
+    document.getElementById('step1-card').style.display = 'block';
     window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(() => document.getElementById('student-name').focus(), 200);
   }
 
   function renderProfileBar() {
@@ -1173,8 +1570,17 @@
   }
 
   function editProfile() {
-    document.getElementById('step2-card').classList.add('hidden');
-    document.getElementById('step1-card').classList.remove('hidden');
+    const profiles = getProfiles();
+    activateProfile(activeProfileIndex);
+    currentSetupIndex = activeProfileIndex;
+    selectedUserType = studentProfile.userType;
+    selectedStudentCount = profiles.length;
+    hideAllScreens();
+    populateStep1Form(studentProfile);
+    updateStep1Labels();
+    document.getElementById('student-count-section').style.display = 'none';
+    document.getElementById('user-type-grid').style.display = 'none';
+    document.getElementById('profile-fields').style.display = 'block';
     document.getElementById('step1-card').style.display = 'block';
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -1800,4 +2206,3 @@
 </script>
 </body>
 </html>
-
