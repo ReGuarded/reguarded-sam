@@ -1644,8 +1644,18 @@
   function clearCategory() {
     document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('selected'));
     selectedCategory = '';
-    document.getElementById('problem-area').style.display = 'none';
-    document.getElementById('problem-input').value = '';
+    // Restore problem-area to its original structure in case Spring Break form replaced it
+    const problemArea = document.getElementById('problem-area');
+    if (problemArea) {
+      if (!document.getElementById('problem-input')) {
+        problemArea.innerHTML = `<div id="recent-chips-container"></div>
+      <textarea id="problem-input" placeholder="Describe what's happening..."></textarea>
+      <div class="problem-hint">Is it something else? <span style="color:var(--blue-light);cursor:pointer;text-decoration:underline;" onclick="clearCategory()">Choose a different category</span></div>`;
+      }
+      problemArea.style.display = 'none';
+    }
+    const problemInput = document.getElementById('problem-input');
+    if (problemInput) problemInput.value = '';
     document.getElementById('auto-tip-bar').style.display = 'none';
     document.getElementById('movein-container').innerHTML = '';
     // Clear chips
