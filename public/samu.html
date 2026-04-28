@@ -1638,7 +1638,14 @@
     // Render recent chips for this category
     renderRecentChips(selectedCategory);
 
-    setTimeout(() => ta.focus(), 100);
+    setTimeout(() => {
+      ta.focus();
+      // Scroll textarea into view — important on mobile where screen doesn't auto-advance
+      const problemArea = document.getElementById('problem-area');
+      if (problemArea) {
+        problemArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   }
 
   function clearCategory() {
@@ -1851,7 +1858,7 @@
         const openBadge = b.isOpen === true ? '<span class="open-badge open">Open now</span>' : b.isOpen === false ? '<span class="open-badge closed">Closed</span>' : '';
         const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.name)}&query_place_id=${b.placeId}`;
         const isParent = studentProfile.userType === 'parent';
-        const studentName = (studentProfile.name) || 'your student';
+        const studentName = studentProfile.name || 'your student';
         const shareText = `Hey — Sam found this for you 📍\n${b.name}\n${b.address}${b.rating ? '\n⭐ ' + b.rating + ' stars' : ''}\nDirections: ${mapsLink}`;
         const smsLink = `sms:?&body=${encodeURIComponent(shareText)}`;
         return `<div class="business-card" onclick="window.open('${mapsLink}','_blank')"><div class="business-rank">${i+1}</div><div class="business-info"><div class="business-name">${b.name}</div><div class="business-address">${b.address}</div><div class="business-meta">${b.rating?`<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>`:''} ${openBadge}</div></div><div class="business-actions"><a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>${b.phone?`<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>`:''}${isParent?`<a class="action-link" href="${smsLink}" onclick="event.stopPropagation()" style="background:#eafaf4;border-color:#1d9e75;color:#0f6e56;">📱 Send to ${studentName}</a>`:''}</div></div>`;
@@ -2255,4 +2262,3 @@
 </script>
 </body>
 </html>
-
