@@ -602,7 +602,7 @@
       </div>
       <div class="feature-item">
         <div class="f-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div class="f-title">ER &amp; Health Navigation</div>
+        <div class="f-title">Health & Insurance</div>
         <div class="f-desc">Navigate the ER, student health, and confusing bills</div>
       </div>
       <div class="feature-item">
@@ -740,29 +740,7 @@
         </div>
         <div class="field-hint">Helps Sam tailor car trouble and transportation advice.</div>
       </div>
-      <div class="field" id="health-insurance-field">
-        <label>Health insurance carrier</label>
-        <select id="health-insurance">
-          <option value="">Select carrier...</option>
-          <option value="Aetna">Aetna</option>
-          <option value="Blue Cross Blue Shield (BCBS)">Blue Cross Blue Shield (BCBS)</option>
-          <option value="UnitedHealthcare">UnitedHealthcare</option>
-          <option value="Cigna">Cigna</option>
-          <option value="Humana">Humana</option>
-          <option value="University student health plan">University student health plan</option>
-          <option value="Parent's employer plan">Parent's employer plan</option>
-          <option value="Other / Unknown">Other / Unknown</option>
-        </select>
-      </div>
-      <div class="field" id="health-plan-type-field">
-        <label>Plan type</label>
-        <div class="chip-group" id="health-plan-group">
-          <div class="chip" data-value="on parent's plan">On parent's plan</div>
-          <div class="chip" data-value="university student plan">University student plan</div>
-          <div class="chip" data-value="other or unknown plan">Other / Unknown</div>
-        </div>
-        <div class="field-hint">Helps Sam navigate urgent care, ER bills, and prescription coverage specific to their plan.</div>
-      </div>
+      <div class="field">
         <label>Emergency contact <span style="font-weight:300;color:var(--text-muted)">(optional but recommended)</span></label>
         <div class="field-row">
           <div class="field" style="margin-bottom:0;"><input type="text" id="emergency-name" placeholder="Name (e.g. Dad — Joey)"/></div>
@@ -831,8 +809,8 @@
       </div>
       <div class="cat-card" data-cat="Health & Insurance Navigation" data-placeholder-student="e.g. I went to the ER last night and got a bill for $1,200. I thought I had student health insurance. I don't know what to do." data-placeholder-parent="e.g. My daughter went to the ER last night and got a bill for $1,200. She thought she had student health insurance. What should she do?" onclick="selectCategory(this)">
         <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <span class="cat-label">ER &amp; Health Nav</span>
-        <span class="cat-desc">Symptoms, ER bills, insurance</span>
+        <span class="cat-label">Health &amp; Insurance</span>
+        <span class="cat-desc">ER bills, student health, insurance</span>
       </div>
       <div class="cat-card" data-cat="Auto & Car Trouble Help" data-placeholder-student="e.g. My car won't start in the parking lot. I think it might be the battery. I'm alone and don't know what to do or where to go." data-placeholder-parent="e.g. My daughter's car won't start in the parking lot. She thinks it might be the battery. She's alone and doesn't know what to do or where to go." onclick="selectCategory(this)">
         <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
@@ -875,11 +853,6 @@
     <div id="auto-tip-bar" class="auto-tip-bar" style="display:none;">
       <span>🔧 AutoZone, O'Reilly &amp; Advance Auto read "Check Engine" codes and install batteries — for FREE. Start here before any shop.</span>
       <span class="auto-tip-dismiss" onclick="document.getElementById('auto-tip-bar').style.display='none'">✕</span>
-    </div>
-
-    <div id="health-tip-bar" class="auto-tip-bar" style="display:none;background:#f0f7ff;border-color:#5B9BD5;color:#1B3A6B;">
-      <span>🏥 Once your student turns 18, HIPAA prevents hospitals from sharing their medical info with you without their consent. Ask Sam about setting up a healthcare proxy.</span>
-      <span class="auto-tip-dismiss" onclick="document.getElementById('health-tip-bar').style.display='none'">✕</span>
     </div>
 
     <!-- problem-area: recent chips inject here, above textarea -->
@@ -1532,9 +1505,6 @@
     document.getElementById('emergency-phone').value = '';
     document.getElementById('extra-context').value = '';
     document.querySelectorAll('#car-group .chip').forEach(c => c.classList.remove('selected'));
-    document.querySelectorAll('#health-plan-group .chip').forEach(c => c.classList.remove('selected'));
-    const healthIns = document.getElementById('health-insurance');
-    if (healthIns) healthIns.value = '';
     clearSchool();
     selectedSchool = null;
   }
@@ -1548,11 +1518,6 @@
     document.getElementById('extra-context').value = p.extraContext || '';
     document.querySelectorAll('#car-group .chip').forEach(c => {
       c.classList.toggle('selected', p.hasCar && p.hasCar.includes(c.dataset.value));
-    });
-    const healthIns = document.getElementById('health-insurance');
-    if (healthIns) healthIns.value = p.healthInsurance || '';
-    document.querySelectorAll('#health-plan-group .chip').forEach(c => {
-      c.classList.toggle('selected', p.healthPlanType && p.healthPlanType.includes(c.dataset.value));
     });
     if (p.school) {
       const match = UNIVERSITIES.find(u => u.name === p.school);
@@ -1579,8 +1544,6 @@
       year: document.getElementById('student-year').value,
       housing: document.getElementById('student-housing').value,
       hasCar: getSelectedChips('car-group'),
-      healthInsurance: document.getElementById('health-insurance')?.value || '',
-      healthPlanType: getSelectedChips('health-plan-group'),
       emergencyName: document.getElementById('emergency-name').value.trim(),
       emergencyPhone: document.getElementById('emergency-phone').value.trim(),
       extraContext: document.getElementById('extra-context').value.trim()
@@ -1667,9 +1630,7 @@
       : (card.dataset.placeholderStudent || card.dataset.placeholderParent || 'Describe what\'s happening...');
     ta.placeholder = placeholder; ta.value = '';
     const tipBar = document.getElementById('auto-tip-bar');
-    const healthTipBar = document.getElementById('health-tip-bar');
     if (selectedCategory === 'Auto & Car Trouble Help') { tipBar.style.display = 'flex'; } else { tipBar.style.display = 'none'; }
-    if (selectedCategory === 'Health & Insurance Navigation') { healthTipBar.style.display = 'flex'; } else { healthTipBar.style.display = 'none'; }
     if (selectedCategory === 'Spring Break Planning') { document.getElementById('problem-area').style.display = 'block'; renderSpringBreakForm(); return; }
     if (selectedCategory === 'Move-In Day Planning') { if (studentProfile.school) loadMoveIn(studentProfile.school); } else { document.getElementById('movein-container').innerHTML = ''; }
     document.getElementById('problem-area').style.display = 'block';
@@ -1677,7 +1638,14 @@
     // Render recent chips for this category
     renderRecentChips(selectedCategory);
 
-    setTimeout(() => ta.focus(), 100);
+    setTimeout(() => {
+      ta.focus();
+      // Scroll textarea into view — important on mobile where screen doesn't auto-advance
+      const problemArea = document.getElementById('problem-area');
+      if (problemArea) {
+        problemArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   }
 
   function clearCategory() {
@@ -1696,8 +1664,6 @@
     const problemInput = document.getElementById('problem-input');
     if (problemInput) problemInput.value = '';
     document.getElementById('auto-tip-bar').style.display = 'none';
-    const healthTipBar = document.getElementById('health-tip-bar');
-    if (healthTipBar) healthTipBar.style.display = 'none';
     document.getElementById('movein-container').innerHTML = '';
     // Clear chips
     const chipsContainer = document.getElementById('recent-chips-container');
@@ -1725,7 +1691,7 @@
     return "You are Sam, a warm, knowledgeable, and trustworthy campus guardian created by ReGuarded. You help college students navigate the real challenges of adult life — legal situations, car trouble, scams, health issues, and practical life skills. You also help parents support their students from a distance." +
     "\n\nYour tone is like a brilliant older sibling or trusted friend who has already figured college out — calm, direct, non-judgmental, and genuinely helpful. Never lecture. Never panic. Never sound like a lawyer or a robot." +
     "\n\n" + cat +
-    "\n\nProfile: " + p.name + (isStudent ? " is the student" : "'s parent is using Sam on their behalf") + ". School: " + (p.school || 'unknown') + ". Year: " + (p.year || 'unknown') + ". Housing: " + (p.housing || 'unknown') + ". Car on campus: " + (p.hasCar && p.hasCar.length ? p.hasCar[0] : 'unknown') + ". Health insurance: " + (p.healthInsurance || 'unknown') + (p.healthPlanType && p.healthPlanType.length ? ' (' + p.healthPlanType[0] + ')' : '') + "." +
+    "\n\nProfile: " + p.name + (isStudent ? " is the student" : "'s parent is using Sam on their behalf") + ". School: " + (p.school || 'unknown') + ". Year: " + (p.year || 'unknown') + ". Housing: " + (p.housing || 'unknown') + ". Car on campus: " + (p.hasCar && p.hasCar.length ? p.hasCar[0] : 'unknown') + "." +
     "\nEmergency contact: " + emergency + "." +
     "\nContext: " + (p.extraContext || 'None provided.') +
     sbContext +
@@ -1891,7 +1857,11 @@
         const stars = b.rating ? '★'.repeat(Math.round(b.rating)) + '☆'.repeat(5 - Math.round(b.rating)) : '';
         const openBadge = b.isOpen === true ? '<span class="open-badge open">Open now</span>' : b.isOpen === false ? '<span class="open-badge closed">Closed</span>' : '';
         const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.name)}&query_place_id=${b.placeId}`;
-        return `<div class="business-card" onclick="window.open('${mapsLink}','_blank')"><div class="business-rank">${i+1}</div><div class="business-info"><div class="business-name">${b.name}</div><div class="business-address">${b.address}</div><div class="business-meta">${b.rating?`<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>`:''} ${openBadge}</div></div><div class="business-actions"><a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>${b.phone?`<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>`:''}</div></div>`;
+        const isParent = studentProfile.userType === 'parent';
+        const studentName = studentProfile.name || 'your student';
+        const shareText = `Hey — Sam found this for you 📍\n${b.name}\n${b.address}${b.rating ? '\n⭐ ' + b.rating + ' stars' : ''}\nDirections: ${mapsLink}`;
+        const smsLink = `sms:?&body=${encodeURIComponent(shareText)}`;
+        return `<div class="business-card" onclick="window.open('${mapsLink}','_blank')"><div class="business-rank">${i+1}</div><div class="business-info"><div class="business-name">${b.name}</div><div class="business-address">${b.address}</div><div class="business-meta">${b.rating?`<span class="rating-stars">${stars}</span><span class="rating-count">${b.rating} (${b.reviewCount} reviews)</span>`:''} ${openBadge}</div></div><div class="business-actions"><a class="action-link" href="${mapsLink}" target="_blank" onclick="event.stopPropagation()">📍 Directions</a>${b.phone?`<a class="action-link" href="tel:${b.phone}" onclick="event.stopPropagation()">📞 Call</a>`:''}${isParent?`<a class="action-link" href="${smsLink}" onclick="event.stopPropagation()" style="background:#eafaf4;border-color:#1d9e75;color:#0f6e56;">📱 Send to ${studentName}</a>`:''}</div></div>`;
       }).join('');
       container.innerHTML = `<div class="places-container"><div class="places-header"><div><h4>📍 ${title} near ${location}</h4><p>Sorted by rating · ${data.results.length} results found</p></div><a href="https://www.google.com/maps/search/${encodeURIComponent(query + ' near ' + location)}" target="_blank" style="font-size:11px;color:rgba(255,255,255,0.7);text-decoration:underline;">View all on Maps</a></div><div class="business-cards">${cards}</div></div>`;
     } catch(err) { container.innerHTML = `<div class="places-container"><div class="places-error">Search failed: ${err.message}</div></div>`; }
@@ -2292,4 +2262,3 @@
 </script>
 </body>
 </html>
-
