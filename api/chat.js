@@ -1,4 +1,4 @@
-// ReGuarded v5.0 — Admin Dashboard v2 + Event Logging
+// Campus Guardians v5.1 — Admin Dashboard v2 + Event Logging + Model Update
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -179,12 +179,12 @@ module.exports = async function handler(req, res) {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              from: 'Sam U <notifications@reguarded.io>',
+              from: 'Sam U <notifications@campusguardians.com>',
               to: 'joeyterrazas1@gmail.com',
               subject: '🛡️ New Sam U Waitlist Signup',
               html: `
                 <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;">
-                  <img src="https://reguarded-sam.vercel.app/sam-u-logo.png" width="60" style="margin-bottom:20px;display:block;"/>
+                  <img src="https://app.campusguardians.com/sam-u-logo.png" width="60" style="margin-bottom:20px;display:block;"/>
                   <h2 style="color:#1B3A6B;font-size:20px;margin-bottom:8px;">New waitlist signup</h2>
                   <p style="color:#3a5a8a;font-size:15px;margin-bottom:20px;">Someone just joined the Sam U waitlist.</p>
                   <div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:20px;">
@@ -195,7 +195,7 @@ module.exports = async function handler(req, res) {
                     <div style="font-size:13px;color:#6a85a8;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;">Source</div>
                     <div style="font-size:16px;font-weight:500;color:#1B3A6B;">${source || 'website'}</div>
                   </div>
-                  <p style="color:#6a85a8;font-size:12px;margin-top:24px;">Sam U by ReGuarded · reguarded.io</p>
+                  <p style="color:#6a85a8;font-size:12px;margin-top:24px;">Sam U by Campus Guardians · campusguardians.com</p>
                 </div>
               `
             })
@@ -341,7 +341,6 @@ module.exports = async function handler(req, res) {
     if (type === 'log-event') {
       const { userEmail, university, userType, tile, eventType, sessionId } = body;
 
-      // Fire-and-forget — we never block the user on this
       try {
         await fetch(
           SUPABASE_URL + '/rest/v1/events',
@@ -364,7 +363,6 @@ module.exports = async function handler(req, res) {
           }
         );
       } catch(e) {
-        // Swallow logging errors — never surface to user
         console.error('Event log error:', e.message);
       }
 
@@ -389,7 +387,6 @@ module.exports = async function handler(req, res) {
 
     // ── TILE STATS (admin dashboard v2) ──
     if (type === 'tile-stats') {
-      // Fetch all events from the last 30 days
       const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
       const eventsRes = await fetch(
         SUPABASE_URL + '/rest/v1/events?created_at=gte.' + since + '&select=tile,university,user_type,created_at,event_type',
@@ -407,7 +404,6 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({ success: true, tileCounts: [], universityCounts: [], totalEvents: 0 });
       }
 
-      // Aggregate tile counts
       const tileCounts = {};
       const universityCounts = {};
       events.forEach(e => {
@@ -448,7 +444,7 @@ module.exports = async function handler(req, res) {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 1000,
           messages: [{ role: 'user', content: prompt }]
         })
@@ -533,7 +529,7 @@ module.exports = async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: max_tokens || 1000,
         system: system,
         messages: messages
@@ -550,5 +546,4 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: { message: err.message, stack: err.stack } });
   }
 };
-
 
