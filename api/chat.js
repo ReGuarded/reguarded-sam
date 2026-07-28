@@ -131,6 +131,49 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
 
+    // ── DEMO REQUEST ──
+    if (type === 'demo-request') {
+      const { firstName, lastName, email, phone, userType, source } = body;
+      if (!firstName || !lastName || !email) {
+        return res.status(200).json({ success: false, error: 'Required fields missing' });
+      }
+      const RESEND_KEY = process.env.RESEND_API_KEY;
+      try {
+        await fetch(SUPABASE_URL + '/rest/v1/demo_requests', {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
+            email: email.toLowerCase(),
+            phone: phone || null,
+            user_type: userType,
+            source: source || 'website'
+          })
+        });
+      } catch(e) { console.error('Supabase insert error', e.message); }
+      if (RESEND_KEY) {
+        try {
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + RESEND_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              from: 'Sam U <notifications@campusguardians.com>',
+              to: 'joeyterrazas1@gmail.com',
+              subject: '\ud83d\udee1\ufe0f New Sam U Get Started Request',
+              html: '<div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px;"><img src="https://app.campusguardians.com/sam-u-logo.png" width="60" style="margin-bottom:20px;display:block;"/><h2 style="color:#1B3A6B;font-size:20px;margin-bottom:8px;">New Get Started Request</h2><div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:12px;"><div style="font-size:13px;color:#6a85a8;margin-bottom:4px;">NAME</div><div style="font-size:16px;font-weight:500;color:#1B3A6B;">' + firstName + ' ' + lastName + '</div></div><div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:12px;"><div style="font-size:13px;color:#6a85a8;margin-bottom:4px;">EMAIL</div><div style="font-size:16px;font-weight:500;color:#1B3A6B;">' + email.toLowerCase() + '</div></div><div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:12px;"><div style="font-size:13px;color:#6a85a8;margin-bottom:4px;">PHONE</div><div style="font-size:16px;font-weight:500;color:#1B3A6B;">' + (phone || 'Not provided') + '</div></div><div style="background:#f0f6fc;border-radius:10px;padding:16px 20px;margin-bottom:12px;"><div style="font-size:13px;color:#6a85a8;margin-bottom:4px;">TYPE</div><div style="font-size:16px;font-weight:500;color:#1B3A6B;">' + userType + '</div></div><p style="color:#6a85a8;font-size:12px;margin-top:24px;">Sam U by Campus Guardians</p></div>'
+            })
+          });
+        } catch(e) { console.error('Resend error', e.message); }
+      }
+      return res.status(200).json({ success: true });
+    }
+
     // ── JOIN WAITLIST ──
     if (type === 'join-waitlist') {
       const { email, source } = body;
@@ -546,4 +589,5 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: { message: err.message, stack: err.stack } });
   }
 };
+
 
