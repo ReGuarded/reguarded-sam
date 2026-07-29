@@ -138,8 +138,11 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({ success: false, error: 'Required fields missing' });
       }
       const RESEND_KEY = process.env.RESEND_API_KEY;
+
+      // Insert into Supabase with full error logging
+      let insertError = null;
       try {
-        await fetch(SUPABASE_URL + '/rest/v1/demo_requests', {
+        const insertRes = await fetch(SUPABASE_URL + '/rest/v1/demo_requests', {
           method: 'POST',
           headers: {
             'apikey': SUPABASE_KEY,
@@ -156,7 +159,16 @@ module.exports = async function handler(req, res) {
             source: source || 'website'
           })
         });
-      } catch(e) { console.error('Supabase insert error', e.message); }
+        const insertData = await insertRes.json();
+        console.log('Supabase insert status:', insertRes.status);
+        console.log('Supabase insert response:', JSON.stringify(insertData));
+        if (!insertRes.ok) {
+          insertError = insertData;
+        }
+      } catch(e) {
+        console.error('Supabase insert exception:', e.message);
+        insertError = e.message;
+      }
       if (RESEND_KEY) {
         try {
           await fetch('https://api.resend.com/emails', {
@@ -171,7 +183,7 @@ module.exports = async function handler(req, res) {
           });
         } catch(e) { console.error('Resend error', e.message); }
       }
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: true, insertError: insertError || null });
     }
 
     // ── JOIN WAITLIST ──
@@ -589,5 +601,6 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: { message: err.message, stack: err.stack } });
   }
 };
+
 
 
